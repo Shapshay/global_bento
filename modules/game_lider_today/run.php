@@ -89,7 +89,7 @@ else{
 	$tpl->assign("LIDERS2_ROWS",'');
 }
 
-//$url = "http://192.168.0.128/system.php?menu=219"; //здесь в кавычках вводите ссылку
+//$url = "http://212.154.211.19/system.php?menu=219"; //здесь в кавычках вводите ссылку
 $url = "/".getItemCHPU($_GET['menu'],'pages');
 $tpl->assign("META_LINK", '<meta http-equiv="refresh" content="30; url='.$url.'" />');
 

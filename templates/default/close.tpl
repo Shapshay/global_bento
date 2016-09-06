@@ -61,7 +61,7 @@
 		$(document).ready(function() {
 			if (parent.sost != 'Во фрейме')
 			{
-				window.location = "https://192.168.0.128/crm"
+				window.location = "https://212.154.211.19/crm"
 			}
 		});
 	</script>

@@ -23,7 +23,7 @@ function checkAuth() {
 }
 
 if (!checkAuth()) {
-	echo '<script>window.location = "https://192.168.0.128/adm/index.php"; </script>';
+	echo '<script>window.location = "https://212.154.211.19/adm/index.php"; </script>';
 	exit;
 }
 ?>

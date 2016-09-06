@@ -470,7 +470,7 @@ function showMyCalls(){
 </div>
 </td>
 <td align="right" valign="top" style="padding-top:11px;">
-<a href="system.php?exit" target="_top"><div class="kn_vyhod"></div></a>
+<a href="?exit" target="_top"><div class="kn_vyhod"></div></a>
 </td>
 </tr>
 <tr>

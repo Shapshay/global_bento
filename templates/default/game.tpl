@@ -16,7 +16,7 @@ $(document).ready(function() {
 				console.log(data);
 				var obj = jQuery.parseJSON(data);
 				if(obj.result=='OK'){
-					window.location = 'https://192.168.0.128/system.php?menu=213&item='+obj.id+'&code='+obj.code;
+					window.location = 'https://212.154.211.19/index.php?menu=213&item='+obj.id+'&code='+obj.code;
 				}
 			});
 		

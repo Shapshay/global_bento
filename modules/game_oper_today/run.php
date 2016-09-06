@@ -12,7 +12,7 @@ $tpl->define(array(
 //$GAME_IP = array('192.168.1.51','192.168.1.144');
 //if(in_array($_SERVER["REMOTE_ADDR"], $GAME_IP)){
 if(date("His")>='180000'){
-	header("Location: https://192.168.0.128/komanda_lider_za_segodnya");
+	header("Location: https://212.154.211.19/komanda_lider_za_segodnya");
 	exit;
 }
 $rows3 = $dbc->dbselect(array(
@@ -66,7 +66,7 @@ else{
 	$tpl->assign("LIDERS_ROWS2",'');
 }
 
-//$url = "https://192.168.0.128/system.php?menu=210"; //здесь в кавычках вводите ссылку
+//$url = "https://212.154.211.19/system.php?menu=210"; //здесь в кавычках вводите ссылку
 $url = "/".getItemCHPU($_GET['menu'],'pages');
 $tpl->assign("META_LINK", '<meta http-equiv="refresh" content="10; url='.$url.'" />');
 

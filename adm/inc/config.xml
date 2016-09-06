@@ -5,13 +5,13 @@
 	localhost
 </server_name>
 <user_name>
-	u_crm
+	bento_u
 </user_name>
 <password>
-	123456
+	zl#IU2G!ox
 </password>
 <bd_name>
-	db_perch
+	db_crm
 </bd_name>
 </bd_config>
 </config>

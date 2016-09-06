@@ -75,7 +75,7 @@ else{
 	<head>
 		
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<!--<BASE href="https://192.168.0.128/adm">-->
+		<!--<BASE href="https://212.154.211.19/adm">-->
 		<title>BENTO :: Perch 1.0 | Вход</title>
 		
 		<!--                       CSS                       -->

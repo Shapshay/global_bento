@@ -12,7 +12,7 @@ unset($_SESSION['c_id']);
 unset($_SESSION['polis']);
 unset($_SESSION['tech_id']);
 unset($_SESSION['1C']);
-$url = "https://192.168.0.128/?count=1"; //здесь в кавычках вводите ссылку
+$url = "https://212.154.211.19/?count=1"; //здесь в кавычках вводите ссылку
 $tpl->assign("META_LINK", '<meta http-equiv="refresh" content="3; url='.$url.'" />');
 
 
