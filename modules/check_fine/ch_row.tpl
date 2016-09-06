@@ -1,0 +1,1 @@
+<option value="{CITYSEL_ID}"{CITYSEL_SEL}>{CITYSEL_TITLE}</option>

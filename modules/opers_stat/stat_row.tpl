@@ -1,0 +1,12 @@
+<tr>
+	<td>{OPER}</td>
+	<td>{TD}</td>
+	<td>{ZUN}</td>
+	<td>{HZ}</td>
+	<td>{POS}</td>
+	<td>{ND}</td>
+	<td>{ERR}</td>
+	<td>{4VPD}</td>
+	<td>{4VPH}</td>
+	<td>{COUNT_CALL}</td>
+</tr>
