@@ -12,7 +12,7 @@ $tpl->define(array(
 if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!in_array(5,$USER_ROLE)){
 	// проверка блокировки InfoBank
 
-	$url = 'http://192.168.1.227/inc/api.php';
+	/*$url = 'http://192.168.1.227/inc/api.php';
 	$postdata = 'u_lgn='.$_SESSION['lgn'];
 	$result = post_content( $url, $postdata );
 	$j_str = $result['content'];
@@ -24,7 +24,7 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 		$url = getCodeBaseURL("index.php?menu=2205");
 		header("Location: ".$url);
 		exit;
-	}
+	}*/
 	
 	// конец проверки блокировки InfoBank
 	$dbc->element_create("calls_log",array(
