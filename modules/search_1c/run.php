@@ -14,7 +14,7 @@ $tpl->define(array(
 $search = false;
 if(isset($_POST['iin'])||isset($_POST['rnn'])||isset($_POST['telnumber'])||isset($_POST['PolicNumber'])){
 	ini_set("soap.wsdl_cache_enabled", "0" ); 
-	$client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl", 
+	$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl", 
 		array( 
 		'login' => 'ws', 
 		'password' => '123456', //пароль 
@@ -59,7 +59,7 @@ else{
 				$oper_id = getOperCode1CId($c_arr['ManagerCode']);
 				
 				ini_set("soap.wsdl_cache_enabled", "0" ); 
-				$client3 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl", 
+				$client3 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl", 
 					array( 
 					'login' => 'ws', 
 					'password' => '123456', 
@@ -179,7 +179,7 @@ else{
 			$oper_id = getOperCode1CId($c_arr['ManagerCode']);
 
 			ini_set("soap.wsdl_cache_enabled", "0" );
-			$client3 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+			$client3 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 				array(
 				'login' => 'ws',
 				'password' => '123456',

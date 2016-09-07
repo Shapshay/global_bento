@@ -156,7 +156,7 @@ if(isset($_GET['ClientCode1C'])&&isset($_GET['OperCode1C'])){
 	//echo 'OK3<br>';
 	
 	ini_set("soap.wsdl_cache_enabled", "0" ); 
-	$client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl", 
+	$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl", 
 		array( 
 		'login' => 'ws', 
 		'password' => '123456', 

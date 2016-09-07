@@ -103,7 +103,7 @@ if(isset($_POST['tab_f_email'])){
 			"date" => date("Y-m-d H:i:s")));
 
 		ini_set("soap.wsdl_cache_enabled", "0" );
-		$client3 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+		$client3 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 			array(
 			'login' => 'ws',
 			'password' => '123456',

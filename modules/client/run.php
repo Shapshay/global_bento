@@ -32,7 +32,7 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 		"date_start" => 'NOW()'));
 
 	ini_set("soap.wsdl_cache_enabled", "0" );
-	$client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+	$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 		array(
 		'login' => 'ws',
 		'password' => '123456',
@@ -141,7 +141,7 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 	}
 
 	ini_set("soap.wsdl_cache_enabled", "0" );
-	$client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+	$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 		array(
 		'login' => 'ws',
 		'password' => '123456',
@@ -224,7 +224,7 @@ if(isset($c_id)){
 
 	// cars
 	ini_set("soap.wsdl_cache_enabled", "0" );
-	$client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+	$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 		array(
 		'login' => 'ws',
 		'password' => '123456',
@@ -276,7 +276,7 @@ if(isset($c_id)){
 
 	if(!in_array(5,$USER_ROLE)){
 		ini_set("soap.wsdl_cache_enabled", "0" );
-		$client3 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+		$client3 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 			array(
 			'login' => 'ws',
 			'password' => '123456',

@@ -58,7 +58,7 @@ if(isset($_POST['code1C'])){
                 "status" => 7,
                 "cour_dost" => $u_id,
                 "date_cour_dost" => 'NOW()'));
-            $client7 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+            $client7 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
                 array(
                     'login' => 'ws',
                     'password' => '123456',

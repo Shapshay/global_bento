@@ -58,7 +58,7 @@ $totalrows = isset($_REQUEST['totalrows']) ? $_REQUEST['totalrows']: false;
 
 
 ini_set("soap.wsdl_cache_enabled", "0" ); 
-$client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl", 
+$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl", 
 	array( 
 	'login' => 'ws', 
 	'password' => '123456', 

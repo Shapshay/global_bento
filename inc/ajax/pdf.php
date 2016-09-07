@@ -47,7 +47,7 @@ $mpdf->list_indent_first_level = 0;
 switch($_GET['pdf_type']){
 	case 'adres':
 		ini_set("soap.wsdl_cache_enabled", "0" ); 
-		$client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl", 
+		$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl", 
 			array( 
 			'login' => 'ws', 
 			'password' => '123456', 
@@ -63,7 +63,7 @@ switch($_GET['pdf_type']){
 	
 	case 'evaq':
 		ini_set("soap.wsdl_cache_enabled", "0" ); 
-		$client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl", 
+		$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl", 
 			array( 
 			'login' => 'ws', 
 			'password' => '123456', 

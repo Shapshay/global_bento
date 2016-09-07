@@ -235,7 +235,7 @@ foreach($cars['VEHICLES'] as $car){
 			$result7 = db_query($SQL7);
 			$row7 = db_fetch_array($result7);
 			
-			$client2 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl", 
+			$client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl", 
 				array( 
 				'login' => 'ws', 
 				'password' => '123456', 

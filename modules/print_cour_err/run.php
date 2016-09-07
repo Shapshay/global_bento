@@ -19,7 +19,7 @@ $tpl->define(array(
 if(isset($_POST['pc_err'])){
     $pol_arr = '';
     $c_id = getUserIdFromCode1C($_POST['cour_id']);
-    $client2 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+    $client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
         array(
             'login' => 'ws',
             'password' => '123456',
@@ -52,7 +52,7 @@ if(isset($_POST['pc_err'])){
 if(isset($_POST['pc_err2'])){
     $pol_arr = '';
     $c_id = getUserIdFromCode1C($_POST['cour_id']);
-    $client2 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+    $client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
         array(
             'login' => 'ws',
             'password' => '123456',

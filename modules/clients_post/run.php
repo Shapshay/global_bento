@@ -31,7 +31,7 @@ if(isset($_POST['ocen'])){
     //echo "<p>".$dbc->outsql;
 	/*ini_set("soap.wsdl_cache_enabled", "0" );
 
-	$client2 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+	$client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 		array(
 		'login' => 'ws',
 		'password' => '123456',

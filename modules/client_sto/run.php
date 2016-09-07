@@ -15,7 +15,7 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&in
 		"date_start" => 'NOW()'));
 	
 	ini_set("soap.wsdl_cache_enabled", "0" ); 
-	$client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl", 
+	$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl", 
 		array( 
 		'login' => 'ws', 
 		'password' => '123456', 

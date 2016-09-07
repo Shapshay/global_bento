@@ -48,7 +48,7 @@ if(isset($_POST['polis_ot_cour'])&&($_POST['polis_ot_cour']==1)&&isset($_POST['P
 	foreach($_POST['PolCheck2'] as $v){
 
 		ini_set("soap.wsdl_cache_enabled", "0" );
-		$client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+		$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 			array(
 				'login' => 'ws',
 				'password' => '123456',
@@ -84,7 +84,7 @@ if(isset($_POST['polis_ot_cour'])&&($_POST['polis_ot_cour']==1)&&isset($_POST['P
 		
 			$row = $dbc->element_find('polises',$v);
 			ini_set("soap.wsdl_cache_enabled", "0" );
-			$client2 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+			$client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 				array(
 					'login' => 'ws',
 					'password' => '123456',
@@ -135,7 +135,7 @@ if(isset($_POST['polis_ot_cour'])&&($_POST['polis_ot_cour']==2)&&isset($_POST['P
 	$pol_arr = '';
 	foreach($_POST['PolCheck2'] as $v){
         ini_set("soap.wsdl_cache_enabled", "0" );
-        $client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+        $client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
             array(
                 'login' => 'ws',
                 'password' => '123456',
@@ -191,7 +191,7 @@ if(isset($_POST['polis_to_cour'])&&isset($_POST['PolCheck'])){
 	foreach($_POST['PolCheck'] as $v){
         $row = $dbc->element_find('polises',$v);
         ini_set("soap.wsdl_cache_enabled", "0" );
-        $client2 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+        $client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
             array(
                 'login' => 'ws',
                 'password' => '123456',
@@ -212,7 +212,7 @@ if(isset($_POST['polis_to_cour'])&&isset($_POST['PolCheck'])){
 			"polis_id" => $v,
 			"date" => 'NOW()'));
         ini_set("soap.wsdl_cache_enabled", "0" );
-        $client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+        $client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
             array(
                 'login' => 'ws',
                 'password' => '123456',

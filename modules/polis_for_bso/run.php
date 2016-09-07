@@ -41,7 +41,7 @@ else{
 
     if(isset($_POST['pc_err'])){
         $c_id = LOGIN_1C;
-        $client2 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+        $client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
             array(
                 'login' => 'ws',
                 'password' => '123456',
@@ -111,7 +111,7 @@ else{
 
 	$row = $rows[0];
 
-    $client2 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+    $client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
         array(
             'login' => 'ws',
             'password' => '123456',

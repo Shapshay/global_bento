@@ -50,7 +50,7 @@ if(isset($_SESSION['polis'])){
 	// Сохраняем в 1С
 
 
-	$client7 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+	$client7 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 		array(
 		'login' => 'ws',
 		'password' => '123456',
@@ -156,7 +156,7 @@ if(isset($_SESSION['polis'])){
 	$params7['Polic']['Cars'][0]['Model_id'] = $row['model_id'];
 	$params7['Polic']['Cars'][0]['Stoimost'] = $stoim;
 
-	$client7 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+	$client7 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 		array(
 		'login' => 'ws',
 		'password' => '123456',
@@ -210,7 +210,7 @@ if(isset($_SESSION['polis'])){
 
 			ini_set("soap.wsdl_cache_enabled", "0" );
 
-			$client2 = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+			$client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 				array(
 				'login' => 'ws',
 				'password' => '123456',
@@ -238,7 +238,7 @@ if(isset($_SESSION['polis'])){
                 "polis_id" => $_SESSION['polis'],
                 "date" => 'NOW()'));
             ini_set("soap.wsdl_cache_enabled", "0" );
-            $client = new SoapClient("http://192.168.0.220/akk/ws/wsphp.1cws?wsdl",
+            $client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
                 array(
                     'login' => 'ws',
                     'password' => '123456',
