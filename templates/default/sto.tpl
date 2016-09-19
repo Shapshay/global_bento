@@ -406,7 +406,7 @@
         <p><button type="button" class="btn_pero" onclick="javascript:window.location='system.php?menu=225';">Расчет налога</button>
             <button type="button" class="btn_pero" onclick="javascript:window.location='system.php?menu=229';">Проверка штрафов</button>
             <button type="button" class="btn_pero" onclick="javascript:showDocs();">Документы</button></p>
-        <p><button type="button" class="btn_pero" onclick="javascript:showMyCalls();">Мои звонки</button>
+        <p><!--<button type="button" class="btn_pero" onclick="javascript:showMyCalls();">Мои звонки</button>-->
             <button type="button" class="btn_pero" onclick="javascript:showGnTech();">Проверка тех.осмотра</button></p>
     </div>
 </div>
@@ -446,7 +446,7 @@
 
 
 
-                        <diV class="kn_kl acc_trigger" id="acc_trigger233"></diV>
+                        <diV class="kn_kl acc_trigger" id="acc_trigger2216"></diV>
                         <div class="acc_container">
                             {CLIENT_STO}
                         </div>
@@ -470,7 +470,7 @@
                             </div>
                         </td>
                         <td align="right" valign="top" style="padding-top:11px;">
-                            <a href="?exit" target="_top"><div class="kn_vyhod"></div></a>
+                            <a href="system.php?exit" target="_top"><div class="kn_vyhod"></div></a>
                         </td>
                     </tr>
                     <tr>

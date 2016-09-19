@@ -533,13 +533,13 @@ class BDfunc
 
 
 ?>
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Отчет <?php echo date("d-m-Y"); ?></title>
-    </head>
-    <body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Отчет <?php echo date("d-m-Y"); ?></title>
+</head>
+<body>
 <?php
 error_reporting (E_ALL);
 ini_set("display_errors", 1);
@@ -690,6 +690,7 @@ $rows = $dbc->dbselect(array(
             polises.date_start as date_start",
         "where"=>"polises.status = 2 AND
             DATE_ADD(polises.date_print, INTERVAL 3 DAY) < NOW() AND
+            AND polises.dost = 1
             polises.office_id = 1 AND 
             DATE_FORMAT(polises.date_write,'%Y%m%d')>20160821"
     )
@@ -732,6 +733,7 @@ $rows = $dbc->dbselect(array(
         "where"=>"polises.status = 3 AND
             DATE_ADD(polises.date_indost, INTERVAL 3 DAY) < NOW() AND
             polises.office_id = 1 AND 
+            polises.dost = 1 AND 
             DATE_FORMAT(polises.date_write,'%Y%m%d')>20160821"
     )
 );
@@ -769,13 +771,13 @@ if($numRows){
 if($SEND) {
     $_sendTo = 'tigay84@list.ru';
     $_sendFrom = 'send@kazavtoclub.kz';
-    $_mailSubject = 'Красные полисы Bento';
+    $_mailSubject = 'Красные полисы Bento CRM';
     $_mailFrom = "Bento CRM";
     $mail_body = $PRINT_TABLE . $INDOST_TABLE . $COUR_TABLE;
     sendMail3('tigay84@list.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
     sendMail3('mtyrlybekova@mail.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
     sendMail3('hr@kazavtoclub.kz', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
-    //sendMail3('skiv_80@mail.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
+    sendMail3('skiv_80@mail.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
     sendMail3('e.kharitonova777@gmail.com', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
     sendMail3('aida_89__@mail.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
     //$test = sendMail3('skiv.weber@gmail.com', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);

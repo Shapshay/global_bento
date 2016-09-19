@@ -33,9 +33,9 @@ if (isset($_POST['send'])) {
 		// Сохраняем логин и пароль в куках, удаляем если не отметили "запомнить"
 		if (isset($_POST['member'])) {
 			$cookie_value = $usrname."|".$usrpass;
-			setcookie("192_168_0_128", $cookie_value, time()+60*60*24*30, "", "192_168_0_128");
+			setcookie("mybento", $cookie_value, time()+60*60*24*30, "", "mybento");
 		} else {
-			if (isset($_COOKIE["192_168_0_128"])) setcookie("192_168_0_128", "", 0);
+			if (isset($_COOKIE["mybento"])) setcookie("mybento", "", 0);
 		}
 		$notif = ' style="display: none;"';
 		header("Location: system.php");
@@ -51,9 +51,9 @@ else{
 	$notif = ' style="display: none;"';
 }
 //print_r($_COOKIE);
-if (isset($_COOKIE["192_168_0_128"])) {
+if (isset($_COOKIE["mybento"])) {
 	//echo "Y";
-		$login_info = explode("|", $_COOKIE["192_168_0_128"]);
+		$login_info = explode("|", $_COOKIE["mybento"]);
 		if (is_array($login_info)) {
 			$usr_login = $login_info[0];
 			$usr_passw = $login_info[1];

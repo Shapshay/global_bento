@@ -101,63 +101,7 @@ switch ($_GET['act']) {
 	}
 
 	default:{
-		/*
-		$rows = $dbc->dbselect(array(
-			"table"=>"calls_log, oper_calls, users, res_calls",
-			"select"=>"calls_log.id as id, 
-				calls_log.date_start as date_start,
-				calls_log.date_end as date_end,
-				oper_calls.link as link,
-				users.name as oper,
-				calls_log.oper_id as oper_id,
-				oper_calls.phone1 as phone,
-				res_calls.title as res,
-				res_calls.id as res_id",
-			"where"=>"calls_log.date_end <> '0000-00-00 00:00:00' AND 
-				calls_log.id = oper_calls.calls_log_id AND
-				calls_log.oper_id = users.id AND 
-				calls_log.res = res_calls.id",
-			"group"=>"calls_log.id",
-			"order"=>"calls_log.date_start",
-			"order_type"=>"DESC",
-			"limit"=>2000));
-		//echo $dbc->outsql;
-		$numRows = $dbc->count;
-		if ($numRows > 0) {
-			foreach ($rows as $row) {
-				if ($row['res'] == 'Точная дата') {
-					$rows2 = $dbc->dbselect(array(
-						"table" => "phones",
-						"select" => "clients.date_end as date_end",
-						"joins" => "LEFT OUTER JOIN clients ON phones.client_id = clients.id",
-						"where" => "phone = '" . $row['phone'] . "'",
-						"limit" => 1));
-					$row2 = $rows2[0];
-					//echo $dbc->outsql."<br>";
-					$td = date("d-m-Y", strtotime($row2['date_end']));
-					//$td = $row2['date_end'];
-				} else {
-					$td = '-';
-				}
-				$view_log_url = '/' . getItemCHPU($_GET['menu'], 'pages') . '/?act=log_view&contact=' . $row['id'];
-				$audio_link = '<a href="javascript:PlayCall(\'' . $row['link'] . '\', \'' . $row['oper_id'] . '\', \'' . $row['phone'] . '\', \'' . $row['res'] . '\', \'' . $row['res_id'] . '\');">' . $row['link'] . '</a>';
-				$tpl->assign("LOG_ID", $row['id']);
-				$tpl->assign("LOG_EDIT_URL", $view_log_url);
-				$tpl->assign("LOG_OPER", $row['oper']);
-				$tpl->assign("LOG_START", $row['date_start']);
-				$tpl->assign("LOG_END", $row['date_end']);
-				$tpl->assign("LOG_RES", $row['res']);
-				$tpl->assign("LOG_PHONE", $row['phone']);
-				$tpl->assign("LOG_LINK", $audio_link);
-				$tpl->assign("LOG_TD", $td);
 
-				$tpl->parse("TABLE_LOG_CALLS_ROWS", "." . $moduleName . "log_call_row");
-			}
-		}
-		else{
-			$tpl->assign("TABLE_LOG_CALLS_ROWS", '');
-		}
-		*/
 		$tpl->assign("TABLE_LOG_CALLS_ROWS", '');
 		$dateStart = date('d-m-Y',strtotime(date("d-m-Y", mktime()) . " - 3 day"));
 		$tpl->assign("EDT_DATE_START", $dateStart);
@@ -191,7 +135,7 @@ switch ($_GET['act']) {
 			}
 		}
 		$tpl->assign("OPERS_ROWS", $oper_rows);
-		
+
 
 		$tpl->parse("META_LINK", ".".$moduleName."grid");
 

@@ -659,4 +659,11 @@ function getUserIdFromCode1C($u_id) {
 	$resp = $dbc->element_find('users',$u_id);
 	return $resp['login_1C'];
 }
+
+// ID STO-клиента по коду 1С
+function getClientSTOID($code_1C) {
+	global $dbc;
+	$row = $dbc->element_find_by_field('sto','code_1C',$code_1C);
+	return $row['id'];
+}
 ?>

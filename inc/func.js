@@ -73,7 +73,7 @@ function SavePolis(){
 		 function(){   
 		 	swal("Отправляем на сохранение!", "Вы несможете изменить данный полис.", "success"); 
 		 	hideShowDiv2('waitGear', 1);
-			setTimeout(function(){     window.location = 'https://212.154.211.19/sohranenie_i_otpravka_polisa/?call_lenght='+$('#call_lenght2').val();   }, 4000);
+			setTimeout(function(){     window.location = 'https://mybento.kz/sohranenie_i_otpravka_polisa/?call_lenght='+$('#call_lenght2').val();   }, 4000);
 		 	
 	});
 }

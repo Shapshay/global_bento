@@ -7,10 +7,10 @@ function checkCallsForm(){
 	var call_comment = $('textarea#call_comment').val();
 	var res_call_id = $('#res_call_id').val();
     var ocen = $('#ocen').val();
-	if((res_call_id!=2||res_call_id!=1)&&moment(inputDay).isBefore(curentDayLimit)){
+	/*if((res_call_id!=2||res_call_id!=1)&&moment(inputDay).isBefore(curentDayLimit)){
 		swal("Ошибка", 'Дата следующего звонка должна быть неранее сегодняшнего дня!', "error");
 		send = false;
-	}
+	}*/
 
 	if(res_call_id==0){
         swal("Ошибка заполнения!", "Выберите результат звонка!", "error");

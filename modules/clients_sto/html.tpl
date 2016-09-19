@@ -1,50 +1,14 @@
-<!-- UPLOAD IMAGES -->
-<script src="inc/jquery.min.js"></script>
-<script src="inc/jquery.wallform.js"></script>
-<script>
- $(document).ready(function() { 
-	$('#photoimg').die('click').live('change', function()			{ 
-	           //$("#preview").html('');
-	    
-		$("#imageform").ajaxForm({target: '#preview', 
-		     beforeSubmit:function(){ 
-			
-			console.log('ttest');
-			$("#imageloadstatus").show();
-			 $("#imageloadbutton").hide();
-			 }, 
-			success:function(data){ 
-		    console.log('test');
-			 $("#imageloadstatus").hide();
-			 $("#imageloadbutton").show();
-			}, 
-			error:function(){ 
-			console.log('xtest');
-			 $("#imageloadstatus").hide();
-			$("#imageloadbutton").show();
-			} }).submit();
-			
-
-	});
-}); 
-</script>
 <style>
-#preview
-{
-color:#cc0000;
-font-size:12px
+.stoDivPerezvon{
+    display: none;
 }
-.imgList 
-{
-max-height:100px;
-margin-left:5px;
-border:1px solid #dedede;
-padding:4px;	
-float:left;	
+.stoDivOtkaz{
+    display: none;
+}
+.stoDivOtrab{
+    display: none;
 }
 </style>
-<!-- /UPLOAD IMAGES -->
-
 <script type="text/javascript" charset="utf-8">
 function checkCallsForm(){
 	var send = true;
@@ -55,7 +19,7 @@ function checkCallsForm(){
 	var res_call_id = $('#res_call_id').val();
 	//console.log(curentDayLimit);
 	//console.log(inputDay);
-	if(res_call_id!=2&&moment(inputDay).isBefore(curentDayLimit)){
+	/*if(res_call_id!=2&&moment(inputDay).isBefore(curentDayLimit)){
 		swal("Ошибка", 'Дата следующего звонка должна быть неранее сегодняшнего дня!', "error");
 		send = false;
 	}
@@ -64,8 +28,12 @@ function checkCallsForm(){
 		//alert('Проверте заполнение даты выдачи документа!');
 		swal("Ошибка заполнения!", "Заполните комментарий!", "error"); 
 		send = false;
-	}
-	
+	}*/
+
+    if(res_call_id==0){
+        swal("Ошибка", 'Заполните результат звонка!', "error");
+        send = false;
+    }
 	
 	if(send){
 		$('#CallsForm').submit();
@@ -88,4 +56,55 @@ function checkUserForm(){
 	}
 	
 }
-pt>
+
+function changeResCall(){
+    var res_call_id = $('#res_call_id').val();
+    if(res_call_id==5){
+        $('.stoDivPerezvon').hide();
+        $('.stoDivOtrab').hide();
+        $('.stoDivOtkaz').show();
+    }
+
+    if(res_call_id==4||res_call_id==2){
+        $('.stoDivPerezvon').show();
+        $('.stoDivOtkaz').hide();
+        $('.stoDivOtrab').hide();
+    }
+
+    if(res_call_id==3){
+        $('.stoDivPerezvon').hide();
+        $('.stoDivOtkaz').hide();
+        $('.stoDivOtrab').hide();
+    }
+
+    if(res_call_id==1){
+        $('.stoDivPerezvon').hide();
+        $('.stoDivOtkaz').hide();
+        $('.stoDivOtrab').show();
+    }
+}
+
+function checkDateTO() {
+    $('#waitGear').show();
+    var gn = $('#tech_gn').val();
+    var CLIENT_ID = {CLIENT_ID};
+    if(gn!='') {
+        $.post("modules/clients_sto/check_date.php", {gn: gn, CLIENT_ID: CLIENT_ID},
+                function(data){
+                    //alert(data);
+                    var obj = jQuery.parseJSON(data);
+                    if(obj.result=='OK'){
+                        $('#date_to_end').val(obj.tech_date);
+                        swal("Обновлено!", "Дата окончания ТО обновлена", "success");
+                    }
+                    else{
+                        swal("Ошибка", "Сбой отправки!", "error");
+                    }
+                });
+    }
+    else{
+        swal("Ошибка заполнения!", "Проверте заполнение поля Гос.номер!", "error");
+    }
+    $('#waitGear').hide();
+}
+</script>

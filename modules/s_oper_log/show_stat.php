@@ -7,7 +7,7 @@
  */
 error_reporting (E_ALL);
 ini_set("display_errors", 1);
-require_once("../../adm/inc/BDFunc.php");
+require_once("../../adm/inc/BDFunc.php"); 
 $dbc = new BDFunc;
 date_default_timezone_set ("Asia/Almaty");
 function getItemCHPU($id, $item_tab) {

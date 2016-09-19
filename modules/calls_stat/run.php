@@ -11,7 +11,7 @@ $tpl->define(array(
 # MAIN #################################################################################
 $tpl->parse("META_LINK", ".".$moduleName."grid");
 
-ini_set("soap.wsdl_cache_enabled", "0" );
+ini_set("soap.wsdl_cache_enabled", "0" ); 
 $client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 array(
 	'login' => 'ws',

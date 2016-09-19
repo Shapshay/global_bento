@@ -7,7 +7,7 @@ date_default_timezone_set ("Asia/Almaty");
 
 $dbc->element_create("control_log",array(
     "root_id" => $_POST['ROOT_ID'],
-    "oper_id" => $_POST['oper_id'],
+    "oper_id" => $_POST['oper_id'], 
     "phone" => $_POST['phone'],
     "control" => $_POST['Ocenka'],
     "res" => $_POST['res_id'],

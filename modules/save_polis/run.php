@@ -232,6 +232,7 @@ if(isset($_SESSION['polis'])){
             // передача полиса в доставку из приемной
             $dbc->element_update('polises',$_SESSION['polis'],array(
                 "status" => 3,
+				"dost" => 1,
                 "date_indost" => 'NOW()'));
             $dbc->element_create("cour_polis",array(
                 "c_id" => ROOT_ID,

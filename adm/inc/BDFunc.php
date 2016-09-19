@@ -54,7 +54,7 @@ class BDfunc
 	//constructor, create connection
 	public function __construct()
 	{
-		$xml_patch = 'http://212.154.211.19//adm/inc/config.xml';
+		$xml_patch = 'http://mybento.kz/adm/inc/config.xml';
 		
 		$xml = simplexml_load_file($xml_patch);
 		$server_name=trim($xml->bd_config->server_name);

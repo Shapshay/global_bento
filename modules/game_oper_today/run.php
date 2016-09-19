@@ -12,7 +12,7 @@ $tpl->define(array(
 //$GAME_IP = array('192.168.1.51','192.168.1.144');
 //if(in_array($_SERVER["REMOTE_ADDR"], $GAME_IP)){
 if(date("His")>='180000'){
-	header("Location: https://212.154.211.19/komanda_lider_za_segodnya");
+	header("Location: https://mybento.kz/komanda_lider_za_segodnya");
 	exit;
 }
 $rows3 = $dbc->dbselect(array(

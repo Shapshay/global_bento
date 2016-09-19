@@ -1,6 +1,6 @@
 <?php
 # SETTINGS #############################################################################
-$moduleName = "stat_tech_ok";
+$moduleName = "stat_sto_ok";
 $prefix = "./modules/".$moduleName."/";
 $tpl->define(array(
 		$moduleName => $prefix . $moduleName.".tpl",

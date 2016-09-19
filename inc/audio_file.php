@@ -165,7 +165,7 @@ if(isset($_GET['file_name'])){
 		);
 		$numRows = $dbc->count;
 		if ($numRows > 0) {
-			foreach($rows as $row){
+			foreach($rows3 as $row3){
 				$file_size = FBytes(getRemoteFileSize('http://192.168.0.200/freeswitch/'.$row3['link']));
 				$dbc->element_update('oper_calls',$row3['id'],array(
 					"size" => $file_size));
