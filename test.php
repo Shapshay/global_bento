@@ -127,7 +127,7 @@ for ($i=0;$i<sizeof($user_arr);$i++){
 }
 */
 // получение страницы через POST
-function post_content ($url,$postdata) {
+/*function post_content ($url,$postdata) {
     $uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
 
     $ch = curl_init( $url );
@@ -168,6 +168,37 @@ var_dump($IBAnswer);
 
 if($IBAnswer->result=='OK'){
     echo '<p>Блокировка получения клиента';
-}
-
+}*/
+/*define("SECRET", 'IIib@v~X');
+$rows = $dbc->dbselect(array(
+    "table"=>"users_petr",
+    "select"=>"*"));
+foreach($rows as $row){
+    if($row['id']>90){
+        $rows2 = $dbc->dbselect(array(
+            "table"=>"r_user_role_petr",
+            "select"=>"*",
+            "where"=>"user_id = ".$row['id']));
+        echo "<p>";
+        print_r($row);
+        $dbc->element_create("users",array(
+            "name" => $row['name'],
+            "login" => $row['login'],
+            "password" => md5('123456'.SECRET),
+            "login_1C" => $row['login_1C'],
+            "phone" => $row['phone'],
+            "office_id" => 3,
+            "prod" => $row['prod'],
+            "page_id" => $row['page_id'],
+            "reg_date"=>'NOW()'));
+        $u_id = $dbc->ins_id;
+        foreach($rows2 as $row2){
+            echo "<br>";
+            print_r($row2);
+            $dbc->element_create("r_user_role",array(
+                "user_id" => $u_id,
+                "role_id" => $row2['role_id']));
+        }
+    }
+}*/
 ?>

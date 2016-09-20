@@ -1,4 +1,4 @@
-<!-- Start Content Box -->
+ <!-- Start Content Box -->
 
 <div class="content-box-header">
 	
@@ -23,6 +23,7 @@
 				   <th>ID</th>
 				   <th>Имя</th>
 					<th>Логин</th>
+					<th>Офис</th>
 					<th>Стартовая страница</th>
 					<th>Внутренний номер</th>
 					<th>Операции</th>
@@ -67,6 +68,7 @@
 			<p>
 				<label>Внутренний номер</label>
 				<input class="text-input medium-input" type="text" id="phone" name="phone" value="" />
+				<input type="button" value="Получить свободный" class="button" onclick="checkFreePhone();">
 			</p>
 			<p>
 			<label>Стартовая страница</label>

@@ -287,7 +287,7 @@ if ($numRows > 0) {
         else{
             $tpl->assign("DOST1_COLOR", '');
         }
-		
+		 
 		$tpl->parse("DOST1_ROWS", ".".$moduleName."dost1_row");
 	}
 }

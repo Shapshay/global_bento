@@ -17,6 +17,7 @@ if(isset($_POST['oper_type'])){
             "table"=>"users",
             "select"=>"users.*, GROUP_CONCAT(r_user_role.role_id) as role",
             "joins"=>"LEFT OUTER JOIN r_user_role ON users.id = r_user_role.user_id",
+            "where"=>"users.office_id = ".$_POST['office_id'],
             "group"=>"users.id",
             "order"=>"users.name"
         )

@@ -44,7 +44,7 @@
 		showControl();
 		//alert(AudioFile);
 		audioPlayer.attr({
-			src: "http://192.168.0.200/freeswitch/"+AudioFile,
+			src: "http://{FSW_IP}/freeswitch/"+AudioFile,
 			autoplay: "autoplay"
 		});
 
@@ -71,10 +71,16 @@
 		$('#waitGear').show();
 		$('#ControlLisenDiv').show();
 	}
+
+    function changeOffice(){
+        changeOperType();
+    }
+
 	function changeOperType(){
 		var oper_type = $('#prod option:selected').val();
+        var office_id = $('#office_id option:selected').val();
 		$('#table_rows').html('');
-		$.post("modules/s_oper_log/change_type.php", {oper_type: oper_type},
+		$.post("modules/s_oper_log/change_type.php", {oper_type: oper_type, office_id: office_id},
 				function(data){
 					var obj = jQuery.parseJSON(data);
 					if(obj.result=='OK'){

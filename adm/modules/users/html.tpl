@@ -89,9 +89,25 @@ function delVal(id){
 
 					}
 					else{
-						swal("Ошибка Сервера!", "Объект ненайден !", "error"); 
+						swal("Ошибка Сервера!", "Объект ненайден !", "error");
 					}
 				});
 	});
+}
+
+function checkFreePhone(){
+    var office_id = $('#office_id option:selected').val();
+	$.post("modules/users/get_phone.php", {office_id:office_id},
+			function(data){
+				//alert(data);
+				var obj = jQuery.parseJSON(data);
+				if(obj.result=='OK'){
+                    $('#phone').val(obj.phone);
+				}
+				else{
+					swal("Ошибка Сервера!", "Объект ненайден !", "error");
+					//alert(data);
+				}
+			});
 }
 </script>

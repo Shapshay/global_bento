@@ -7,6 +7,11 @@
     <p>
         <form method="post" name="s_s">
     <p>
+        <strong>Офис:</strong>
+        <select name="office_id" id="office_id" onchange="changeOffice();">
+            {OFFICES_ROWS}
+        </select></p>
+    <p>
         <strong>Тип менеджера:</strong>
         <select name="prod" id="prod" onchange="changeOperType();">
             <option value="1">ТД</option>
@@ -82,7 +87,7 @@
         <p><button type="button" class="btn_pero_mini" onclick="saveControl();">Оценить</button></p>
 
         <p>
-            <div id="accordion">
+<div id="accordion">
                 <h3>Section 1</h3>
                 <div>
         <p>

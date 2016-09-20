@@ -174,7 +174,13 @@ if(isset($_SESSION['c_id'])){
 	$tpl->assign("EDT_DATE_PREV_CALL", date("d-m-Y H:i",strtotime($row['date_prev_call'])));
 	$tpl->assign("EDT_RES_PREV_CALL", $row['res_prev_call']);
 	$tpl->assign("EDT_SOURCE", $row['source']);
-	$tpl->assign("EDT_DATE_END", date("d-m-Y",strtotime($row['date_end'])));
+	if(date("d-m-Y",strtotime($row['date_end']))=='01-01-0001'){
+        $date_end = '01-01-2001';
+    }
+    else{
+        $date_end = date("d-m-Y",strtotime($row['date_end']));
+    }
+	$tpl->assign("EDT_DATE_END", $date_end);
 	$tpl->assign("EDT_COMMENT", $row['comment']);
 	if($row['ocenit']==1||in_array(8,$USER_ROLE)){
 		$tpl->assign("OCEN_HIDE1", '');

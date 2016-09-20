@@ -106,6 +106,25 @@ switch ($_GET['act']) {
 		$dateStart = date('d-m-Y',strtotime(date("d-m-Y", mktime()) . " - 3 day"));
 		$tpl->assign("EDT_DATE_START", $dateStart);
 		$tpl->assign("EDT_DATE_END", date("d-m-Y"));
+
+        $offices='';
+        $office = ROOT_OFFICE;
+        $rows = $dbc->dbselect(array(
+                "table"=>"offices",
+                "select"=>"id, title"
+            )
+        );
+        foreach($rows as $row){
+            if($row['id']==ROOT_OFFICE){
+                $sel_of = ' selected="selected"';
+            }
+            else{
+                $sel_of = '';
+            }
+            $offices.='<option value="'.$row['id'].'"'.$sel_of.'>'.$row['title'];
+        }
+        $tpl->assign("OFFICES_ROWS", $offices);
+
 		$res_calls='';
 		$rows = $dbc->dbselect(array(
 				"table"=>"res_calls",

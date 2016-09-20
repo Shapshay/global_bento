@@ -3,7 +3,7 @@ error_reporting (E_ALL);
 ini_set("display_errors", 1);
 require_once("../../inc/BDFunc.php");
 $dbc = new BDFunc;
-
+ 
 if(isset($_POST['id'])){
 	$rows = $dbc->dbselect(array(
 		"table"=>"r_user_role",

@@ -65,7 +65,7 @@ else{
 	define("ROOT_ID", 0);
 	define("ROOT_OFFICE", 0);
 	define("ROOT_PHONE", 0);
-	define("LOGIN_1C", 0);
+	define("LOGIN_1C", 0); 
     define("FSW_IP", '');
 	$USER_ROLE = 4;
 }

@@ -819,10 +819,9 @@ a.cur_am2{
   display:none;
   position:fixed;
   width:661px;
-  height:340px;
+  height:640px;
   left: 50%;
-  top: 50%;
-  margin-top: -160px;
+  top: 50px;
   margin-left: -330px;
   background-color:#ECC07E;
   z-index:10001;
@@ -1073,4 +1072,9 @@ a.sv_menu:hover{
 
 label{
 
+}
+
+#accordion{
+    font-size: 12px;
+    text-transform: none;
 }

@@ -134,7 +134,8 @@ if(isset($_GET['file_name'])){
 	$i = 0;
 	$audio_arr[$i]['link'] = $_GET['file_name'];
 	$audio_arr[$i]['call_date'] = date("Y-m-d H:i:s",strtotime($phone[0]));
-	$audio_arr[$i]['size'] = getRemoteFileSize('http://192.168.0.200/freeswitch/'.$audio_arr[$i]['link']);
+	//$audio_arr[$i]['size'] = getRemoteFileSize('http://192.168.0.200/freeswitch/'.$audio_arr[$i]['link']);
+	$audio_arr[$i]['size'] = 0;
 	$audio_arr[$i]['phone1'] = $phone[1];
 	$audio_arr[$i]['phone2'] = str_replace('.wav','',$phone[2]);
 	
@@ -146,7 +147,7 @@ if(isset($_GET['file_name'])){
 		$rating = getUserRating($audio_arr[$i]['phone1']);
 		$dbc->element_create("oper_calls", array(
 			"call_date" => $audio_arr[$i]['call_date'],
-			"size" => FBytes($audio_arr[$i]['size']),
+			"size" => 0,
 			"phone1" => $audio_arr[$i]['phone1'],
 			"phone2" => $audio_arr[$i]['phone2'],
 			"link" => $audio_arr[$i]['link'],
@@ -154,7 +155,7 @@ if(isset($_GET['file_name'])){
 			"get" => 1,
 			"calls_log_id" => $log));
 
-		$rows3 = $dbc->dbselect(array(
+		/*$rows3 = $dbc->dbselect(array(
 				"table"=>"oper_calls",
 				"select"=>"id, link",
 				"where"=>"phone2 = '".$audio_arr[$i]['phone2']."'",
@@ -170,7 +171,7 @@ if(isset($_GET['file_name'])){
 				$dbc->element_update('oper_calls',$row3['id'],array(
 					"size" => $file_size));
 			}
-		}
+		}*/
 	}
 }
 

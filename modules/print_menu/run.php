@@ -12,7 +12,7 @@ $rows = $dbc->dbselect(array(
 	"table"=>"pages",
 	"select"=>"*",
 	"where"=>"parent_id = 2200 OR id = 2200",
-	"order"=>"sortfield"));
+	"order"=>"sortfield")); 
 $sv_menu = '';
 foreach($rows as $row){
 	$url = "/".getItemCHPU($row['id'],'pages'); //здесь в кавычках вводите ссылку

@@ -54,7 +54,8 @@ else{
 					"phone" => $_POST['phone'],
 					"office_id" => $_POST['office_id'],
 					"prod" => $prod,
-					"page_id" => $_POST['page_id']));
+					"page_id" => $_POST['page_id'],
+                    "reg_date"=>'NOW()'));
 				// добавление в InfoBank
 				$url = 'http://192.168.1.227/inc/api_user.php';
 				$postdata = "name=".$_POST['name'].
@@ -90,8 +91,10 @@ else{
 $rows = $dbc->dbselect(array(
 			"table"=>"users",
 			"select"=>"users.*, 
-			pages.title as title",
-			"joins"=>"LEFT OUTER JOIN pages ON users.page_id = pages.id"
+			pages.title as title,
+			offices.title as office",
+			"joins"=>"LEFT OUTER JOIN pages ON users.page_id = pages.id
+			LEFT OUTER JOIN offices ON users.office_id = offices.id"
 			)
 		);
 $numRows = $dbc->count;
@@ -102,6 +105,7 @@ if ($numRows > 0) {
 		$tpl->assign("EDT_LOGIN", $row['login']);
 		$tpl->assign("EDT_PASSWORD", 123456);
 		$tpl->assign("EDT_PAGE_ID", $row['title']);
+        $tpl->assign("EDT_OFFICE", $row['office']);
 		$tpl->assign("EDT_PHONE", $row['phone']);
 		$tpl->assign("EDT_DATE_REG", $row['reg_date']);
 

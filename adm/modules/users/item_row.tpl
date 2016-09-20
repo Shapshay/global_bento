@@ -2,6 +2,7 @@
 	<td>{ITEM_ID}</td>
 	<td>{EDT_NAME}</td>
 	<td>{EDT_LOGIN}</td>
+	<td>{EDT_OFFICE}</td>
 	<td>{EDT_PAGE_ID}</td>
 	<td>{EDT_PHONE}</td>
 									
