@@ -544,8 +544,8 @@ date_default_timezone_set ("Asia/Almaty");
 error_reporting (E_ALL);
 ini_set("display_errors", 1);
 
-require_once('/var/www/html/perch/phpmailer/class.phpmailer.php');
-include("/var/www/html/perch/phpmailer/class.smtp.php");
+require_once('/var/www/html/phpmailer/class.phpmailer.php');
+include("/var/www/html/phpmailer/class.smtp.php");
 $dbc = new BDFunc;
 //date_default_timezone_set ("Asia/Almaty");
 //*********FUNCTIONS*********************************************************/
