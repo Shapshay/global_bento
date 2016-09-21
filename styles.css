@@ -818,10 +818,10 @@ a.cur_am2{
 .ControlLisenDiv{
   display:none;
   position:fixed;
-  width:661px;
-  height:640px;
+  width:861px;
+  height:540px;
   left: 50%;
-  top: 50px;
+  top: 5px;
   margin-left: -330px;
   background-color:#ECC07E;
   z-index:10001;
@@ -832,9 +832,9 @@ a.cur_am2{
   border:1px;
   border-style:solid;
   border-color:#983736;
-  font: bold 24px 'BloggerSans';
+  font: bold 14px 'BloggerSans';
   color:#983736;
-  padding-top:40px;
+  padding-top:10px;
 }
 
 
@@ -1077,4 +1077,30 @@ label{
 #accordion{
     font-size: 12px;
     text-transform: none;
+}
+#accordion>div{
+    height: 50px;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#accordion>div>table{
+    font-size: 12px;
+}
+#first_err_div{
+    display: block;
+}
+
+#accordion2{
+    font-size: 12px;
+    text-transform: none;
+}
+#accordion2>div{
+    height: 50px;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#accordion2>div>table{
+    font-size: 12px;
 }
