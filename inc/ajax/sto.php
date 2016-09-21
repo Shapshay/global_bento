@@ -35,7 +35,7 @@ function stdToArray($obj){
 
 ##############################################################################
 
-if(!isset($_POST['type'])){
+if(!isset($_GET['type'])){
     // выгрузка клиентов
     $rows = $dbc->dbselect(array(
             "table"=>"sto",
@@ -62,12 +62,12 @@ if(!isset($_POST['type'])){
     }
 }
 else{
-    switch ($_POST['type']){
+    switch ($_GET['type']){
         case 'edt':
-            //$array = objectToArray(json_decode($_POST['client']));
+            //$array = objectToArray(json_decode($_GET['client']));
             $client = array();
-            //print_r($_POST);
-            foreach ($_POST as $key=>$v){
+            //print_r($_GET);
+            foreach ($_GET as $key=>$v){
                 $client[$key] = base64_decode($v);
             }
             $code_sto = $client['sto_code'];
@@ -127,8 +127,8 @@ else{
             break;
         case 'new':
             $client = array();
-            //print_r($_POST);
-            foreach ($_POST as $key=>$v){
+            //print_r($_GET);
+            foreach ($_GET as $key=>$v){
                 $client[$key] = base64_decode($v);
             }
             $code_sto = $client['sto_code'];
@@ -214,8 +214,8 @@ else{
             break;
         case 'sum':
             $cost = array();
-            //print_r($_POST);
-            foreach ($_POST as $key=>$v){
+            //print_r($_GET);
+            foreach ($_GET as $key=>$v){
                 $cost[$key] = base64_decode($v);
             }
             $code_sto = $cost['sto_code'];
