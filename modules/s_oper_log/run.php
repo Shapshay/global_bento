@@ -25,6 +25,8 @@ $tpl->define(array(
 	$moduleName . "log_call_row" => $prefix . "log_call_row.tpl",
 	$moduleName . "oper_log_row" => $prefix . "oper_log_row.tpl",
 	$moduleName . "oper_log_calls_row" => $prefix . "oper_log_calls_row.tpl",
+    $moduleName . "err_title" => $prefix . "err_title.tpl",
+    $moduleName . "err_row" => $prefix . "err_row.tpl",
 ));
 
 $size_x = 200;
@@ -155,6 +157,52 @@ switch ($_GET['act']) {
 		}
 		$tpl->assign("OPERS_ROWS", $oper_rows);
 
+		//Verification errors
+        $rows = $dbc->dbselect(array(
+                "table"=>"errs",
+                "select"=>"*",
+                "where"=>"parent_id = 0"
+            )
+        );
+        $num = 1;
+        $err_arr = '';
+        foreach($rows as $row) {
+            $tpl->assign("ERR_PARENT_TITLE", $row['title']);
+            $rows2 = $dbc->dbselect(array(
+                    "table" => "errs",
+                    "select" => "*",
+                    "where" => "parent_id = " . $row['id']
+                )
+            );
+            //echo "\n";
+            $col = 1;
+            foreach ($rows2 as $row2) {
+                $tpl->assign("ERR_ID", $row2['id']);
+                $tpl->assign("ERR_TITLE", $row2['title']);
+                //echo "<br>".$col;
+                if($col == 3){
+                    $tpl->assign("ERR_TR", '</tr><tr>');
+                    $col = 0;
+                }
+                else{
+                    $tpl->assign("ERR_TR", '');
+                }
+                $err_arr.= $row2['id'].',';
+                $tpl->parse("ERR_ROWS", ".".$moduleName."err_row");
+                $col++;
+
+            }
+            if($num<8){
+                $tpl->parse("ERR_SELS", ".".$moduleName."err_title");
+            }
+            else{
+                $tpl->parse("ERR_SELS2", ".".$moduleName."err_title");
+            }
+            $num++;
+            $tpl->clear("ERR_ROWS");
+        }
+
+        $tpl->assign("ERR_ARR", substr($err_arr, 0, -1));
 
 		$tpl->parse("META_LINK", ".".$moduleName."grid");
 

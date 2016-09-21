@@ -1,0 +1,1 @@
+<td><input type="checkbox" id="err{ERR_ID}" name="err[{ERR_ID}]" value="{ERR_ID}">{ERR_TITLE}</td>{ERR_TR}

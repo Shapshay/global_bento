@@ -14,7 +14,17 @@
 			"lengthMenu": [[50, 100, 500, -1], [50, 100, 500, "Все"]]
 		} );
 
-		$( "#accordion" ).accordion();
+        $( "#accordion" ).accordion({
+            collapsible: true
+        });
+        $("#ui-id-1").click();
+        $("#ui-id-1").click();
+
+        $( "#accordion2" ).accordion({
+            collapsible: true
+        });
+        $("#ui-id-8").click();
+        $("#ui-id-8").click();
 	} );
 
 </script>
@@ -37,14 +47,36 @@
 	}
 	function PlayCall(AudioFile, oper_id, phone,res,res_id){
 		var audioPlayer = $('#audioPlayer');
+		var office_id = $('#office_id option:selected').val();
+		var FSW_IP = '';
 		$('#oper_id').val(oper_id);
 		$('#phone').val(phone);
 		$('#res').text(res);
 		$('#res_id').text(res_id);
+
+
+        var err_arr = new Array({ERR_ARR});
+        for(i=0;i<err_arr.length;i++){
+            $("#err"+err_arr[i]).attr('checked', false);
+        }
+
+        switch (office_id){
+			case '1':
+				FSW_IP = '192.168.0.200';
+				break;
+			case '2':
+				FSW_IP = '192.168.1.200';
+				break;
+			case '3':
+				FSW_IP = '192.168.3.200';
+				break;
+		}
 		showControl();
-		//alert(AudioFile);
+        $("#ui-id-1").click();
+        $("#ui-id-8").click();
+		//console.log("http://"+FSW_IP+"/freeswitch/"+AudioFile);
 		audioPlayer.attr({
-			src: "http://{FSW_IP}/freeswitch/"+AudioFile,
+			src: "http://"+FSW_IP+"/freeswitch/"+AudioFile,
 			autoplay: "autoplay"
 		});
 
@@ -54,12 +86,25 @@
 		var oper_id = $('#oper_id').val();
 		var phone = $('#phone').val();
 		var Ocenka = $('input[name=Ocenka]:checked').val();
-		var res_id = $('#res_id').text(res_id);
-		$.post("modules/opers_control/control.php", {oper_id: oper_id, ROOT_ID: ROOT_ID, phone: phone, Ocenka: Ocenka, res_id:res_id},
-				function(data){
-					//alert(data);
-					closeControl();
-				});
+		var res_id = $('#res_id').text();
+
+        var err_arr = new Array({ERR_ARR});
+        var send_err_arr = [];
+
+        for(var i=0;i<err_arr.length;i++){
+            //if($("#err"+err_arr[i]).attr("checked") == 'checked') {
+            if($("#err"+err_arr[i]).is(':checked')) {
+                send_err_arr.push($("#err"+err_arr[i]).val());
+            }
+
+        }
+
+        //alert("oper_id="+oper_id+"\nROOT_ID="+ROOT_ID+"\nphone="+phone+"\nOcenka="+Ocenka+"\nres_id="+res_id);
+		$.post("modules/s_oper_log/control.php", {oper_id: oper_id, ROOT_ID: ROOT_ID, phone: phone, Ocenka: Ocenka, res_id:res_id , send_err_arr:send_err_arr},
+                function(data){
+                    //alert(data);
+                    closeControl();
+                });
 
 	}
 	function closeControl(){
