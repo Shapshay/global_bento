@@ -30,7 +30,7 @@ if(isset($_POST['date_start'])){
             sto.phone as phone,
             users.name as oper",
         "joins"=>"LEFT OUTER JOIN sto_tochka ON sto.sto_tochka_id = sto_tochka.id
-        LEFT OUTER JOIN users ON sto.sto_tochka_id = users.id",
+        LEFT OUTER JOIN users ON sto.oper_id = users.id",
         "where"=>"sto.visit = 0
             AND DATE_FORMAT(sto.date_dog,'%Y%m%d')='".date("Ymd",strtotime($_POST['date_start']))."'"));
     $sql = $dbc->outsql;
