@@ -47,11 +47,11 @@ function stdToArray($obj){
 }
 ######################################################################################################################
 
-if(isset($_POST['code1C'])){
-    $u_id = getOperCode1CId($_POST['code1C']);
+if(isset($_GET['code1C'])){
+    $u_id = getOperCode1CId($_GET['code1C']);
     if($u_id>0){
         $row = $dbc->element_find('users',$u_id);
-        $row2 = $dbc->element_find_by_field('polises','bso_number',$_POST['BSO']);
+        $row2 = $dbc->element_find_by_field('polises','bso_number',$_GET['BSO']);
         $numRows = $dbc->count;
         if($numRows>0){
             $dbc->element_update('polises',$row2['id'],array(
@@ -65,8 +65,8 @@ if(isset($_POST['code1C'])){
                     'trace' => true
                 )
             );
-            $params7['bso_number'] = $_POST['BSO'];
-            $params7['manager_code'] = $_POST['code1C'];
+            $params7['bso_number'] = $_GET['BSO'];
+            $params7['manager_code'] = $_GET['code1C'];
             $result7 = $client7->PutPolicToDelivered($params7);
             $array_save = objectToArray($result7);
             $res_save_1c = $array_save['return'];

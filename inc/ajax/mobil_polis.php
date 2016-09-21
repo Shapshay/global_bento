@@ -80,10 +80,10 @@ function verCourPolis($c_id, $p_id) {
 }
 ######################################################################################################################
 
-if(isset($_POST['code1C'])){
-    if(!isset($_POST['status'])){
+if(isset($_GET['code1C'])){
+    if(!isset($_GET['status'])){
         // проверка оператора на существование в базе
-        $u_id = getOperCode1CId($_POST['code1C']);
+        $u_id = getOperCode1CId($_GET['code1C']);
         if($u_id>0){
             $row = $dbc->element_find('users',$u_id);
             $out_row['success'] = 1;
@@ -97,12 +97,12 @@ if(isset($_POST['code1C'])){
         }
     }
     else{
-        if($_POST['status']==1){
+        if($_GET['status']==1){
             // Полис доставлен
-            $u_id = getOperCode1CId($_POST['code1C']);
+            $u_id = getOperCode1CId($_GET['code1C']);
             if($u_id>0){
                 $row = $dbc->element_find('users',$u_id);
-                $row2 = $dbc->element_find_by_field('polises','bso_number',$_POST['BSO']);
+                $row2 = $dbc->element_find_by_field('polises','bso_number',$_GET['BSO']);
                 $numRows = $dbc->count;
                 if($numRows>0){
                     if(verCourPolis($u_id, $row2['id'])>0){
@@ -118,11 +118,11 @@ if(isset($_POST['code1C'])){
                                 'trace' => true
                             )
                         );
-                        $params7['bso_number'] = $_POST['BSO'];
-                        $params7['manager_code'] = $_POST['code1C'];
+                        $params7['bso_number'] = $_GET['BSO'];
+                        $params7['manager_code'] = $_GET['code1C'];
                         $result7 = $client7->PutPolicToDelivered($params7);
-                        $params7['bso_number'] = $_POST['BSO'];
-                        $params7['manager_code'] = $_POST['code1C'];
+                        $params7['bso_number'] = $_GET['BSO'];
+                        $params7['manager_code'] = $_GET['code1C'];
                         $result7 = $client7->PutPolicToDelivered($params7);
                         $array_save = objectToArray($result7);
                         $res_save_1c = $array_save['return'];
@@ -154,17 +154,17 @@ if(isset($_POST['code1C'])){
         }
         else{
             // Полис на ошибку
-            $u_id = getOperCode1CId($_POST['code1C']);
+            $u_id = getOperCode1CId($_GET['code1C']);
             if($u_id>0){
                 $row = $dbc->element_find('users',$u_id);
-                $row2 = $dbc->element_find_by_field('polises','bso_number',$_POST['BSO']);
+                $row2 = $dbc->element_find_by_field('polises','bso_number',$_GET['BSO']);
                 $numRows = $dbc->count;
                 if($numRows>0){
                     if(verCourPolis($u_id, $row2['id'])>0){
                         $dbc->element_update('polises',$row2['id'],array(
                             "status" => 8,
                             "cour_err" => $u_id,
-                            "type_cour_err"=>$_POST['err_type'],
+                            "type_cour_err"=>$_GET['err_type'],
                             "date_cour_err" => 'NOW()'));
 
                         $client7 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
@@ -174,9 +174,9 @@ if(isset($_POST['code1C'])){
                                 'trace' => true
                             )
                         );
-                        $params7['bso_number'] = $_POST['BSO'];
-                        $params7['manager_code'] = $_POST['code1C'];
-                        $params7['error_code'] = getPolisErrForCode($_POST['err_type']);
+                        $params7['bso_number'] = $_GET['BSO'];
+                        $params7['manager_code'] = $_GET['code1C'];
+                        $params7['error_code'] = getPolisErrForCode($_GET['err_type']);
                         //$result7 = $client7->PutPolicToError($params7);
                         $result7 = $client7->ReWorkPolic($params7);
                         $array_save = objectToArray($result7);
