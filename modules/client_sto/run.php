@@ -72,12 +72,6 @@ else{
 		$dbc->element_create("calls_log",array(
 			"oper_id" => ROOT_ID,
 			"date_start" => 'NOW()'));
-		$dbc->element_create("tech",array(
-			"oper_id" => ROOT_ID,
-			"client_id" => $c_id));
-		$tech_id = $dbc->ins_id;
-		
-		$_SESSION['tech_id'] = $tech_id;
 	}
 	else{
 		if(isset($_SESSION['c_id'])){
