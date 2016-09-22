@@ -80,6 +80,8 @@ else{
             //print_r($client);
 
             $row = $dbc->element_find_by_field('sto','code_1C',$client['code_1C']);
+            //echo $dbc->outsql."\n";
+            $sto_id = $row['id'];
             $dbc->element_update('sto',$row['id'],$client);
             //echo $dbc->outsql;
             $row2 = $dbc->element_find_by_field('sto_tochka','code',$code_sto);
@@ -94,7 +96,7 @@ else{
                     'trace' => true
                 )
             );
-
+            $row = $dbc->element_find('sto',$sto_id);
             $params2["Client"]["Name"] = $row['name'];
             $params2["Client"]["Iin"] = $row['iin'];
             $params2["Client"]["GosNomer"] = $row['gn'];
@@ -118,6 +120,7 @@ else{
             $params2["Client"]["Email"] = $row['email'];
             $params2["Client"]["Sto"] = $code_sto;
             $params2["Client"]["Code1C"] = $row['code_1C'];
+            //echo "\n";
             //print_r($params2);
             $result = $client2->SaveClient2($params2);
             $array_save = objectToArray($result);
