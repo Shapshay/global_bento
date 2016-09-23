@@ -21,13 +21,13 @@ if(isset($_POST['u_r'])){
 			$rfq->set_role_user($key,$_POST['item2_id']);
 			if($key==1){
 				// добавление в InfoBank
-				$url = 'http://192.168.1.227/inc/api_user.php';
+				$url = 'http://kinfobank.kz/inc/api_user.php';
 				$postdata = "u_id=".$u_id."&r_td=1";
 				$result = post_content( $url, $postdata );
 			}
 			if($key==2){
 				// добавление в InfoBank
-				$url = 'http://192.168.1.227/inc/api_user.php';
+				$url = 'http://kinfobank.kz/inc/api_user.php';
 				$postdata = "u_id=".$u_id."&r_prod=1";
 				$result = post_content( $url, $postdata );
 			}
@@ -57,7 +57,7 @@ else{
 					"page_id" => $_POST['page_id'],
                     "reg_date"=>'NOW()'));
 				// добавление в InfoBank
-				$url = 'http://192.168.1.227/inc/api_user.php';
+				$url = 'http://kinfobank.kz/inc/api_user.php';
 				$postdata = "name=".$_POST['name'].
 					"&login=".$_POST['login'].
 					"&password=".$_POST['password'].

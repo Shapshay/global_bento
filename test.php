@@ -127,7 +127,7 @@ for ($i=0;$i<sizeof($user_arr);$i++){
 }
 */
 // получение страницы через POST
-/*function post_content ($url,$postdata) {
+function post_content ($url,$postdata) {
     $uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
 
     $ch = curl_init( $url );
@@ -155,7 +155,7 @@ for ($i=0;$i<sizeof($user_arr);$i++){
 
     return $header;
 }
-
+/*
 $url = 'http://192.168.1.88/inc/api.php';
 $postdata = 'u_lgn=oper';
 $result = post_content( $url, $postdata );
@@ -201,4 +201,8 @@ foreach($rows as $row){
         }
     }
 }*/
+$url = 'https://mybento.kz/post_test.php';
+$postdata = "name=1&login=2";
+$result = post_content( $url, $postdata );
+echo $result['content'];
 ?>

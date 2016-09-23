@@ -40,7 +40,7 @@ if(isset($_POST['id'])){
 	$sql = "DELETE FROM r_user_role WHERE user_id = ".$_POST['id'];
 	$dbc->db_free_del($sql);
 	// удаление из InfoBank
-	$url = 'http://192.168.1.227/inc/api_user_del.php';
+	$url = 'http://kinfobank.kz/inc/api_user_del.php';
 	$postdata = "u_id=".$u_id;
 	$result = post_content( $url, $postdata );
 	$out_row['result'] = 'OK';
