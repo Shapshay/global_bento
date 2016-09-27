@@ -11,7 +11,25 @@ $tpl->define(array(
 // запрос и подготовка клиента
 if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!in_array(5,$USER_ROLE)){
 	// проверка блокировки InfoBank
-
+    $rows = $dbc->dbselect(array(
+            "table"=>"block_info",
+            "select"=>"id",
+            "where"=>"login = '".$_SESSION['lgn']."'",
+            "limit"=>"1"
+        )
+    );
+    $numRows = $dbc->count;
+    if ($numRows > 0) {
+        $row = $rows[0];
+        $url = getCodeBaseURL("index.php?menu=2205");
+        header("Location: ".$url);
+        exit;
+    }
+    /*$dbc->element_create("zap_1c",array(
+        "oper_id" => ROOT_ID,
+        "zapros" => 'kinfobank',
+        "date_start" => 'NOW()'));
+    $zap_id = $dbc->ins_id;
 	$url = 'http://kinfobank.kz/inc/api.php';
 	$postdata = 'u_lgn='.$_SESSION['lgn'];
 	$result = post_content( $url, $postdata );
@@ -25,11 +43,20 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 		header("Location: ".$url);
 		exit;
 	}
-	
+    $dbc->element_update('zap_1c',$zap_id,array(
+        "oper_id" => ROOT_ID,
+        "date_end" => 'NOW()'));*/
 	// конец проверки блокировки InfoBank
 	$dbc->element_create("calls_log",array(
 		"oper_id" => ROOT_ID,
 		"date_start" => 'NOW()'));
+
+
+    $dbc->element_create("zap_1c",array(
+        "oper_id" => ROOT_ID,
+        "zapros" => 'GetClient',
+        "date_start" => 'NOW()'));
+    $zap_id = $dbc->ins_id;
 
 	ini_set("soap.wsdl_cache_enabled", "0" );
 	$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
@@ -47,6 +74,12 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 		$params["test"] = false;
 	}
 	$result = $client->GetClient($params);
+
+    $dbc->element_update('zap_1c',$zap_id,array(
+        "oper_id" => ROOT_ID,
+        "date_end" => 'NOW()'));
+
+
 	$array = objectToArray($result);
 	$c_arr = $array['return'];
 	$c_id = getClientID($c_arr['Code1C']);
@@ -139,7 +172,15 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 			$j++;
 		}
 	}
+    $dbc->element_update('zap_1c',$zap_id,array(
+        "oper_id" => ROOT_ID,
+        "date_finish" => 'NOW()'));
 
+    $dbc->element_create("zap_1c",array(
+        "oper_id" => ROOT_ID,
+        "zapros" => 'GetPolicyNumber',
+        "date_start" => 'NOW()'));
+    $zap_id = $dbc->ins_id;
 	ini_set("soap.wsdl_cache_enabled", "0" );
 	$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 		array(
@@ -165,6 +206,11 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 			$_SESSION['bso'] = $polis_num;
 		}
 	}
+
+    $dbc->element_update('zap_1c',$zap_id,array(
+        "oper_id" => ROOT_ID,
+        "date_end" => 'NOW()'));
+
 }
 else{
 	if(isset($_GET['item'])){
@@ -261,7 +307,8 @@ if(isset($c_id)){
 	$rows = $dbc->dbselect(array(
 			"table"=>"phones",
 			"select"=>"*",
-			"where"=>"client_id=".$c_id));
+			"where"=>"client_id=".$c_id,
+            "limit"=>10));
 	$phones = '';
 	$c =1;
 	foreach($rows as $row){

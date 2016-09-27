@@ -256,7 +256,9 @@ switch ($_GET['act']) {
 				users.reg_date AS reg_date, 
 				users.phone AS phone, 
 				users.login AS login, 
-				users.name AS name"));
+				users.name AS name",
+            "where"=>"users.office_id = ".ROOT_OFFICE
+			));
 		foreach($rows as $row) {
 			$edt_url = '/'.getItemCHPU($_GET['menu'], 'pages').'/?act=r_edit&r_id='.$row['id'];
 			$tpl->assign("OPER_ID", $row['id']);

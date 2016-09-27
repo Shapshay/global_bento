@@ -12,7 +12,7 @@ function PlayCall(AudioFile, oper_id, phone,res,res_id){
 	showControl();
 	//alert(AudioFile);
 	audioPlayer.attr({
-          src: "http://192.168.0.200/freeswitch/"+AudioFile,
+          src: "http://{FSW_IP}/freeswitch/"+AudioFile,
           autoplay: "autoplay"
 		});
 	
@@ -52,7 +52,7 @@ function PlayCall2(AudioFile, oper_id, phone, res, td,res_id){
 	showControl2();
 	//alert(AudioFile);
 	audioPlayer.attr({
-          src: "http://192.168.0.200/freeswitch/"+AudioFile,
+          src: "http://{FSW_IP}/freeswitch/"+AudioFile,
           autoplay: "autoplay"
 		});
 	

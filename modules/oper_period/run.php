@@ -73,6 +73,7 @@ else{
 $rows6 = $dbc->dbselect(array(
 		"table"=>"users",
 		"select"=>"id, name",
+		"where"=>"office_id = ".ROOT_OFFICE,
 		"order"=>"name"
 	)
 );

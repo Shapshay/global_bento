@@ -110,7 +110,15 @@ if(isset($_POST['res_call_id'])){
 		"res_call_id" => $_POST['res_call_id'],
 		"comment" => addslashes($_POST['call_comment']),
 		"date_next_call" => date("Y-m-d H:i",strtotime($_POST['date_next_call']))));
-	
+
+
+
+    $dbc->element_create("zap_1c",array(
+        "oper_id" => ROOT_ID,
+        "zapros" => 'SaveCall',
+        "date_start" => 'NOW()'));
+    $zap_id = $dbc->ins_id;
+
 	ini_set("soap.wsdl_cache_enabled", "0" ); 
 	
 	$client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl", 
@@ -143,8 +151,18 @@ if(isset($_POST['res_call_id'])){
 	else{
 		$params2["Call"]["Horosh"] = true;
 	}
-	
+	//print_r($params2);
 	$result = $client2->SaveCall($params2);
+
+    $dbc->element_update('zap_1c',$zap_id,array(
+        "oper_id" => ROOT_ID,
+        "date_end" => 'NOW()'));
+
+    $dbc->element_create("zap_1c",array(
+        "oper_id" => ROOT_ID,
+        "zapros" => 'getOperCurentMaxLog',
+        "date_start" => 'NOW()'));
+    $zap_id = $dbc->ins_id;
 
 	$dbc->element_create("oper_log", array(
 		"oper_id" => ROOT_ID,
@@ -157,6 +175,10 @@ if(isset($_POST['res_call_id'])){
 	$dbc->element_update('calls_log',$log,array(
 		"res" => $_POST['res_call_id'],
 		"date_end" => 'NOW()'));
+    $dbc->element_update('zap_1c',$zap_id,array(
+        "oper_id" => ROOT_ID,
+        "date_end" => 'NOW()'));
+
 	header("Location: /".getItemCHPU(2176, 'pages'));
 	exit;
 }
@@ -248,7 +270,8 @@ if(isset($_SESSION['c_id'])){
 		$rows = $dbc->dbselect(array(
 				"table"=>"phones",
 				"select"=>"*",
-				"where"=>"client_id = ".$c_id
+				"where"=>"client_id = ".$c_id,
+                "limit"=>10
 			)
 		);
 		$phones = '';

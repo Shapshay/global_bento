@@ -70,6 +70,9 @@
 			case '3':
 				FSW_IP = '192.168.3.200';
 				break;
+			case '4':
+				FSW_IP = '192.168.4.200';
+				break;
 		}
 		showControl();
         $("#ui-id-1").click();

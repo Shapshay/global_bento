@@ -51,7 +51,7 @@ switch ($_GET['act']) {
 			"select"=>"DISTINCT frodo2.oper_id AS oper_id,
 						users.name AS name",
 			"joins"=>"LEFT OUTER JOIN users ON frodo2.oper_id = users.id",
-			"where"=>"DATE_FORMAT(date, '%Y%m%d') = ".date("Ymd")));
+			"where"=>"DATE_FORMAT(frodo2.date, '%Y%m%d') = ".date("Ymd")." AND users.office_id = ".ROOT_OFFICE));
 		$numRows = $dbc->count;
 		if ($numRows > 0) {
 			foreach ($rows as $row) {

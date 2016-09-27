@@ -201,8 +201,31 @@ foreach($rows as $row){
         }
     }
 }*/
-$url = 'https://mybento.kz/post_test.php';
-$postdata = "name=1&login=2";
-$result = post_content( $url, $postdata );
-echo $result['content'];
+
+
+$url = 'http://kinfobank.kz/inc/api.php';
+
+for ($i=0;$i<=1000;$i++){
+    echo "+++++ БЛОК ЗАПРОСОВ ".$i." +++++<p>";
+    $rows = $dbc->dbselect(array(
+        "table"=>"users",
+        "select"=>"*"));
+    foreach($rows as $row) {
+        $postdata = 'u_lgn='.$row['login'];
+        $result = post_content($url, $postdata);
+        $j_str = $result['content'];
+        echo $j_str . '<p>';
+        $IBAnswer = json_decode($j_str);
+        var_dump($IBAnswer);
+        if ($IBAnswer->result == 'OK') {
+            echo '<p>Блокировка получения клиента';
+            /*$url = getCodeBaseURL("index.php?menu=2205");
+            header("Location: ".$url);
+            exit;*/
+        }
+        else{
+            echo '<p>Нет блокировки';
+        }
+    }
+}
 ?>
