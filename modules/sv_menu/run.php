@@ -15,8 +15,10 @@ $rows = $dbc->dbselect(array(
 	"order"=>"sortfield"));
 $sv_menu = '';
 foreach($rows as $row){
-	$url = "/".getItemCHPU($row['id'],'pages'); //здесь в кавычках вводите ссылку
-	$sv_menu.= '<p><a href="'.$url.'" class="sv_menu">'.$row['title'].'</a></p>';
+	if($rfq->is_permission(ROOT_ID,$row['id'])){
+		$url = "/".getItemCHPU($row['id'],'pages'); //здесь в кавычках вводите ссылку
+		$sv_menu.= '<p><a href="'.$url.'" class="sv_menu">'.$row['title'].'</a></p>';
+	}
 }
 $tpl->assign("SV_LINKS", $sv_menu);
 
