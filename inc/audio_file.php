@@ -64,12 +64,12 @@ function FBytes($bytes, $precision = 2) {
 }
 
 // находит оператора по внутренему номеру
-function getUserIDfromVnutr($vnut) {
+function getUserIDfromVnutr($vnut, $of) {
 	global $dbc;
 	$rows = $dbc->dbselect(array(
 			"table"=>"users",
 			"select"=>"id",
-			"where"=>"phone = '".$vnut."'",
+			"where"=>"phone = '".$vnut."' AND office_id=".$of,
 			"limit"=>"1"
 		)
 	);
@@ -142,13 +142,13 @@ if(isset($_GET['file_name'])){
 	
 	
 	if(setVnutrCallTimeID($audio_arr[$i]['phone2'], $audio_arr[$i]['link'])==0){
-		$oper_id = getUserIDfromVnutr($audio_arr[$i]['phone2']);
+		$oper_id = getUserIDfromVnutr($audio_arr[$i]['phone2'], $_GET['of']);
 		$log = getOperCurentMaxLog($oper_id);
 		$rating = getUserRating($audio_arr[$i]['phone1']);
 		$dbc->element_create("oper_calls", array(
 			"call_date" => $audio_arr[$i]['call_date'],
 			"size" => 0,
-			"phone1" => $audio_arr[$i]['phone1'],
+			"phone1" => $audio_arr[$i]['phone1'], 
 			"phone2" => $audio_arr[$i]['phone2'],
 			"link" => $audio_arr[$i]['link'],
 			"rating" => $rating,
