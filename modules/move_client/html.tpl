@@ -2,6 +2,7 @@
     function closePerebros(){
         $('#DivPerebros').hide();
         $('#client_code1c').val(" ");
+        $('textarea#description').val(" ");
         $('#waitGear').hide();
     }
     function showPerebros(client_code1c){
@@ -25,6 +26,7 @@
                     var obj = jQuery.parseJSON(data);
                     if(obj.result=='OK'){
                         //alert(obj.return);
+                        closePerebros();
                         swal({   title: "Успешно",   text: "Клиент передан менеджеру",   html: true });
                     }
                     else{
