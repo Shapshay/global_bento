@@ -17,13 +17,13 @@ function openPopup(id) {
 
 
 <script>
-										$(document).ready(function() {
-											CKEDITOR.replace( 'description', {
-												filebrowserBrowseUrl: 'inc/ckfinder/ckfinder.html',
-												filebrowserUploadUrl: 'inc/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
-											} );
-										} );
-										</script>
+$(document).ready(function() {
+	CKEDITOR.replace( 'description', {
+		filebrowserBrowseUrl: 'inc/ckfinder/ckfinder.html',
+		filebrowserUploadUrl: 'inc/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files'
+	} );
+} );
+</script>
 										
 
 <script>

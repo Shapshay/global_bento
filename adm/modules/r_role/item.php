@@ -8,11 +8,11 @@ if(isset($_POST['id'])){
 	$rows = $dbc->element_find('r_role',$_POST['id']);
 	$row = $rows;
 	$numRows = $dbc->count;
-	echo $dbc->outsql;
+	//echo $dbc->outsql;
 	if ($numRows > 0) {
 		$out_row['result'] = 'OK';
 		$out_row['name'] = $row['name'];
-								$out_row['description'] = $row['description'];
+		$out_row['description'] = $row['description'];
 								
 	}
 	else{
