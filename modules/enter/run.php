@@ -7,7 +7,7 @@ $tpl->define(array(
 ));
 # MAIN #################################################################################
 if (isset($_POST['send'])) {
-    $usrname = substr($_POST['lgn'], 0, 15);
+    $usrname = substr($_POST['lgn'], 0, 35);
     $usrpass = substr($_POST['psw'], 0, 30);
     if (preg_match("/[^(\w)|(\x7F-\xFF)|(\s)]/", $usrname)) $usrname = "";
     if (preg_match("/[^(\w)|(\x7F-\xFF)|(\s)]/", $usrpass)) $usrpass = "";
@@ -39,6 +39,7 @@ if (isset($_POST['send'])) {
         exit;
     }
     else{
+        echo $usrname." = ".$usrpass.SECRET;
         echo ('
 			<script language="JavaScript">
 				alert("Логин или пароль некорректны !!!");
