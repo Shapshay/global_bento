@@ -23,7 +23,8 @@ $rows = $dbc->dbselect(array(
 			SUM(CASE WHEN calls_log.res=4 THEN 1 ELSE 0 END) as td",
 		"where"=>"calls_log.date_end <> '0000-00-00 00:00:00' AND 
 			calls_log.oper_id = users.id AND 
-			DATE_FORMAT(calls_log.date_start, '%Y%m%d') = '".date("Ymd")."'",
+			DATE_FORMAT(calls_log.date_start, '%Y%m%d') = '".date("Ymd")."' AND
+			(users.office_id = 1 OR users.office_id = 2)",
 		"group"=>"oper",
 		"order"=>"td",
 		"order_type"=>"DESC",
@@ -60,7 +61,8 @@ $rows3 = $dbc->dbselect(array(
 			users.av AS av,
 			COUNT(polises.id) as pcount",
 		"joins"=>"LEFT OUTER JOIN users ON polises.oper_id = users.id ",
-		"where"=>"polises.status > 0 AND DATE_FORMAT(polises.date_write,'%Y-%m-%d') = '".date('Y-m-d')."'",
+		"where"=>"polises.status > 0 AND DATE_FORMAT(polises.date_write,'%Y-%m-%d') = '".date('Y-m-d')."' AND
+			(users.office_id = 1 OR users.office_id = 2)",
 		"group"=>"oper",
 		"order"=>"pcount",
 		"order_type"=>"DESC",
