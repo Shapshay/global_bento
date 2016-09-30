@@ -26,6 +26,7 @@
 	</div>
 <p align="center">
 <input type="hidden" name="call_lenght2" id="call_lenght2" value="0" />
-<button class="pole_sav" onclick="javascript:SavePOST();"></button>
+<!--<button class="pole_sav" onclick="javascript:SavePOST();"></button>-->
+<button type="button" class="btn_cour" onclick="javascript:SavePOST();">Отправить статистику</button>
 </p>
 </diV>

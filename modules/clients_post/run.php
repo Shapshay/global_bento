@@ -40,7 +40,7 @@ if(isset($_POST['ocen'])){
 	);
 	$params2["CallPost"]["Code1C"] = $_POST['code_1C'];
 	$params2["CallPost"]["ManagerCode"] = LOGIN_1C;
-    $params2["CallPost"]["DateContact"] = date("Y-m-d",strtotime($_POST['date_next_call']));
+    $params2["CallPost"]["DateContact"] = date("Y-m-d H:i",strtotime($_POST['date_next_call']));
 	$params2["CallPost"]["Result"] = $_POST['res_call_id'];
 	$params2["CallPost"]["Comment"] = addslashes($_POST['comment']);
 	$params2["CallPost"]["Ocenka"] = $_POST['ocen'];
