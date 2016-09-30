@@ -35,7 +35,7 @@ if(isset($_POST['oper_id'])){
             SUM(CASE WHEN post_control.result=5 THEN 1 ELSE 0 END) as res5,
             SUM(post_control.send) as send",
         "joins"=>"LEFT OUTER JOIN users ON post_control.oper_id = users.id",
-        "where"=>"post_control.oper_id = 2 AND 
+        "where"=>"post_control.oper_id = ".$_POST['oper_id']." AND 
             post_control.result <> 0
             AND DATE_FORMAT(post_control.date_obrabt,'%Y%m%d')>='".date("Ymd",strtotime($_POST['date_start']))."'
 		    AND DATE_FORMAT(post_control.date_obrabt,'%Y%m%d')<='".date("Ymd",strtotime($_POST['date_end']))."'",
