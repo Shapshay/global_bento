@@ -203,7 +203,7 @@ foreach($rows as $row){
 }*/
 
 
-$url = 'http://kinfobank.kz/inc/api.php';
+/*$url = 'http://kinfobank.kz/inc/api.php';
 
 for ($i=0;$i<=1000;$i++){
     echo "+++++ БЛОК ЗАПРОСОВ ".$i." +++++<p>";
@@ -219,13 +219,25 @@ for ($i=0;$i<=1000;$i++){
         var_dump($IBAnswer);
         if ($IBAnswer->result == 'OK') {
             echo '<p>Блокировка получения клиента';
-            /*$url = getCodeBaseURL("index.php?menu=2205");
+            $url = getCodeBaseURL("index.php?menu=2205");
             header("Location: ".$url);
-            exit;*/
+            exit;
         }
         else{
             echo '<p>Нет блокировки';
         }
+    }
+}*/
+
+$rows = $dbc->dbselect(array(
+    "table"=>"users",
+    "select"=>"*",
+    "where"=>"office_id=3"));
+foreach($rows as $row){
+    if($row['phone']!=0){
+        $new_phone = $row['phone']+300;
+        echo $row['phone']." = ".$new_phone."<br>";
+        //$dbc->element_update('users',$row['id'],array("phone" => $new_phone));
     }
 }
 ?>
