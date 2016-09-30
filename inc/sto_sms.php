@@ -531,6 +531,36 @@ class BDfunc
 
 }
 
+// получение страницы через GET
+function get_web_page( $url ){
+    $uagent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)";
+
+    $ch = curl_init( $url );
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    //curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_ENCODING, "");
+    curl_setopt($ch, CURLOPT_USERAGENT, $uagent);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 120);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 120);
+    curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+    curl_setopt($ch, CURLOPT_COOKIEJAR, "/var/www/html/adm/inc/coo.txt");
+    curl_setopt($ch, CURLOPT_COOKIEFILE,"/var/www/html/adm/inc/coo.txt");
+
+    $content = curl_exec( $ch );
+    $err     = curl_errno( $ch );
+    $errmsg  = curl_error( $ch );
+    $header  = curl_getinfo( $ch );
+    curl_close( $ch );
+
+    $header['errno']   = $err;
+    $header['errmsg']  = $errmsg;
+    $header['content'] = $content;
+
+    return $header;
+}
+
 error_reporting (E_ALL);
 ini_set("display_errors", 1);
 date_default_timezone_set ("Asia/Almaty");
@@ -554,6 +584,8 @@ $numRows = $dbc->count;
 if ($numRows > 0) {
     foreach ($rows as $row) {
         $sms_body = urlencode('Тех.осмотр со скидкой 20%.Адрес: Мирзояна 112/2,тел:87718488098.Автоклуб');
+        //echo $sms_body."<p>";
+        echo $row['phone']."<p>";
         $sms_url = "http://smsc.kz//sys/send.php?login=Tigay84@list.ru&psw=94120593&&phones=".$row['phone']."&charset=utf-8&mes=".$sms_body;
         $result = get_web_page( $sms_url );
     }
