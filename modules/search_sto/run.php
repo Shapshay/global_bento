@@ -46,11 +46,11 @@ else{
             foreach($clients as $client){
 				$c_arr = $client;
 				$c_id = getClientSTOID($c_arr['Code1C']);
-				
+                $oper_id = getOperCode1CId($c_arr['ManagerCode']);
 				if($c_id==0){
 					$dbc->element_create("sto",array(
 						"code_1C" => $c_arr['Code1C'],
-						"oper_id" => ROOT_ID,
+						"oper_id" => $oper_id,
 						"name" => $c_arr['Name'],
 						"iin" => $c_arr['Iin'],
 						"gn" => $c_arr['GosNomer'],
@@ -68,7 +68,7 @@ else{
 				else{
                     $dbc->element_update('sto',$c_id,array(
                         "code_1C" => $c_arr['Code1C'],
-                        "oper_id" => ROOT_ID,
+                        "oper_id" => $oper_id,
                         "name" => $c_arr['Name'],
                         "iin" => $c_arr['Iin'],
                         "gn" => $c_arr['GosNomer'],
@@ -86,7 +86,14 @@ else{
 				$tpl->assign("RESULT_IIN", $client['Iin']);
 				$tpl->assign("RESULT_GOSNOMER", $client['GosNomer']);
 				$tpl->assign("RESULT_PHONE", $c_arr['Telefon']);
-				$tpl->assign("RESULT_URL", "/".getItemCHPU(2216, 'pages')."/?item=".$c_id);
+
+				if($oper_id==ROOT_ID||ROOT_ID==1){
+					$tpl->assign("RESULT_URL", "/".getItemCHPU(2216, 'pages')."/?item=".$c_id);
+				}
+				else{
+					$tpl->assign("RESULT_URL", '#');
+				}
+				//$tpl->assign("RESULT_URL", "/".getItemCHPU(2216, 'pages')."/?item=".$c_id);
 				$tpl->parse("SEARCH_RESULTS", ".".$moduleName."result_row");
 				$i++;
 			}
@@ -96,11 +103,12 @@ else{
             $client = $array['return'];
 			$c_arr = $client;
 			$c_id = getClientSTOID($c_arr['Code1C']);
+            $oper_id = getOperCode1CId($c_arr['ManagerCode']);
             //print_r($c_arr);
             if($c_id==0){
                 $dbc->element_create("sto",array(
                     "code_1C" => $c_arr['Code1C'],
-                    "oper_id" => ROOT_ID,
+                    "oper_id" => $oper_id,
                     "name" => $c_arr['Name'],
                     "iin" => $c_arr['Iin'],
                     "gn" => $c_arr['GosNomer'],
@@ -118,7 +126,7 @@ else{
             else{
                 $dbc->element_update('sto',$c_id,array(
                     "code_1C" => $c_arr['Code1C'],
-                    "oper_id" => ROOT_ID,
+                    "oper_id" => $oper_id,
                     "name" => $c_arr['Name'],
                     "iin" => $c_arr['Iin'],
                     "gn" => $c_arr['GosNomer'],
@@ -139,7 +147,13 @@ else{
             $tpl->assign("RESULT_IIN", $client['Iin']);
             $tpl->assign("RESULT_GOSNOMER", $client['GosNomer']);
             $tpl->assign("RESULT_PHONE", $c_arr['Telefon']);
-            $tpl->assign("RESULT_URL", "/".getItemCHPU(2216, 'pages')."/?item=".$c_id);
+            if($oper_id==ROOT_ID||ROOT_ID==1){
+                $tpl->assign("RESULT_URL", "/".getItemCHPU(2216, 'pages')."/?item=".$c_id);
+            }
+            else{
+                $tpl->assign("RESULT_URL", '#');
+            }
+            //$tpl->assign("RESULT_URL", "/".getItemCHPU(2216, 'pages')."/?item=".$c_id);
             $tpl->parse("SEARCH_RESULTS", ".".$moduleName."result_row");
             $i++;
             break;
