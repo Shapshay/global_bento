@@ -20,7 +20,12 @@ if(!isset($_GET['polis_view'])){
 	$tpl->assign("DATE_NOW", date("Y-m-d H:i"));
 	$tpl->parse("META_LINK", ".".$moduleName."grid");
 
-
+	if(ROOT_OFFICE==1){
+		$add_select = "(polises.office_id = '1' OR polises.office_id = '2')";
+	}
+	else{
+		$add_select = "polises.office_id = '".ROOT_OFFICE."'";
+	}
 
 	$rows = $dbc->dbselect(array(
 		"table"=>"polises",
@@ -34,7 +39,7 @@ if(!isset($_GET['polis_view'])){
 			clients.name AS client",
 		"joins"=>"LEFT OUTER JOIN users ON polises.oper_id = users.id 
 			LEFT OUTER JOIN clients ON polises.client_id = clients.id ",
-		"where"=>"polises.status = '1' AND polises.office_id = ".ROOT_OFFICE." AND 
+		"where"=>"polises.status = '1' AND ".$add_select." AND 
 		DATE_FORMAT(polises.date_write,'%Y%m%d')>20160821",
 		"order"=>"date_write"));
 

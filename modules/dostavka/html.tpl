@@ -112,6 +112,12 @@ function PolisVer(){
             });
 }
 
+function PolisSumm(){
+    var sList = "";
+    $('#polis_ot_cour').val(4);
+    $('#inkasFrm').submit();
+}
+
 /*function SearchCour() {
 	var curTxt = $('select#c_id').text();
 	dtable.search(curTxt).draw();

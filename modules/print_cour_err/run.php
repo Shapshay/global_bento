@@ -89,7 +89,12 @@ if(isset($_POST['pc_err2'])){
 
 $tpl->parse("META_LINK", ".".$moduleName."html");
 
-
+if(ROOT_OFFICE==1){
+    $add_select = "(polises.office_id = '1' OR polises.office_id = '2')";
+}
+else{
+    $add_select = "polises.office_id = '".ROOT_OFFICE."'";
+}
 
 $rows = $dbc->dbselect(array(
     "table"=>"polises",
@@ -101,7 +106,7 @@ $rows = $dbc->dbselect(array(
 				err_types.title AS err",
     "joins"=>"LEFT OUTER JOIN users ON polises.cour_dost = users.id 
 				LEFT OUTER JOIN err_types ON polises.type_cour_err = err_types.id ",
-    "where"=>"(polises.status = '8' OR polises.status = '9') AND polises.office_id = ".ROOT_OFFICE,
+    "where"=>"(polises.status = '8' OR polises.status = '9') AND ".$add_select,
     "order"=>"date_write"));
 
 $numRows = $dbc->count;

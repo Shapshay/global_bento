@@ -103,6 +103,14 @@ if(isset($_GET['code1C'])){
             if($u_id>0){
                 $row = $dbc->element_find('users',$u_id);
                 $row2 = $dbc->element_find_by_field('polises','bso_number',$_GET['BSO']);
+                $rows2 = $dbc->dbselect(array(
+                        "table"=>"polises",
+                        "select"=>"*",
+                        "where"=>"bso_number = '".$_GET['BSO']."' AND status > 2",
+                        "limit"=>1
+                    )
+                );
+                $row2 = $rows2[0];
                 $numRows = $dbc->count;
                 if($numRows>0){
                     if(verCourPolis($u_id, $row2['id'])>0){
@@ -143,12 +151,12 @@ if(isset($_GET['code1C'])){
                     }
                 }
                 else{
-                    $out_row['success'] = 2;
+                    $out_row['success'] = 3;
                     $out_row['message'] = "Полис с указанным БСО ненайден !";
                 }
             }
             else{
-                $out_row['success'] = 2;
+                $out_row['success'] = 4;
                 $out_row['message'] = "Пользователь ненайден !";
             }
         }

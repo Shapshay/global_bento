@@ -60,6 +60,7 @@
 		<button type="button" class="btn_cour_err" onclick="PolisErr();">На ошибку</button>
 		<button type="button" class="btn_cour" onclick="PolisClear();">Снять полис с курьера</button>
 		<button type="button" class="btn_cour_err" onclick="PolisVer();">Сверить полисы</button>
+		<p><button type="button" class="btn_cour" onclick="PolisSumm();">Обновить суммы</button>
 	</p>
     </form>
     

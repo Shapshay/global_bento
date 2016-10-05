@@ -652,7 +652,7 @@ $rows = $dbc->dbselect(array(
         "where"=>"polises.status = 1 AND
             DATE_ADD(polises.date_write, INTERVAL 30 MINUTE) < NOW() AND
             polises.office_id = 1 AND 
-            DATE_FORMAT(polises.date_write,'%Y%m%d')>20160821"
+            DATE_FORMAT(polises.date_write,'%Y%m%d')>20160930"
     )
 );
 
@@ -692,7 +692,7 @@ $rows = $dbc->dbselect(array(
             DATE_ADD(polises.date_print, INTERVAL 3 DAY) < NOW() AND
             AND polises.dost = 1
             polises.office_id = 1 AND 
-            DATE_FORMAT(polises.date_write,'%Y%m%d')>20160821"
+            DATE_FORMAT(polises.date_write,'%Y%m%d')>20160930"
     )
 );
 $numRows = $dbc->count;
@@ -734,7 +734,7 @@ $rows = $dbc->dbselect(array(
             DATE_ADD(polises.date_indost, INTERVAL 3 DAY) < NOW() AND
             polises.office_id = 1 AND 
             polises.dost = 1 AND 
-            DATE_FORMAT(polises.date_write,'%Y%m%d')>20160821"
+            DATE_FORMAT(polises.date_write,'%Y%m%d')>20160930"
     )
 );
 $numRows = $dbc->count;

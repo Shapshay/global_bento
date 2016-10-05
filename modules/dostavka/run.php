@@ -185,6 +185,30 @@ if(isset($_POST['polis_ot_cour'])&&($_POST['polis_ot_cour']==3)&&isset($_POST['P
     }
 }
 
+// обновить суммы
+if(isset($_POST['polis_ot_cour'])&&($_POST['polis_ot_cour']==4)&&isset($_POST['PolCheck2'])){
+    $pol_arr = '';
+    foreach($_POST['PolCheck2'] as $v){
+        $row = $dbc->element_find('polises',$v);
+        ini_set("soap.wsdl_cache_enabled", "0" );
+        $client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
+            array(
+                'login' => 'ws',
+                'password' => '123456',
+                'trace' => true
+            )
+        );
+        $params2["PolicNumber"] = $row['bso_number'];
+        $result = $client2->GetPolicInfo($params2);
+        $array_info = objectToArray($result);
+        //print_r($array_info);
+        $res_sum = $array_info['return']['PolicInfo']['Summa'];
+        $dbc->element_update('polises',$v,array(
+            "summa" => $res_sum));
+
+    }
+}
+
 // in dost
 if(isset($_POST['polis_to_cour'])&&isset($_POST['PolCheck'])){
 	$pol_arr = '';
@@ -258,6 +282,13 @@ foreach($rows3 as $row3){
 }
 $tpl->assign("COURIER_SEL", $city_sel);
 
+if(ROOT_OFFICE==1){
+    $add_select = "(polises.office_id = '1' OR polises.office_id = '2')";
+}
+else{
+    $add_select = "polises.office_id = '".ROOT_OFFICE."'";
+}
+
 $rows3 = $dbc->dbselect(array(
 		"table"=>"polises",
 		"select"=>"polises.id as id, 
@@ -267,7 +298,7 @@ $rows3 = $dbc->dbselect(array(
 			users.name as oper",
 		"joins"=>"LEFT OUTER JOIN users ON polises.oper_id = users.id ",
 		"where"=>"polises.status = 2 AND 
-			polises.office_id = '".ROOT_OFFICE."'
+			".$add_select."
 			 AND polises.dost = 1
 			 AND DATE_FORMAT(polises.date_write,'%Y%m%d')>20160821",
 		"order"=>"polises.date_write"
@@ -312,7 +343,7 @@ $rows3 = $dbc->dbselect(array(
 			LEFT OUTER JOIN polis_status ON polises.status = polis_status.id
 			LEFT OUTER JOIN err_types ON polises.type_cour_err = err_types.id",
 		"where"=>"(polises.status = 3 OR polises.status = 7 OR polises.status = 8) AND 
-			polises.office_id = '".ROOT_OFFICE."'
+			".$add_select."
 			 AND polises.dost = 1
 			 AND DATE_FORMAT(polises.date_write,'%Y%m%d')>20160821",
 		"order"=>"polises.date_write"
