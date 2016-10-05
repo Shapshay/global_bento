@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Skiv
- * Date: 14.09.2016
- * Time: 15:02
+ * Date: 05.10.2016
+ * Time: 15:10
  */
 error_reporting (E_ALL);
 ini_set("display_errors", 1);
@@ -530,7 +530,7 @@ class BDfunc
     }
 
 }
-date_default_timezone_set ("Asia/Almaty");
+
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -543,7 +543,7 @@ date_default_timezone_set ("Asia/Almaty");
 <?php
 error_reporting (E_ALL);
 ini_set("display_errors", 1);
-
+date_default_timezone_set ("Asia/Almaty");
 require_once('/var/www/html/phpmailer/class.phpmailer.php');
 include("/var/www/html/phpmailer/class.smtp.php");
 $dbc = new BDFunc;
@@ -554,7 +554,8 @@ function PolisCount() {
     $rows = $dbc->dbselect(array(
             "table"=>"polises",
             "select"=>"COUNT(id) AS num",
-            "where"=>"polises.dost <> ''  AND DATE_FORMAT(date_oform, '%Y%m%d') = '".date("Ymd")."'",
+            "joins"=>"LEFT OUTER JOIN users as croots ON polises.oper_id = croots.id",
+            "where"=>"(croots.office_id = 1 OR croots.office_id = 2) AND polises.dost <> ''  AND DATE_FORMAT(date_oform, '%Y%m%d') = '".date("Ymd")."'",
             "limit"=>"1"
         )
     );
@@ -636,342 +637,308 @@ function stdToArray($obj){
 }
 //*** ****************************************************************************/
 $rows = $dbc->dbselect(array(
-    "table"=>"sto",
-    "select"=>"users.name as oper,
-            sto.date_call as date_call,
-            COUNT(sto.id) as call_count,
-            SUM(CASE WHEN sto.res_call_id='1' THEN 1 ELSE 0 END) as status1,
-            SUM(CASE WHEN sto.res_call_id='2' THEN 1 ELSE 0 END) as status2,
-            SUM(CASE WHEN sto.res_call_id='3' THEN 1 ELSE 0 END) as status3,
-            SUM(CASE WHEN sto.res_call_id='4' THEN 1 ELSE 0 END) as status4,
-            SUM(CASE WHEN sto.res_call_id='5' THEN 1 ELSE 0 END) as status5,
-            sto.summa as summa",
-    "joins"=>"LEFT OUTER JOIN users ON sto.oper_id = users.id",
-    "where"=>"DATE_FORMAT(sto.date_call,'%Y%m%d')='".date("Ymd")."'",
-    "group"=>"sto.oper_id"));
-//echo $dbc->outsql;
-$STO_CALLS_ROWS = '<p><strong>Статистика звонков СТО</strong></p>
+        "table"=>"calls_log, users, res_calls",
+        "select"=>"COUNT(DISTINCT users.name) as oper,
+			COUNT(calls_log.id) as cal,
+			SUM(CASE WHEN calls_log.res=4 THEN 1 ELSE 0 END) as td,
+			(COUNT(calls_log.id)/COUNT(DISTINCT users.name)) as sred",
+        "where"=>"calls_log.date_end <> '0000-00-00 00:00:00' AND 
+			calls_log.oper_id = users.id AND 
+			calls_log.res = res_calls.id AND 
+			(users.office_id = 1 OR users.office_id = 2) AND 
+			DATE_FORMAT(calls_log.date_start, '%Y%m%d') = '".date("Ymd")."'",
+        "limit"=>"1"
+    )
+);
+$row = $rows[0];
+
+$rows2 = $dbc->dbselect(array(
+        "table"=>"calls_log, users, res_calls",
+        "select"=>"COUNT(DISTINCT users.name) as oper,
+			COUNT(calls_log.id) as cal,
+			SUM(CASE WHEN calls_log.res=4 THEN 1 ELSE 0 END) as td,
+			(COUNT(calls_log.id)/COUNT(DISTINCT users.name)) as sred",
+        "where"=>"calls_log.date_end <> '0000-00-00 00:00:00' AND 
+			calls_log.oper_id = users.id AND 
+			users.prod = 1 AND 
+			(users.office_id = 1 OR users.office_id = 2) AND 
+			calls_log.res = res_calls.id AND 
+			DATE_FORMAT(calls_log.date_start, '%Y%m%d') = '".date("Ymd")."'",
+        "limit"=>"1"
+    )
+);
+$row2 = $rows2[0];
+
+$rows3 = $dbc->dbselect(array(
+        "table"=>"calls_log, users, res_calls",
+        "select"=>"COUNT(DISTINCT users.name) as oper,
+			COUNT(calls_log.id) as cal,
+			SUM(CASE WHEN calls_log.res=4 THEN 1 ELSE 0 END) as td,
+			(COUNT(calls_log.id)/COUNT(DISTINCT users.name)) as sred",
+        "where"=>"calls_log.date_end <> '0000-00-00 00:00:00' AND 
+			calls_log.oper_id = users.id AND 
+			users.prod = 0 AND 
+			(users.office_id = 1 OR users.office_id = 2) AND 
+			calls_log.res = res_calls.id AND 
+			DATE_FORMAT(calls_log.date_start, '%Y%m%d') = '".date("Ymd")."'",
+        "limit"=>"1"
+    )
+);
+$row3 = $rows3[0];
+
+$MAIN_TABLE = '<p><strong>Основная таблица</strong></p>
 		<p>
 		<table border=1>
 		<thead>
-        <tr>
-            <th rowspan="2">Дата</th>
-            <th rowspan="2">Менеджер</th>
-            <th rowspan="2">Количество звонков</th>
-            <th colspan="5">Статистика</th>
-        </tr>
-        <tr>
-            <th>Отработан</th>
-            <th>Недозвон</th>
-            <th>Ошибка номера</th>
-            <th>Перезвонить</th>
-            <th>Отказ</th>
-        </tr>
-        </thead>
+		<tr>
+		<th width="200"></th>
+		<th width="200"><b>Кол-во менеджеров</b></th>
+		<th width="100"><b>Кол-во звонков</b></th>
+		<th width="100"><b>Кол-во ТД</b></th>
+		<th width="100"><b>Кол-во страховок</b></th>
+		<th width="100"><b>Звонков на менеджера</b></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+		<td><b>Продажники</b></td>
+		<td>'.$row2['oper'].'</td>
+		<td>'.$row2['cal'].'</td>
+		<td>'.$row2['td'].'</td>
+		<td>'.PolisCount().'</td>
+		<td>'.$row2['sred'].'</td>
+		</tr>
+		<tr>
+		<td><b>Младшие менеджеры</b></td>
+		<td>'.$row3['oper'].'</td>
+		<td>'.$row3['cal'].'</td>
+		<td>'.$row3['td'].'</td>
+		<td>0</td>
+		<td>'.$row3['sred'].'</td>
+		</tr>
+		<tr>
+		<td><b>Итого</b></td>
+		<td>'.$row['oper'].'</td>
+		<td>'.$row['cal'].'</td>
+		<td>'.$row['td'].'</td>
+		<td>'.PolisCount().'</td>
+		<td>'.$row['sred'].'</td>
+		</tr>
+		</tbody>
+		</table><p></p>';
+//echo "SELECT COUNT(id) AS num FROM polises WHERE polises.local <> ''  AND DATE_FORMAT(date_oform, '%Y%m%d') = '".date("Y-m-d")."'";
+echo $MAIN_TABLE;
+
+//*** ****************************************************************************/
+ini_set("soap.wsdl_cache_enabled", "0" );
+$client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
+    array(
+        'login' => 'ws',
+        'password' => '123456',
+        'trace' => true
+    )
+);
+$result = $client->BackLock();
+$array = objectToArray($result);
+$back_arr = str_replace('<table>','<table border=1 cellpadding=10>',$array['return']);
+$BACK_TABLE = '<p><strong>Баклог</strong></p>
+		<p>'.$back_arr.'</p>';
+echo $BACK_TABLE;
+//*** ****************************************************************************/
+$rows = $dbc->dbselect(array(
+        "table"=>"control_log",
+        "select"=>"croots.name AS control, 
+			COUNT(control) as amount,
+			sum(control) as good,
+			COUNT(control)-sum(control) as bad",
+        "joins"=>"LEFT OUTER JOIN users as croots ON control_log.root_id = croots.id",
+        "where"=>"DATE_FORMAT(date,'%Y-%m-%d')='".date("Y-m-d")."' AND (croots.office_id = 1 OR croots.office_id = 2)",
+        "group"=>"croots.name"
+    )
+);
+$all_count = 0;
+$all_good = 0;
+$all_bad = 0;
+$SUPERVISER_ROWS = '<p><strong>Прослушивание звонков</strong></p>
+		<p>
+		<table border=1>
+		<thead>
+		<tr>
+		<th width="400"><b>Проверяющий</b></th>
+		<th width="100"><b>Проверенно</b></th>
+		<th width="100"><b>Хороших</b></th>
+		<th width="100"><b>Плохих</b></th>
+		</tr>
+		</thead>
 		<tbody>';
 $numRows = $dbc->count;
 if ($numRows > 0) {
     foreach($rows as $row){
-        $STO_CALLS_ROWS.= '<tr>
-                    <td>'.$row['date_call'].'</td>
-                    <td>'.$row['oper'].'</td>
-                    <td>'.$row['call_count'].'</td>
-                    <td>'.$row['status1'].'</td>
-                    <td>'.$row['status2'].'</td>
-                    <td>'.$row['status3'].'</td>
-                    <td>'.$row['status4'].'</td>
-                    <td>'.$row['status5'].'</td>
-                    </tr>';
+        $all_count+= $row['amount'];
+        $all_good+= $row['good'];
+        $all_bad+= $row['bad'];
+
+        $SUPERVISER_ROWS.='<tr>
+			<td>'.$row['control'].'</td>
+			<td>'.$row['amount'].'</td>
+			<td>'.$row['good'].'</td>
+			<td>'.$row['bad'].'</td>
+			</tr>';
     }
 }
 else{
-    $STO_CALLS_ROWS.='<tr>
+    $SUPERVISER_ROWS.='<tr>
 			<td colspan="4" align="center"><strong>Нет данных за этот период !</strong></td>
 			</tr>';
 }
-$STO_CALLS_ROWS.= '</tbody>
+$SUPERVISER_ROWS.= '</tbody>
+	<tfoot>
+	<tr>
+	<th style="padding-left:5px;">Итого:</th>
+	<th align="center"><b>'.$all_count.'</b></th>
+	<th><b>'.$all_good.'</b></th>
+	<th><b>'.$all_bad.'</b></th>
+	</tr>
+	</tfoot>
 	</table><p></p>';
 
-echo $STO_CALLS_ROWS;
+echo $SUPERVISER_ROWS;
 #############################################################
 $rows = $dbc->dbselect(array(
-    "table"=>"sto",
-    "select"=>"sto_tochka.title as sto_name,
-            sto.date_visit as date_visit,
-            sto.name as name,
-            sto.gn as gn,
-            sto.summa as summa",
-    "joins"=>"LEFT OUTER JOIN sto_tochka ON sto.sto_tochka_id = sto_tochka.id",
-    "where"=>"sto.visit = 1
-            AND DATE_FORMAT(sto.date_visit,'%Y%m%d')='".date("Ymd")."'"));
+        "table"=>"pryanik",
+        "select"=>"croots.name AS oper, 
+			COUNT(date_start) as do_min,
+			SUM(CASE WHEN post_timer_start='1970-01-01 06:00:00' THEN 0 ELSE 1 END) as posle_min,
+			SUM(CASE WHEN obrab='1' THEN 1 ELSE 0 END) as count_obrab",
+        "joins"=>"LEFT OUTER JOIN users as croots ON pryanik.oper_id = croots.id",
+        "where"=>"(croots.office_id = 1 OR croots.office_id = 2) AND DATE_FORMAT(date,'%Y-%m-%d')='".date("Y-m-d")."'",
+        "group"=>"croots.name"
+    )
+);
+$all_pryan_count = 0;
+$all_posle_min = 0;
+$all_count_obrab = 0;
 
-
-$STO_OK_ROWS = '<p>&nbsp;</p>
-	<p><strong>Список посетивших СТО</strong></p>
+$PRAYNIK_ROWS = '<p>&nbsp;</p>
+	<p><strong>Таблица пряников</strong></p>
 	<p><table border=1>
 	<thead>
-        <tr>
-            <th>СТО</th>
-            <th>Дата</th>
-            <th>Клиент</th>
-            <th>Машина</th>
-            <th>Сумма</th>
-        </tr>
-        </thead>
+	<tr>
+	<th width="400"><b>Оператор</b></th>
+	<th width="100"><b>До звонка > минуты</b></th>
+	<th width="100"><b>После звонка > минуты</b></th>
+	<th width="100"><b>Пряников</b></th>
+	</tr>
+	</thead>
 	<tbody>';
 $numRows = $dbc->count;
 if ($numRows > 0) {
     foreach($rows as $row){
-        $STO_OK_ROWS.= '<tr>
-                    <td>'.$row['sto_name'].'</td>
-                    <td>'.$row['date_visit'].'</td>
-                    <td>'.$row['name'].'</td>
-                    <td>'.$row['gn'].'</td>
-                    <td>'.$row['summa'].'</td>
-                    </tr>';
+        $all_pryan_count+= $row['do_min'];
+        $all_posle_min+= $row['posle_min'];
+        $all_count_obrab+= $row['count_obrab'];
+        $PRAYNIK_ROWS.='<tr>
+			<td>'.$row['oper'].'</td>
+			<td>'.$row['do_min'].'</td>
+			<td>'.$row['posle_min'].'</td>
+			<td>'.$row['count_obrab'].'</td>
+			</tr>';
     }
 }
 else{
-    $STO_OK_ROWS.='<tr>
+    $PRAYNIK_ROWS.='<tr>
 			<td colspan="4" align="center"><strong>Нет данных за этот период !</strong></td>
 			</tr>';
 }
-$STO_OK_ROWS.= '</tbody>
+$PRAYNIK_ROWS.= '</tbody>
+	<tfoot>
+	<tr>
+	<th style="padding-left:5px;">Итого:</th>
+	<th align="center">'.$all_pryan_count.'</th>
+	<th>'.$all_posle_min.'</th>
+	<th>'.$all_count_obrab.'</th>
+	</tr>
+	</tfoot>
 	</table><p></p>';
 
-echo $STO_OK_ROWS;
+echo $PRAYNIK_ROWS;
 #############################################################
 
 $rows = $dbc->dbselect(array(
-    "table"=>"sto",
-    "select"=>"sto_tochka.title as sto_name,
-            sto.date_dog as date_dog,
-            sto.name as name,
-            sto.gn as gn,
-            users.name as oper",
-    "joins"=>"LEFT OUTER JOIN sto_tochka ON sto.sto_tochka_id = sto_tochka.id
-        LEFT OUTER JOIN users ON sto.sto_tochka_id = users.id",
-    "where"=>"sto.visit = 0
-            AND DATE_FORMAT(sto.date_dog,'%Y%m%d')='".date("Ymd")."'"));
+    "table"=>"post_control",
+    "select"=>"COUNT(post_control.id) as zvon,
+            SUM(CASE WHEN post_control.email='' THEN 0 ELSE 1 END) as emails,
+            ROUND(AVG(post_control.ocen), 2) as avg_ocen,
+            SUM(CASE WHEN post_control.result=1 THEN 1 ELSE 0 END) as res1,
+            SUM(CASE WHEN post_control.result=2 THEN 1 ELSE 0 END) as res2,
+            SUM(CASE WHEN post_control.result=3 THEN 1 ELSE 0 END) as res3,
+            SUM(CASE WHEN post_control.result=4 THEN 1 ELSE 0 END) as res4,
+            SUM(CASE WHEN post_control.result=5 THEN 1 ELSE 0 END) as res5",
+    "joins"=>"LEFT OUTER JOIN users as croots ON post_control.oper_id = croots.id",
+    "where"=>"(croots.office_id = 1 OR croots.office_id = 2) AND post_control.result <> 0
+            AND DATE_FORMAT(post_control.date_obrab,'%Y%m%d')='".date("Ymd")."'"));
 
 
 
-$STO_ERR_ROWS = '<p>&nbsp;</p>
-    <p><strong>Таблица непосетивших СТО</strong></p>
+$POST_ROWS = '<p>&nbsp;</p>
+    <p><strong>Таблица POST-контроля</strong></p>
 	<p><table border=1>
 	    <thead>
         <tr>
-            <th>СТО</th>
-            <th>Дата договоренности</th>
-            <th>Клиент</th>
-            <th>Машина</th>
-            <th>Менеджер</th>
-        </tr>
-        </thead>
-        <tbody id="table_rows">';
-$numRows = $dbc->count;
-if ($numRows > 0) {
-    foreach($rows as $row){
-        $STO_ERR_ROWS.= '<tr>
-                    <td>'.$row['sto_name'].'</td>
-                    <td>'.$row['date_dog'].'</td>
-                    <td>'.$row['name'].'</td>
-                    <td>'.$row['gn'].'</td>
-                    <td>'.$row['oper'].'</td>
-                    </tr>';
-    }
-}
-else{
-    $STO_ERR_ROWS.='<tr>
-			<td colspan="8" align="center"><strong>Нет данных за этот период !</strong></td>
-			</tr>';
-}
-$STO_ERR_ROWS.= '</tbody>
-    </table>
-    </p></p>';
-
-echo $STO_ERR_ROWS;
-
-#############################################################
-
-$rows = $dbc->dbselect(array(
-    "table"=>"sto",
-    "select"=>"DATE_FORMAT(sto.date_call,'%Y%m%d') as date_call,
-            COUNT(sto.id) as call_count,
-            SUM(CASE WHEN sto.res_call_id='1' THEN 1 ELSE 0 END) as status1,
-            SUM(CASE WHEN sto.res_call_id='2' THEN 1 ELSE 0 END) as status2,
-            SUM(CASE WHEN sto.res_call_id='3' THEN 1 ELSE 0 END) as status3,
-            SUM(CASE WHEN sto.res_call_id='4' THEN 1 ELSE 0 END) as status4,
-            SUM(CASE WHEN sto.res_call_id='5' THEN 1 ELSE 0 END) as status5",
-    "where"=>"DATE_FORMAT(sto.date_call,'%Y%m%d')='".date("Ymd")."'",
-    "group"=>"DATE_FORMAT(sto.date_call,'%Y%m%d')"));
-
-
-
-
-
-$STO_ROWS = '<p>&nbsp;</p>
-    <p><strong>Сводная таблица СТО</strong></p>
-	<p><table border=1>
-	    <thead>
-        <tr>
-            <th rowspan="2">Кол-во приехавших</th>
-            <th rowspan="2">Кол-во неприехавших</th>
-            <th rowspan="2">Количество звонков</th>
+            <th rowspan="2">Количество звонков в день</th>
+            <th rowspan="2">Количество email</th>
+            <th rowspan="2">Средний бал по качеству</th>
             <th colspan="5">Статистика</th>
         </tr>
         <tr>
-            <th>Отработан</th>
-            <th>Недозвон</th>
-            <th>Ошибка номера</th>
             <th>Перезвонить</th>
-            <th>Отказ</th>
+            <th>Не дозвон</th>
+            <th>Неверный номер</th>
+            <th>Агент</th>
+            <th>Отработан</th>
         </tr>
         </thead>
         <tbody id="table_rows">';
 $numRows = $dbc->count;
 if ($numRows > 0) {
     foreach($rows as $row){
-
-        $rows2 = $dbc->dbselect(array(
-            "table"=>"sto",
-            "select"=>"SUM(CASE WHEN sto.visit='1' THEN 1 ELSE 0 END) as ok",
-            "where"=>"DATE_FORMAT(sto.date_visit,'%Y%m%d')='".date("Ymd")."'"));
-        $row2 = $rows2[0];
-        $rows3 = $dbc->dbselect(array(
-            "table"=>"sto",
-            "select"=>"SUM(CASE WHEN sto.visit='0' THEN 1 ELSE 0 END) as err",
-            "where"=>"DATE_FORMAT(sto.date_dog,'%Y%m%d')='".date("Ymd")."'"));
-        $row3 = $rows3[0];
-
-        $STO_ROWS.='<tr>
-                    <td>'.$row2['ok'].'</td>
-                    <td>'.$row3['err'].'</td>
-                    <td>'.$row['call_count'].'</td>
-                    <td>'.$row['status1'].'</td>
-                    <td>'.$row['status2'].'</td>
-                    <td>'.$row['status3'].'</td>
-                    <td>'.$row['status4'].'</td>
-                    <td>'.$row['status5'].'</td>
+        $POST_ROWS.='<tr>
+                    <td>'.$row['zvon'].'</td>
+                    <td>'.$row['emails'].'</td>
+                    <td>'.$row['avg_ocen'].'</td>
+                    <td>'.$row['res1'].'</td>
+                    <td>'.$row['res2'].'</td>
+                    <td>'.$row['res3'].'</td>
+                    <td>'.$row['res4'].'</td>
+                    <td>'.$row['res5'].'</td>
                     </tr>';
     }
 }
 else{
-    $STO_ROWS.='<tr>
+    $POST_ROWS.='<tr>
 			<td colspan="8" align="center"><strong>Нет данных за этот период !</strong></td>
 			</tr>';
 }
-$STO_ROWS.= '</tbody>
+$POST_ROWS.= '</tbody>
     </table>
     </p></p>';
 
-echo $STO_ROWS;
+echo $POST_ROWS;
 
 #############################################################
-
-$rows = $dbc->dbselect(array(
-    "table"=>"costs",
-    "select"=>"sto_tochka.title as sto_name,
-            costs.date_cost as date_cost,
-            costs.title as title,
-            costs.summa as summa",
-    "joins"=>"LEFT OUTER JOIN sto_tochka ON costs.sto_tochka_id = sto_tochka.id",
-    "where"=>"DATE_FORMAT(costs.date_cost,'%Y%m%d')='".date("Ymd")."'"));
-
-
-
-
-
-$STO_COST_ROWS = '<p>&nbsp;</p>
-    <p><strong>Таблица расходов СТО</strong></p>
-	<p><table border=1>
-	    <thead>
-        <tr>
-            <th>СТО</th>
-            <th>Дата</th>
-            <th>Наименование</th>
-            <th>Сумма</th>
-        </tr>
-        </thead>
-        <tbody id="table_rows">';
-$numRows = $dbc->count;
-if ($numRows > 0) {
-    foreach($rows as $row){
-
-        $STO_COST_ROWS.= '<tr>
-                    <td>'.$row['sto_name'].'</td>
-                    <td>'.$row['date_cost'].'</td>
-                    <td>'.$row['title'].'</td>
-                    <td>'.$row['summa'].'</td>
-                    </tr>';
-    }
-}
-else{
-    $STO_COST_ROWS.='<tr>
-			<td colspan="8" align="center"><strong>Нет данных за этот период !</strong></td>
-			</tr>';
-}
-$STO_COST_ROWS.= '</tbody>
-    </table>
-    </p></p>';
-
-echo $STO_COST_ROWS;
-
-#############################################################
-
-$rows = $dbc->dbselect(array(
-    "table"=>"polises",
-    "select"=>"offices.title as office,
-        SUM(summa) as summa",
-    "joins"=>"LEFT OUTER JOIN offices ON polises.office_id = offices.id",
-    "where"=>"DATE_FORMAT(date_write, '%Y%m%d') = '".date("Ymd")."'",
-    "group"=>"office"));
-
-
-
-
-
-$OBOROT_POLISES = '<p>&nbsp;</p>
-    <p><strong>Таблица оборота по выписанным полисам</strong></p>
-	<p><table border=1>
-	    <thead>
-        <tr>
-            <th>Офис</th>
-            <th>Сумма</th>
-        </tr>
-        </thead>
-        <tbody id="table_rows">';
-$numRows = $dbc->count;
-if ($numRows > 0) {
-    foreach($rows as $row){
-
-        $OBOROT_POLISES.= '<tr>
-                    <td>'.$row['office'].'</td>
-                    <td>'.$row['summa'].'</td>
-                    </tr>';
-    }
-}
-else{
-    $OBOROT_POLISES.='<tr>
-			<td colspan="8" align="center"><strong>Нет данных за этот период !</strong></td>
-			</tr>';
-}
-$OBOROT_POLISES.= '</tbody>
-    </table>
-    </p></p>';
-
-echo $OBOROT_POLISES;
-
-#############################################################
-
 $_sendTo = 'tigay84@list.ru';
 $_sendFrom = 'send@kazavtoclub.kz';
-$_mailSubject = 'Отчеты Bento СТО';
+$_mailSubject = 'Отчеты Алматы Bento';
 $_mailFrom = "Bento CRM";
-$mail_body = $STO_CALLS_ROWS.$STO_OK_ROWS.$STO_ERR_ROWS.$STO_ROWS.$STO_COST_ROWS.$OBOROT_POLISES;
+$mail_body = $MAIN_TABLE.$BACK_TABLE.$SUPERVISER_ROWS.$PRAYNIK_ROWS.$POST_ROWS;
 sendMail3('tigay84@list.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
-sendMail3('skiv_80@list.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
-
+sendMail3('mtyrlybekova@mail.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
+sendMail3('hr@kazavtoclub.kz', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
+sendMail3('skiv_80@mail.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
+sendMail3('e.kharitonova777@gmail.com', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
+sendMail3('aida_89__@mail.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
+//$test = sendMail3('skiv.weber@gmail.com', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
+//echo "<p>ОК = ".$test."</p>"
 ?>
 
 </body>

@@ -917,7 +917,7 @@ echo $POST_ROWS;
 #############################################################
 $_sendTo = 'tigay84@list.ru';
 $_sendFrom = 'send@kazavtoclub.kz';
-$_mailSubject = 'Отчеты Bento';
+$_mailSubject = 'Отчеты сводные Bento';
 $_mailFrom = "Bento CRM";
 $mail_body = $MAIN_TABLE.$BACK_TABLE.$SUPERVISER_ROWS.$PRAYNIK_ROWS.$POST_ROWS;
 sendMail3('tigay84@list.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
