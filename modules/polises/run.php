@@ -439,11 +439,13 @@ else{
 		$tpl->assign("DOST_CHECK", ' checked="checked"');
 		$tpl->assign("ADD_BSO", $_SESSION['bso']);
 		$tpl->assign("ADD_BSO_EDIT", ' readonly="1"');
+		$tpl->assign("PRIEM_RIGHT", 0);
 	}
 	else{
 		$tpl->assign("DOST_CHECK", '');
 		$tpl->assign("ADD_BSO", '');
 		$tpl->assign("ADD_BSO_EDIT", '');
+        $tpl->assign("PRIEM_RIGHT", 1); 
 	}
 
 	$liter_btns = '';

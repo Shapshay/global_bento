@@ -33,11 +33,11 @@ function ChangeDateEnd2(returnDateTo){
 	//alert(returnDateTo);
 	//alert(document.getElementById('date_dost'));
 	//if(returnDateTo!=document.getElementById('date_dost')){
-		
+		var priemRight = $('#priem_right').val();
 		var curentDayLimit = moment().add(1,'days').format('YYYY-MM-DD');
 		var inputDay = moment($(returnDateTo).val(), 'DD-MM-YYYY').format('YYYY-MM-DD');
 		console.log('ID = '+$(returnDateTo).attr("name"));
-		if(moment(inputDay).isBefore(curentDayLimit)&&$(returnDateTo).attr("name")!='date_dost'){
+		if(priemRight!=1&&moment(inputDay).isBefore(curentDayLimit)&&$(returnDateTo).attr("name")!='date_dost'){
 			//alert('Дата начала действия страховки должна быть неранее: ' + moment().add(1,'days').format('DD-MM-YYYY'));
 			swal("Ошибка", 'Дата начала действия страховки должна быть неранее: ' + moment().add(1,'days').format('DD-MM-YYYY'), "error");
 			$(returnDateTo).val(moment().add(1,'days').format('DD-MM-YYYY'));

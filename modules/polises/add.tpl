@@ -1,3 +1,4 @@
+<input type="hidden" id="priem_right" value="{PRIEM_RIGHT}">
 <form method="post" enctype="multipart/form-data" name="s_s">
 <p><strong>Страховая компания</strong><br>
 <select name="strach_comp_id">
