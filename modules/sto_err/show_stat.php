@@ -28,9 +28,13 @@ if(isset($_POST['date_start'])){
             sto.name as name,
             sto.gn as gn,
             sto.phone as phone,
+            sto_res_call.title as res,
+            sto_res_err.title as err,
             users.name as oper",
         "joins"=>"LEFT OUTER JOIN sto_tochka ON sto.sto_tochka_id = sto_tochka.id
-        LEFT OUTER JOIN users ON sto.oper_id = users.id",
+            LEFT OUTER JOIN users ON sto.oper_id = users.id
+            LEFT OUTER JOIN sto_res_call ON sto.res_call_id = sto_res_call.id
+            LEFT OUTER JOIN sto_res_err ON sto.err_res_id = sto_res_err.id",
         "where"=>"sto.visit = 0
             AND DATE_FORMAT(sto.date_dog,'%Y%m%d')='".date("Ymd",strtotime($_POST['date_start']))."'"));
     $sql = $dbc->outsql;
@@ -44,6 +48,8 @@ if(isset($_POST['date_start'])){
                     <td>'.$row['gn'].'</td>
                     <td>'.$row['phone'].'</td>
                     <td>'.$row['oper'].'</td>
+                    <td>'.$row['res'].'</td>
+                    <td>'.$row['err'].'</td>
                     </tr>';
         }
     }

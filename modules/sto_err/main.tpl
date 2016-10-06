@@ -26,6 +26,8 @@
             <th>Машина</th>
             <th>Телефон</th>
             <th>Менеджер</th>
+            <th>Результат</th>
+            <th>Причина</th>
         </tr>
         </thead>
         <tbody id="table_rows">
