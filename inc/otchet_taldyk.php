@@ -553,7 +553,7 @@ function PolisCount() {
     global $dbc;
     $rows = $dbc->dbselect(array(
             "table"=>"polises",
-            "select"=>"COUNT(id) AS num",
+            "select"=>"COUNT(polises.id) AS num",
             "joins"=>"LEFT OUTER JOIN users as croots ON polises.oper_id = croots.id",
             "where"=>"(croots.office_id = 4) AND polises.dost <> ''  AND DATE_FORMAT(date_oform, '%Y%m%d') = '".date("Ymd")."'",
             "limit"=>"1"
