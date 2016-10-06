@@ -17,6 +17,7 @@ if(isset($_POST['edt_item'])){
         "name" => $_POST['name'],
 		"gn" => $_POST['gn'],
 		"pn" => $_POST['pn'],
+        "phone2" => $_POST['phone2'],
 		"mark" => $_POST['mark'],
 		"model" => $_POST['model'],
 		"born" => $_POST['born'],
@@ -39,6 +40,7 @@ if(isset($_POST['edt_item'])){
     $params2["Client"]["Model"] = $_POST['model'];
     $params2["Client"]["GodVypusk"] = $_POST['born'];
     $params2["Client"]["Telefon"] = $row['phone'];
+    $params2["Client"]["Telefon1"] = $_POST['phone2'];
     $params2["Client"]["Email"] = $_POST['email'];
     $params2["Client"]["Comment"] = '';
     $params2["Client"]["Iin"] = $row['iin'];
@@ -163,6 +165,7 @@ if(isset($c_id)){
 	$tpl->assign("U_NAME", $row['name']);
 	$tpl->assign("U_GN", $row['gn']);
 	$tpl->assign("U_PN", $row['pn']);
+	$tpl->assign("U_PHONE2", $row['phone2']);
 	$tpl->assign("U_MARK", $row['mark']);
 	$tpl->assign("U_MODEL", $row['model']);
 	$tpl->assign("U_YEAR", $row['born']);
@@ -226,6 +229,7 @@ else{
 	$tpl->assign("EDT_RES_PREV_CALL", '');
 	$tpl->assign("EDT_SOURCE", '');
 	$tpl->assign("EDT_DATE_END", '');
+	$tpl->assign("U_PHONE2", '');
 	$tpl->assign("EDT_COMMENT", '');
 	$tpl->assign("EDT_DATE_LOST", '');
 	$tpl->assign("EDT_DATE_TOCHNAYA", '');

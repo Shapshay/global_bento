@@ -44,6 +44,8 @@
 <input type="hidden" name="code_1C" value="{CLIENT_CODE_1C}" />
 <p><strong>Имя</strong><br>
 <input type="text" name="name" value="{U_NAME}" id="name" class="pole_vvoda" style="padding-left:10px;">
+<p><strong>Добавочный телефон</strong><br>
+<input type="text" name="phone2" value="{U_PHONE2}" id="phone2" class="pole_vvoda" style="padding-left:10px;">
 <p><strong>E-mail</strong><br>
 <input type="text" name="email" value="{U_EMAIL}" id="name" class="pole_vvoda" style="padding-left:10px;">
 <p><strong>Дата окончания ТО</strong><br>

@@ -42,6 +42,7 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])){
             "model" => $c_arr['Model'],
             "born" => $c_arr['GodVypusk'],
             "phone" => $c_arr['Telefon'],
+			"phone2" => $c_arr['Telefon1'],
             "email" => $c_arr['Email'],
             "date_to_end" => date("Y-m-d",strtotime($c_arr['DateOfEnd'])),
             "comment" => addslashes($c_arr['Comment'])));
@@ -60,6 +61,7 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])){
             "model" => $c_arr['Model'],
             "born" => $c_arr['GodVypusk'],
             "phone" => $c_arr['Telefon'],
+			"phone2" => $c_arr['Telefon1'],
             "email" => $c_arr['Email'],
             "date_to_end" => date("Y-m-d",strtotime($c_arr['DateOfEnd'])),
             "comment" => addslashes($c_arr['Comment'])));
@@ -115,6 +117,12 @@ if(isset($c_id)){
             <img src="images/bell1.png" class="img_call" align="absmiddle" style="margin:3px; cursor:pointer;">'.$row['phone'].'
             <input type="hidden" id="phone_call'.$c.'" value="'.$row['phone'].'" />';
     $c++;
+    if($row['phone2']!=''){
+        $phones.='<br>
+            <img src="images/bell1.png" class="img_call" align="absmiddle" style="margin:3px; cursor:pointer;">'.$row['phone2'].'
+            <input type="hidden" id="phone_call'.$c.'" value="'.$row['phone2'].'" />';
+    }
+
 
 	$tpl->assign("INFO_U_PHONE", $phones);
 	
