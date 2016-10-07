@@ -666,4 +666,17 @@ function getClientSTOID($code_1C) {
 	$row = $dbc->element_find_by_field('sto','code_1C',$code_1C);
 	return $row['id'];
 }
+
+// ID STO-клиента по коду 1С
+function getClientSTOoperID($code_1C) {
+	global $dbc;
+	$row = $dbc->element_find_by_field('sto','code_1C',$code_1C);
+	return $row['oper_id'];
+}
+
+function getUserName($u_id) {
+    global $dbc;
+    $resp = $dbc->element_find_by_field('users','id',$u_id);
+    return $resp['name'];
+}
 ?>

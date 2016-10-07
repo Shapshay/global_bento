@@ -46,7 +46,7 @@ else{
             foreach($clients as $client){
 				$c_arr = $client;
 				$c_id = getClientSTOID($c_arr['Code1C']);
-                $oper_id = getOperCode1CId($c_arr['ManagerCode']);
+                $oper_id = getClientSTOoperID($c_arr['Code1C']);
 				if($c_id==0){
 					$dbc->element_create("sto",array(
 						"code_1C" => $c_arr['Code1C'],
@@ -64,6 +64,7 @@ else{
 						"comment" => addslashes($c_arr['Comment'])));
 
 					$c_id = $dbc->ins_id;
+
 				}
 				else{
                     $dbc->element_update('sto',$c_id,array(
@@ -80,14 +81,24 @@ else{
                         "email" => $c_arr['Email'],
                         "date_to_end" => date("Y-m-d",strtotime($c_arr['DateOfEnd'])),
                         "comment" => addslashes($c_arr['Comment'])));
+
 				}
+
+
+                if($oper_id==0){
+                    $tpl->assign("RESULT_OPER", 'Нет оператора');
+                }
+                else{
+                    $tpl->assign("RESULT_OPER", getUserName($oper_id));
+                }
 
 				$tpl->assign("RESULT_NAME", $client['Name']);
 				$tpl->assign("RESULT_IIN", $client['Iin']);
 				$tpl->assign("RESULT_GOSNOMER", $client['GosNomer']);
 				$tpl->assign("RESULT_PHONE", $c_arr['Telefon']);
 
-				if($oper_id==ROOT_ID||ROOT_ID==1){
+
+				if($oper_id==ROOT_ID||ROOT_ID==1||$oper_id==0){
 					$tpl->assign("RESULT_URL", "/".getItemCHPU(2216, 'pages')."/?item=".$c_id);
 				}
 				else{
@@ -103,7 +114,7 @@ else{
             $client = $array['return'];
 			$c_arr = $client;
 			$c_id = getClientSTOID($c_arr['Code1C']);
-            $oper_id = getOperCode1CId($c_arr['ManagerCode']);
+            $oper_id = getClientSTOoperID($c_arr['Code1C']);
             //print_r($c_arr);
             if($c_id==0){
                 $dbc->element_create("sto",array(
@@ -147,7 +158,13 @@ else{
             $tpl->assign("RESULT_IIN", $client['Iin']);
             $tpl->assign("RESULT_GOSNOMER", $client['GosNomer']);
             $tpl->assign("RESULT_PHONE", $c_arr['Telefon']);
-            if($oper_id==ROOT_ID||ROOT_ID==1){
+            if($oper_id==0){
+                $tpl->assign("RESULT_OPER", 'Нет оператора');
+            }
+            else{
+                $tpl->assign("RESULT_OPER", getUserName($oper_id));
+            }
+            if($oper_id==ROOT_ID||ROOT_ID==1||$oper_id==0){
                 $tpl->assign("RESULT_URL", "/".getItemCHPU(2216, 'pages')."/?item=".$c_id);
             }
             else{
