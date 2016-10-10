@@ -35,7 +35,7 @@ if(isset($_POST['date_start'])){
             LEFT OUTER JOIN users ON sto.oper_id = users.id
             LEFT OUTER JOIN sto_res_call ON sto.res_call_id = sto_res_call.id
             LEFT OUTER JOIN sto_res_err ON sto.err_res_id = sto_res_err.id",
-        "where"=>"sto.visit = 0
+        "where"=>"sto.visit = 0 AND sto.res_call_id<>2 AND sto.res_call_id<>3 AND sto.res_call_id<>4  
             AND DATE_FORMAT(sto.date_dog,'%Y%m%d')='".date("Ymd",strtotime($_POST['date_start']))."'"));
     $sql = $dbc->outsql;
     $numRows = $dbc->count;
