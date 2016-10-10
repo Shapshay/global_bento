@@ -346,6 +346,7 @@ $rows3 = $dbc->dbselect(array(
 			".$add_select."
 			 AND polises.dost = 1
 			 AND DATE_FORMAT(polises.date_write,'%Y%m%d')>20160821",
+		"group"=>"bso_number",
 		"order"=>"polises.date_write"
 	)
 );
