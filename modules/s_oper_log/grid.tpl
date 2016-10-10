@@ -102,7 +102,7 @@
 
         }
 
-        //alert("oper_id="+oper_id+"\nROOT_ID="+ROOT_ID+"\nphone="+phone+"\nOcenka="+Ocenka+"\nres_id="+res_id);
+        alert("oper_id="+oper_id+"\nROOT_ID="+ROOT_ID+"\nphone="+phone+"\nOcenka="+Ocenka+"\nres_id="+res_id);
 		$.post("modules/s_oper_log/control.php", {oper_id: oper_id, ROOT_ID: ROOT_ID, phone: phone, Ocenka: Ocenka, res_id:res_id , send_err_arr:send_err_arr},
                 function(data){
                     //alert(data);
