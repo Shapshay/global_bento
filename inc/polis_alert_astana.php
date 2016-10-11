@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Skiv
- * Date: 17.08.2016
- * Time: 11:58
+ * Date: 11.10.2016
+ * Time: 15:15
  */
 error_reporting (E_ALL);
 ini_set("display_errors", 1);
@@ -651,7 +651,7 @@ $rows = $dbc->dbselect(array(
             polises.date_start as date_start",
         "where"=>"polises.status = 1 AND
             DATE_ADD(polises.date_write, INTERVAL 30 MINUTE) < NOW() AND
-            polises.office_id = 1 AND 
+            polises.office_id = 3 AND 
             DATE_FORMAT(polises.date_write,'%Y%m%d')>20160930"
     )
 );
@@ -693,7 +693,7 @@ $rows = $dbc->dbselect(array(
         "where"=>"polises.status = 2 AND
             DATE_ADD(polises.date_print, INTERVAL 3 DAY) < NOW() AND
             AND polises.dost = 1
-            polises.office_id = 1 AND 
+            polises.office_id = 3 AND 
             DATE_FORMAT(polises.date_write,'%Y%m%d')>20161009"
     )
 );
@@ -736,7 +736,7 @@ $rows = $dbc->dbselect(array(
         "where"=>"polises.status = 3 AND
             DATE_ADD(polises.date_indost, INTERVAL 3 DAY) < NOW() AND
             polises.office_id = 1 AND 
-            polises.dost = 1 AND 
+            polises.dost = 3 AND 
             DATE_FORMAT(polises.date_write,'%Y%m%d')>20160930"
     )
 );
@@ -774,7 +774,7 @@ $COUR_TABLE.='</tbody>
 if($SEND) {
     $_sendTo = 'tigay84@list.ru';
     $_sendFrom = 'send@kazavtoclub.kz';
-    $_mailSubject = 'Красные полисы Bento CRM';
+    $_mailSubject = 'Красные полисы Bento CRM Астана';
     $_mailFrom = "Bento CRM";
     $mail_body = $COUR_TABLE . $INDOST_TABLE . $PRINT_TABLE;
     sendMail3('tigay84@list.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
@@ -783,6 +783,7 @@ if($SEND) {
     //sendMail3('skiv_80@mail.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
     sendMail3('e.kharitonova777@gmail.com', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
     sendMail3('aida_89__@mail.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
+    sendMail3('aiko_281289@mail.ru', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
     //$test = sendMail3('skiv.weber@gmail.com', $_mailSubject, $mail_body, $_mailFrom, $_sendFrom);
     //echo "<p>ОК = " . $test . "</p>";
 }
