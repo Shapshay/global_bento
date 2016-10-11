@@ -308,6 +308,23 @@ function getItemTitle($table, $item_id) {
 	return '';
 }
 
+// проверка удаленного доступа
+function setUserUdal($ip, $udal) {
+	$ips = array('185.97.114.249','89.218.11.74');
+	if ($udal == 0) {
+		if (in_array($ip, $ips)){
+			return true;
+		} 
+		else{
+			return false;
+		} 
+	}
+	else{
+		return true;
+	}
+	
+}
+
 //############### VALUES ###########################################
 
 // модернизированный implode

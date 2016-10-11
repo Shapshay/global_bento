@@ -21,25 +21,37 @@ if (isset($_POST['send'])) {
     $numRows = $dbc->count;
     if ($numRows > 0) {
         $row = $rows[0];
-        session_name('USER');
-        @session_start('USER');
-        $_SESSION['lgn'] = $usrname;
-        $_SESSION['psw'] = $usrpass;
-        $_SESSION['login_1C'] = $row['login_1C'];
-        // Сохраняем логин и пароль в куках, удаляем если не отметили "запомнить"
-        if (isset($_POST['member'])) {
-            $cookie_value = $usrname."|".$usrpass;
-            setcookie("bento", $cookie_value, time()+60*60*24*30, "", $_SERVER['HTTP_HOST']);
-        } else {
-            if (isset($_COOKIE['bento'])) setcookie("bento", "", 0);
+        if(!setUserUdal($_SERVER['REMOTE_ADDR'], $row['udal'])){
+            echo ('
+			<script language="JavaScript">
+				alert("Вам запрещен доступ к данному ресурсу !!!");
+			</script>
+		    ');
+        }
+        else{
+            $row = $rows[0];
+            session_name('USER');
+            @session_start('USER');
+            $_SESSION['lgn'] = $usrname;
+            $_SESSION['psw'] = $usrpass;
+            $_SESSION['login_1C'] = $row['login_1C'];
+            // Сохраняем логин и пароль в куках, удаляем если не отметили "запомнить"
+            if (isset($_POST['member'])) {
+                $cookie_value = $usrname."|".$usrpass;
+                setcookie("bento", $cookie_value, time()+60*60*24*30, "", $_SERVER['HTTP_HOST']);
+            } else {
+                if (isset($_COOKIE['bento'])) setcookie("bento", "", 0);
+            }
+
+
+            header("Location: /".getItemCHPU($row['page_id'], 'pages').'/?count=1');
+            exit;
         }
 
 
-        header("Location: /".getItemCHPU($row['page_id'], 'pages').'/?count=1');
-        exit;
     }
     else{
-        echo $usrname." = ".$usrpass.SECRET;
+        //echo $usrname." = ".$usrpass.SECRET;
         echo ('
 			<script language="JavaScript">
 				alert("Логин или пароль некорректны !!!");

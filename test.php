@@ -229,7 +229,7 @@ for ($i=0;$i<=1000;$i++){
     }
 }*/
 
-$rows = $dbc->dbselect(array(
+/*$rows = $dbc->dbselect(array(
     "table"=>"users",
     "select"=>"*",
     "where"=>"office_id=3"));
@@ -239,5 +239,40 @@ foreach($rows as $row){
         echo $row['phone']." = ".$new_phone."<br>";
         //$dbc->element_update('users',$row['id'],array("phone" => $new_phone));
     }
+}*/
+
+/*$rows = $dbc->dbselect(array(
+        "table"=>"cour_polis",
+        "select"=>"*"
+    )
+);
+$numRows = $dbc->count;
+$i = 0;
+$j = 0;
+$x = 0;
+if ($numRows > 0) {
+    foreach ($rows as $row){
+        switch ($row['stat_ok']){
+            case 0:
+                $dbc->element_update('polises',$row['polis_id'],array(
+                    "status" => 3));
+                $i++;
+            break;
+            case 1:
+                $dbc->element_update('polises',$row['polis_id'],array(
+                    "status" => 4));
+                $j++;
+            break;
+            case 2:
+                $dbc->element_update('polises',$row['polis_id'],array(
+                    "status" => 5));
+                $x++;
+            break;
+        }
+        echo $i." = ".$j." = ".$x;
+    }
 }
+else {
+    echo 0;
+}*/
 ?>

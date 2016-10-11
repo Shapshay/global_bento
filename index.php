@@ -91,6 +91,12 @@ if(isRolePage($USER_ROLE,$_GET['menu'])==0){
 	header("Location: /access_is_denied");
 }
 
+if($_GET['menu']!=212&&(date("His")>'200000'||date("His")<'080000')){
+    header("http/1.0 404 Not found");
+    header("Location: /404");
+}
+
+
 $page_id = $page_arr['id'];
 $page_template = $page_arr['stemplate'];
 $page_content = $page_arr['content'];
