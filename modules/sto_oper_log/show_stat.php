@@ -64,11 +64,20 @@ if(isset($_POST['oper_type'])){
                     "where" => "sto.phone = '" . $row['phone'] . "' AND sto.res_call_id = 5",
                     "limit" => 1));
                 $row2 = $rows2[0];
-                //echo $dbc->outsql."<br>";
                 $err = $row2['err'];
-                //$td = $row2['date_end'];
             } else {
-                $err = '-';
+                if ($row['res_id'] == 4) {
+                    $rows2 = $dbc->dbselect(array(
+                        "table" => "sto",
+                        "select" => "sto_res_pozvon.title as err",
+                        "joins" => "LEFT OUTER JOIN sto_res_pozvon ON sto.pozvon_res_id = sto_res_pozvon.id",
+                        "where" => "sto.phone = '" . $row['phone'] . "' AND sto.res_call_id = 4",
+                        "limit" => 1));
+                    $row2 = $rows2[0];
+                    $err = $row2['err'];
+                } else {
+                    $err = '-';
+                }
             }
             $view_log_url = '/' . getItemCHPU(2207, 'pages') . '/?act=log_view&contact=' . $row['id'];
             $audio_link = '<a href="javascript:PlayCall(\'' . $row['link'] . '\', \'' . $row['oper_id'] . '\', \'' . $row['phone'] . '\', \'' . $row['res'] . '\', \'' . $row['res_id'] . '\');">' . $row['link'] . '</a>';

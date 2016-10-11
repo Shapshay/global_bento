@@ -10,6 +10,10 @@
 </select>
 
 <div class="stoDivPerezvon">
+    <p><strong>Причина перезвона</strong><br>
+        <select name="perezvon_res_id" id="perezvon_res_id">
+            {PREZVON_RES_CALLS_ROWS}
+        </select>
 <p><strong>Дата следующего звонка</strong><br>
 <input type="text" name="date_next_call" id="date_next_call" value="{EDT_DATE_NEXT_CALL}" style="width:200px;padding-left:10px;" readonly="readonly" class="pole_vvoda">
 <button type="button" class="btn_pero_mini" onclick="javascript:displayCalendar(document.s_s2.date_next_call,'dd-mm-yyyy hh:ii',this,true);">{STR_SELECT}</button>

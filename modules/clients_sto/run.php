@@ -98,6 +98,7 @@ if(isset($_POST['res_call_id'])){
         case 4:
             $dbc->element_update('sto',$c_id,array(
                 "res_call_id" => $_POST['res_call_id'],
+                "pozvon_res_id" => $_POST['perezvon_res_id'],
                 "date_call" => 'NOW()'));
             break;
         case 5:
@@ -202,6 +203,17 @@ if(isset($c_id)){
         $err_res_calls.='<option value="'.$row['id'].'">'.$row['title'];
     }
     $tpl->assign("ERR_RES_CALLS_ROWS", $err_res_calls);
+
+	$pere_res_calls='';
+	$rows = $dbc->dbselect(array(
+			"table"=>"sto_res_pozvon",
+			"select"=>"id, title"
+		)
+	);
+	foreach($rows as $row){
+		$pere_res_calls.='<option value="'.$row['id'].'">'.$row['title'];
+	}
+	$tpl->assign("PREZVON_RES_CALLS_ROWS", $pere_res_calls);
 
     $sel_sto='';
     $rows = $dbc->dbselect(array(
