@@ -53,12 +53,17 @@ else{
         $result = $client2->PutPolicToTrash($params2);
         $array_save = objectToArray($result);
         $res_save_1c = $array_save['return'];
-
+        //echo $res_save_1c;
         if($res_save_1c=='Успешно') {
-
-            $dbc->element_update('polises',$_POST['pc_err'],array(
+            $sql = "UPDATE polises SET 
+                  status=5,
+                  date_err=NOW()
+                  WHERE bso_number='".$_POST['pc_err']."'";
+            $dbc->element_free_update($sql);
+            /*$dbc->element_update('polises',$_POST['pc_err'],array(
                 "status" => 5,
-                "date_err" => 'NOW()'));
+				"1C_comment" => $res_save_1c,
+                "date_err" => 'NOW()'));*/
         }
         else{
             echo "<p>Ошибка сохранения в 1C !<br>".$res_save_1c;

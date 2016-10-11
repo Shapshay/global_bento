@@ -300,7 +300,7 @@ $rows3 = $dbc->dbselect(array(
 		"where"=>"polises.status = 2 AND 
 			".$add_select."
 			 AND polises.dost = 1
-			 AND DATE_FORMAT(polises.date_write,'%Y%m%d')>20160821",
+			 AND DATE_FORMAT(polises.date_write,'%Y%m%d')>20161009",
 		"order"=>"polises.date_write"
 	)
 );
