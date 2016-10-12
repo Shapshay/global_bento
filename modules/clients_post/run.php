@@ -48,6 +48,11 @@ if(isset($_POST['ocen'])){
 
 	$result = $client2->SaveCallPost($params2);*/
 
+	$log = getOperCurentMaxLog(ROOT_ID);
+	$dbc->element_update('calls_log',$log,array(
+		"res" => $_POST['res_call_id'],
+		"date_end" => 'NOW()'));
+
 	header("Location: /".getItemCHPU($_GET['menu'], 'pages'));
 	exit;
 }
