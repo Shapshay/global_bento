@@ -25,6 +25,7 @@
             <th>Клиент</th>
             <th>Машина</th>
             <th>Сумма</th>
+            <th>Тип расчета</th>
         </tr>
         </thead>
         <tbody id="table_rows">

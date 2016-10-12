@@ -163,6 +163,7 @@ else{
                 "date_to_end" => date("Y-m-d",strtotime($client['date_to_end'])),
                 "status_to" => $client['status_to'],
                 "summa" => $client['summa'],
+                "bn" => $client['bn'],
                 "strach" => $client['strach'],
                 "strach_company" => $client['strach_company'],
                 "date_strach_start" => date("Y-m-d",strtotime($client['date_strach_start'])),

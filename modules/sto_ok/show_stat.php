@@ -27,7 +27,8 @@ if(isset($_POST['date_start'])){
             sto.date_visit as date_visit,
             sto.name as name,
             sto.gn as gn,
-            sto.summa as summa",
+            sto.summa as summa,
+            sto.bn as bn",
         "joins"=>"LEFT OUTER JOIN sto_tochka ON sto.sto_tochka_id = sto_tochka.id",
         "where"=>"sto.visit = 1
             AND DATE_FORMAT(sto.date_visit,'%Y%m%d')='".date("Ymd",strtotime($_POST['date_start']))."'"));
@@ -35,12 +36,19 @@ if(isset($_POST['date_start'])){
     $numRows = $dbc->count;
     if ($numRows > 0) {
         foreach ($rows as $row) {
+            if($row['bn']==0){
+                $bn = 'Наличными';
+            }
+            else{
+                $bn = 'Безналичный расчет';
+            }
             $html.= '<tr>
                     <td>'.$row['sto_name'].'</td>
                     <td>'.$row['date_visit'].'</td>
                     <td>'.$row['name'].'</td>
                     <td>'.$row['gn'].'</td>
                     <td>'.$row['summa'].'</td>
+                    <td>'.$bn.'</td>
                     </tr>';
         }
     }
