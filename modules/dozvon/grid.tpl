@@ -12,10 +12,11 @@
 function ShowStatTable(){
     var office_id = $('#office_id option:selected').val();
 	var date_start = $('#date_start').val();
+    var date_end = $('#date_end').val();
 	//alert(limit);
 	$('#table_rows').html('');
 	$('#waitGear').show();
-	$.post("modules/dozvon/show_stat.php", {date_start:date_start, office_id:office_id},
+	$.post("modules/dozvon/show_stat.php", {date_start:date_start, date_end:date_end, office_id:office_id},
 			function(data){
 				//alert(data);
 				var obj = jQuery.parseJSON(data);
@@ -23,6 +24,7 @@ function ShowStatTable(){
 					table.destroy();
 					$('#itog_call').html(obj.all_calls);
 					$('#itog_dozvon').html(obj.all_dozv);
+                    $('#all_proc').html(obj.all_proc);
 					$('#table_rows').html(obj.html);
 					console.log(obj.sql);
 					table = $('#stat_table2').DataTable( {

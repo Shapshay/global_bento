@@ -19,29 +19,35 @@ function getItemCHPU($id, $item_tab) {
 //////////////////////////////////////////////////////////////////////////////////////
 
 if(isset($_POST['date_start'])){
-
+    $start = date("YmdHi",strtotime($_POST['date_start']));
+    $end = date("YmdHi",strtotime($_POST['date_end']));
     $html = '';
     $rows = $dbc->dbselect(array(
         "table"=>"dozvon_log",
         "select"=>"COUNT(dozvon_log.id) as all_calls,
             SUM(CASE WHEN dozvon_log.dozvon=1 THEN 1 ELSE 0 END) as dozvon,
-            users.name as oper",
+            users.name as oper,
+            users.id as u_id,
+            SUM(CASE WHEN dozvon_log.dozvon=1 THEN 1 ELSE 0 END)*100/COUNT(dozvon_log.id) as proc",
         "joins"=>"LEFT OUTER JOIN users ON dozvon_log.oper_id = users.id",
         "where"=>"dozvon_log.res <> 0 AND
             users.office_id = ".$_POST['office_id']." AND
-            DATE_FORMAT(dozvon_log.date_log,'%Y%m%d')='".date("Ymd",strtotime($_POST['date_start']))."'",
+            DATE_FORMAT(dozvon_log.date_log,'%Y%m%d%H%i')>='".$start."' AND 
+            DATE_FORMAT(dozvon_log.date_log,'%Y%m%d%H%i')<='".$end."'",
         "group"=>"dozvon_log.oper_id",
-        "order"=>"users.name"));
+        "order"=>"proc ASC"));
     $sql = $dbc->outsql;
     $numRows = $dbc->count;
     $all_calls = 0;
     $all_dozv = 0;
+
     if ($numRows > 0) {
         foreach ($rows as $row) {
             $all_calls+=$row['all_calls'];
             $all_dozv+=$row['dozvon'];
             $html.= '<tr>
-                    <td width="200">'.$row['oper'].'</td>
+                    <td align="center">'.number_format($row['proc'], 2, ',', ' ').'%</td>
+                    <td width="200"><a href="?menu=2229&view='.$row['u_id'].'&start='.$start.'&end='.$end.'">'.$row['oper'].'</a></td>
                     <td align="center">'.$row['dozvon'].'</td>
                     <td align="center">'.$row['all_calls'].'</td>
                     </tr>';
@@ -55,6 +61,7 @@ if(isset($_POST['date_start'])){
     $out_row['html'] = $html;
     $out_row['all_calls'] = $all_calls;
     $out_row['all_dozv'] = $all_dozv;
+    $out_row['all_proc'] = number_format($all_dozv/($all_calls/100), 2, ',', ' ').'%';
     $out_row['result'] = 'OK';
 }
 else{
