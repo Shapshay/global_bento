@@ -211,6 +211,12 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
         "oper_id" => ROOT_ID,
         "date_end" => 'NOW()'));
 
+    $dbc->element_create("dozvon_log",array(
+        "oper_id" => ROOT_ID,
+        "client_id" => $c_id,
+        "date_log" => 'NOW()'));
+    $_SESSION['dozvon'] = $dbc->ins_id;
+
 }
 else{
 	if(isset($_GET['item'])){
@@ -242,6 +248,7 @@ if(isset($c_id)){
 	$row = $dbc->element_find('clients',$c_id);
 
 	$tpl->assign("INFO_U_FIO", $row['fio']);
+    $tpl->assign("DOZVON_ID", $_SESSION['dozvon']);
 	$tpl->assign("INFO_U_NAME", $row['name']);
 	$tpl->assign("INFO_U_IIN", $row['iin']);
 	$tpl->assign("INFO_U_RNN", $row['rnn']);

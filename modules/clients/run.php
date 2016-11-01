@@ -178,7 +178,8 @@ if(isset($_POST['res_call_id'])){
     $dbc->element_update('zap_1c',$zap_id,array(
         "oper_id" => ROOT_ID,
         "date_end" => 'NOW()'));
-
+	$dbc->element_update('dozvon_log',$_SESSION['dozvon'],array(
+		"res" => $_POST['res_call_id']));
 	header("Location: /".getItemCHPU(2176, 'pages'));
 	exit;
 }
