@@ -709,7 +709,7 @@
 				cur_timer = Date.now();
 				cur_await = cur_timer - start_timer;
 
-				if(cur_await>300000&&UrodStat==0){
+				if(cur_await>300000 && UrodStat==0){
 					console.log('time 1');
 					UrodStat = 1;
 					//alert(UrodStat);
@@ -723,7 +723,10 @@
 
 				if(CallStatus=="<i>In Call</i>"){
 					console.log('time 2_1');
-
+					$.post("inc/ajax/dozvon.php", {DOZVON_ID:{DOZVON_ID}},
+							function(data){
+								console.log(data);
+							});
 					stop_timer = Date.now();
 					//alert(UrodStat+" "+Soedinenie);
 					if(UrodStat==1&&Soedinenie==0){
@@ -740,7 +743,7 @@
 					//return true;
 				}
 
-				if(CallStatus=="<i>Call terminating...</i>"&&Soedinenie==1){
+				if(CallStatus=="<i>Call terminating...</i>" && Soedinenie==1){
 					console.log('time 3_1');
 					Soedinenie=2;
 					post_timer_start = Date.now();
@@ -777,7 +780,7 @@
 </script>
 
 
-
+<input type="hidden" id="dozvon_id" value="{DOZVON_ID}"/>
 
 
 </body>
