@@ -118,6 +118,23 @@ function PolisSumm(){
     $('#inkasFrm').submit();
 }
 
+function RowsCount1(){
+	var rows1_count = parseInt($('#dost1_rows_count').val());
+	rows1_count = rows1_count + 1;
+	$('#dost1_rows_count').val(rows1_count);
+	if(rows1_count>=10){
+		swal("Предупреждение!", "Рекомендуется отправить полисы !", "error");
+	}
+}
+function RowsCount2(){
+	var rows2_count = parseInt($('#dost2_rows_count').val());
+	rows2_count = rows2_count + 1;
+	$('#dost2_rows_count').val(rows2_count);
+	if(rows2_count>=10){
+		swal("Предупреждение!", "Рекомендуется отправить полисы !", "error");
+	}
+}
+
 /*function SearchCour() {
 	var curTxt = $('select#c_id').text();
 	dtable.search(curTxt).draw();

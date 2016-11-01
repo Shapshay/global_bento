@@ -261,6 +261,7 @@ if(isset($_POST['polis_to_cour'])&&isset($_POST['PolCheck'])){
 		//print_r($params);
         $result = $client->ClearSetPolicCurier($params);
 		$pol_arr.= $v.',';
+		//print_r($result);
 	}
 	echo '<script type="text/javascript">window.open("http://'.$_SERVER['HTTP_HOST'].'/inc/ajax/pdf.php?pdf_type=c_p&c_id='.$_POST['c_id'].'&pol_arr='.$pol_arr.'");</script>';
 }

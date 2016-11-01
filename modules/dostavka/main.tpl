@@ -15,6 +15,7 @@
 	{DOST1_ROWS}
 	</tbody>
 	</table>
+		<input type="hidden" id="dost1_rows_count" value="0">
     </p>
     <p><strong>Курьер</strong><br>
     	<select name="c_id">
@@ -48,6 +49,7 @@
 	{DOST2_ROWS}
 	</tbody>
 	</table>
+		<input type="hidden" id="dost2_rows_count" value="0">
     </p>
     <p><strong>Курьер</strong><br>
     	<select name="c_id" id="c_id">
