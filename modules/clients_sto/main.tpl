@@ -36,6 +36,8 @@
         <select name="sto" id="sto">
             {SEL_STO}
         </select>
+    <p><strong>Комментарий к звонку</strong><br>
+        <textarea name="call_comment2" rows="5" cols="45" id="call_comment2"></textarea>
 </div>
 
 
