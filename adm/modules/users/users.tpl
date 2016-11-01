@@ -56,6 +56,7 @@
 			<p>
 			<label>Логин</label>
 			<input class="text-input medium-input" type="text" id="login" name="login" value="" />
+				<input type="button" value="Получить свободный" class="button" onclick="checkFreeLogin();">
 			</p>
 			<p>
 			<label>Пароль</label>

@@ -110,4 +110,20 @@ function checkFreePhone(){
 				}
 			});
 }
+
+function checkFreeLogin(){
+	var name = $('#name').val();
+	$.post("modules/users/get_login.php", {name:name},
+			function(data){
+				//alert(data);
+				var obj = jQuery.parseJSON(data);
+				if(obj.result=='OK'){
+					$('#login').val(obj.login);
+				}
+				else{
+					swal("Ошибка Сервера!", "Объект ненайден !", "error");
+					//alert(data);
+				}
+			});
+}
 </script>
