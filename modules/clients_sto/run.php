@@ -77,6 +77,7 @@ if(isset($_POST['res_call_id'])){
                 "res_call_id" => $_POST['res_call_id'],
                 "date_dog" => date("Y-m-d",strtotime($_POST['date_dog'])),
                 "sto_tochka_id" => $_POST['sto'],
+				"comment" => $_POST['call_comment2'],
                 "date_call" => 'NOW()'));
             $row5 = $dbc->element_find('sto',$c_id);
             if(date("Ymd",strtotime($row5['date_dog']))==date("Ymd")){
@@ -133,7 +134,13 @@ if(isset($_POST['res_call_id'])){
 	$params2["Call"]["ClientCode"] = $_POST['code_1C'];
 	$params2["Call"]["Status"] = $_POST['res_call_id'];
 	$params2["Call"]["DopStatus"] = $res_err;
-	$params2["Call"]["Comment"] = $_POST['call_comment'];
+	if($_POST['res_call_id']==1){
+        $params2["Call"]["Comment"] = $_POST['call_comment2'];
+    }
+    else{
+        $params2["Call"]["Comment"] = $_POST['call_comment'];
+    }
+
 	$params2["Call"]["DateContact"] = date('Y-m-d\TH:i:s',strtotime($_POST['date_next_call']));
     $params2["Call"]["Sto"] = $row['code'];
     $params2["Call"]["DateDogovor"] = date('Y-m-d',strtotime($_POST['date_dog']));

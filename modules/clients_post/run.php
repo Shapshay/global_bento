@@ -29,7 +29,7 @@ if(isset($_POST['ocen'])){
         "date_next_call" => date("Y-m-d H:i",strtotime($_POST['date_next_call'])),
 		"date_obrabt" => 'NOW()'));
     //echo "<p>".$dbc->outsql;
-	/*ini_set("soap.wsdl_cache_enabled", "0" );
+	ini_set("soap.wsdl_cache_enabled", "0" );
 
 	$client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 		array(
@@ -46,7 +46,7 @@ if(isset($_POST['ocen'])){
 	$params2["CallPost"]["Ocenka"] = $_POST['ocen'];
 	$params2["CallPost"]["Email"] = $_POST['email'];
 
-	$result = $client2->SaveCallPost($params2);*/
+	$result = $client2->SaveCallPost($params2);
 
 	$log = getOperCurentMaxLog(ROOT_ID);
 	$dbc->element_update('calls_log',$log,array(
