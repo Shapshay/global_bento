@@ -41,7 +41,7 @@ function curentCallStatus(){
 	return txtCallStatus.innerHTML; 
 	//return "work !"; 
 }
-function InitFrameFields(VnutPhone, ROOT_ID, FSW_IP){
+function InitFrameFields(VnutPhone, ROOT_ID, FSW_IP, BELL_CLOSE){
 	txtDisplayName.value = VnutPhone;
 	//alert(VnutPhone);
 	txtPrivateIdentity.value = VnutPhone;
@@ -53,6 +53,13 @@ function InitFrameFields(VnutPhone, ROOT_ID, FSW_IP){
     txtRealm.value = FSW_IP;
 	sipRegister();
 	txtRegStatus.innerHTML = '<b>Connected</b>';
+	if(BELL_CLOSE==1){
+        $('#btnHangUp').hide();
+        BellTimer = setInterval(function () {
+                    $('#btnHangUp').show();
+                },
+                20000);
+    }
 }
 
 // FRODO1
@@ -142,7 +149,7 @@ function OperEM(){
 </script></head>
 <body style="cursor: default;" bgcolor="#F5DDED">
     
-                
+
 				
 	
      

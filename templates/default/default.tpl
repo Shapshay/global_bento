@@ -409,7 +409,7 @@
 	InitTimer = setInterval(function () {
 				if (parent.topFrame.oReadyStateBool) {
 					clearInterval(InitTimer);
-					parent.topFrame.InitFrameFields({ROOT_PHONE}, {ROOT_ID}, '{FSW_IP}');
+					parent.topFrame.InitFrameFields({ROOT_PHONE}, {ROOT_ID}, '{FSW_IP}', '{BELL_CLOSE}');
 					//console.log('checkload');
 					if($("#TimerReload").val()=='0'){
 						console.log('next call');

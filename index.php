@@ -59,6 +59,7 @@ if(isset($_SESSION['lgn'])){
 	define("ROOT_OFFICE", $user_row['office_id']);
 	define("ROOT_PHONE", $user_row['phone']);
     define("FSW_IP", $user_row['fsw_ip']);
+	define("BELL_CLOSE", $user_row['bell_close']);
 	$USER_ROLE = explode(",",$user_row['role']);
 }
 else{
@@ -67,6 +68,7 @@ else{
 	define("ROOT_PHONE", 0);
 	define("LOGIN_1C", 0); 
     define("FSW_IP", '');
+    define("BELL_CLOSE", 0);
 	$USER_ROLE = 4;
 }
 if (isset($_GET['menu'])){
@@ -118,6 +120,7 @@ $tpl->assign("ROOT_ID", ROOT_ID);
 $tpl->assign("GIFT_PROC", GIFT_PROC);
 $tpl->assign("LOGIN_1C", LOGIN_1C);
 $tpl->assign("FSW_IP", FSW_IP);
+$tpl->assign("BELL_CLOSE", BELL_CLOSE);
 //$tpl->assign("ROOT_NAME", ROOT_NAME);
 
 $modules = array();
