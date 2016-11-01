@@ -155,6 +155,29 @@ function post_content ($url,$postdata) {
 
     return $header;
 }
+
+// SOAP объект в массив
+function objectToArray($d) {
+    if (is_object($d)) {
+        $d = get_object_vars($d);
+    }
+    if (is_array($d)) {
+        return array_map(__FUNCTION__, $d);
+    }
+    else {
+        return $d;
+    }
+}
+
+// SOAP std в массив
+function stdToArray($obj){
+    $rc = (array)$obj;
+    foreach($rc as $key => &$field){
+        if(is_object($field))$field = $this->stdToArray($field);
+    }
+    return $rc;
+}
+
 /*
 $url = 'http://192.168.1.88/inc/api.php';
 $postdata = 'u_lgn=oper';
@@ -275,4 +298,173 @@ if ($numRows > 0) {
 else {
     echo 0;
 }*/
+/*$rows = $dbc->dbselect(array(
+    "table"=>"polises",
+    "select"=>"polises.*,
+			strach_company.title AS strach_comp,
+			clients.email AS email,
+			clients.name AS name,
+			clients.iin AS iin,
+			users.name AS oper",
+    "joins"=>"LEFT OUTER JOIN strach_company ON polises.strach_comp_id = strach_company.id
+			LEFT OUTER JOIN strach_periods ON polises.period_id = strach_periods.id
+			LEFT OUTER JOIN clients ON polises.client_id = clients.id
+			LEFT OUTER JOIN users ON polises.oper_id = users.id",
+    "where"=>"polises.id = 20754",
+    "limit"=>1));
+$row = $rows[0];
+if($row['sms']!=''){
+    ini_set("soap.wsdl_cache_enabled", "0" );
+    $client = new SoapClient("http://akk.coap.kz/coap_server/wsdl",
+        array(
+            'login' => 'ws',
+            'password' => '123456',
+            'trace' => true
+        )
+    );
+    $tel = '<telnumbers><telnumber><number>'.$row['sms'].'</number></telnumber></telnumbers>';
+    //$email = '<emails><email><mail>'.$row['email'].'</mail></email></emails>';
+    $email = '<emails><email><mail></mail></email></emails>';
+    $polis = '<policies><policy><policy_number>'.$row['bso_number'].'</policy_number><policy_company>'.$row['strach_comp'].'</policy_company><policy_date>'.date("Y-m-d",strtotime($row['date_end'])).'</policy_date></policy></policies>';
+    $auto = '<automobiles><automobile><gosnomer>'.$row['gn'].'</gosnomer><nomertp>'.$row['pn'].'</nomertp>'.$polis.'</automobile></automobiles>';
+    $xml = '<client><name>'.$row['name'].'</name><iin>'.trim($row['iin']).'</iin><manager>'.$row['oper'].'</manager><date_end>'.date("Y-m-d",strtotime($row['date_end'])).'</date_end>'.$tel.$email.$auto.'</client>';
+
+    $params["body"] = base64_encode($xml);
+    echo $xml."<p>";
+    echo $params["body"]."<p>";
+    $result = $client->create_update1($params);
+    $array = objectToArray($result);
+    print_r($array);
+    
+}*/
+// транслит
+function encodestring($string){
+    $table = array(
+        'А' => 'A',
+        'Б' => 'B',
+        'В' => 'V',
+        'Г' => 'G',
+        'Д' => 'D',
+        'Е' => 'E',
+        'Ё' => 'YO',
+        'Ж' => 'ZH',
+        'З' => 'Z',
+        'И' => 'I',
+        'Й' => 'J',
+        'К' => 'K',
+        'Л' => 'L',
+        'М' => 'M',
+        'Н' => 'N',
+        'О' => 'O',
+        'П' => 'P',
+        'Р' => 'R',
+        'С' => 'S',
+        'Т' => 'T',
+        'У' => 'U',
+        'Ф' => 'F',
+        'Х' => 'H',
+        'Ц' => 'C',
+        'Ч' => 'CH',
+        'Ш' => 'SH',
+        'Щ' => 'CSH',
+        'Ь' => '',
+        'Ы' => 'Y',
+        'Ъ' => '',
+        'Э' => 'E',
+        'Ю' => 'YU',
+        'Я' => 'YA',
+
+        'Ә' => 'E',
+        'Ғ' => 'G',
+        'Қ' => 'K',
+        'Ң' => 'N',
+        'Ө' => 'O',
+        'Ұ' => 'U',
+        'I' => 'I',
+
+        'а' => 'a',
+        'б' => 'b',
+        'в' => 'v',
+        'г' => 'g',
+        'д' => 'd',
+        'е' => 'e',
+        'ё' => 'yo',
+        'ж' => 'zh',
+        'з' => 'z',
+        'и' => 'i',
+        'й' => 'j',
+        'к' => 'k',
+        'л' => 'l',
+        'м' => 'm',
+        'н' => 'n',
+        'о' => 'o',
+        'п' => 'p',
+        'р' => 'r',
+        'с' => 's',
+        'т' => 't',
+        'у' => 'u',
+        'ф' => 'f',
+        'х' => 'h',
+        'ц' => 'c',
+        'ч' => 'ch',
+        'ш' => 'sh',
+        'щ' => 'csh',
+        'ь' => '',
+        'ы' => 'y',
+        'ъ' => '',
+        'э' => 'e',
+        'ю' => 'yu',
+        'я' => 'ya',
+
+        'ә' => 'e',
+        'ғ' => 'g',
+        'қ' => 'k',
+        'ң' => 'n',
+        'ө' => 'o',
+        'ұ' => 'u',
+        'i' => 'i',
+        'h' => 'h',
+
+        ' ' => '_',
+    );
+
+    $output = str_replace(
+        array_keys($table),
+        array_values($table),$string
+    );
+
+    return $output;
+}
+
+function NewLogin($name, $first_num){
+    $name_arr = preg_split("/ /", $name, -1, PREG_SPLIT_NO_EMPTY);
+    //print_r($name_arr);
+    mb_internal_encoding("UTF-8");
+    $first_liter = mb_substr($name_arr[1],0,$first_num);
+    $second_liters = $name_arr[0];
+    $login = strtolower(encodestring($first_liter.$second_liters));
+    return $login;
+}
+
+$rows = $dbc->dbselect(array(
+    "table"=>"users",
+    "select"=>"*"));
+foreach ($rows as $row){
+    echo "<p>".$row['name'];
+    $sush = true;
+    $i=1;
+    while ($sush){
+        $login = NewLogin($row['name'],$i);
+        echo "<br>".$login;
+        $rows2 = $dbc->dbselect(array(
+            "table"=>"users",
+            "select"=>"*",
+            "where"=>"login='".$login."'",
+            "limit"=>1));
+        if($dbc->count==0){
+            $sush = false;
+        }
+        $i++;
+    }
+}
 ?>
