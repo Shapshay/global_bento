@@ -37,4 +37,43 @@ function ShowStatTable(){
 				}
 			});
 }
+
+function PlayCall(AudioFile, office_id){
+	var audioPlayer = $('#audioPlayer');
+	var FSW_IP = '';
+
+	switch (office_id){
+		case '1':
+			FSW_IP = '192.168.0.200';
+			break;
+		case '2':
+			FSW_IP = '192.168.1.200';
+			break;
+		case '3':
+			FSW_IP = '192.168.3.200';
+			break;
+		case '4':
+			FSW_IP = '192.168.4.200';
+			break;
+		case '5':
+			FSW_IP = '192.168.5.200';
+			break;
+	}
+	showControl();
+	//console.log("http://"+FSW_IP+"/freeswitch/"+AudioFile);
+	audioPlayer.attr({
+		src: "http://"+FSW_IP+"/freeswitch/"+AudioFile,
+		autoplay: "autoplay"
+	});
+
+}
+function closeControl(){
+	$("#audioPlayer").trigger('pause');
+	$('#ControlLisenDiv').hide();
+	$('#waitGear').hide();
+}
+function showControl(){
+	$('#waitGear').show();
+	$('#ControlLisenDiv').show();
+}
 </script>

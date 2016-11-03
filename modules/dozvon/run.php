@@ -54,6 +54,7 @@ else{
         "table"=>"dozvon_log",
         "select"=>"dozvon_log.date_log as date_log,
             clients.name as client,
+            res_calls.id as res_id,
             res_calls.title as res,
             (CASE WHEN dozvon_log.dozvon=1 THEN '+' ELSE '-' END) as dozvon",
         "joins"=>"LEFT OUTER JOIN users ON dozvon_log.oper_id = users.id
@@ -72,11 +73,31 @@ else{
         foreach ($rows as $row) {
             $all_calls++;
             if($row['dozvon']=='+') $all_dozv++;
+
+            $rows2 = $dbc->dbselect(array(
+                "table"=>"calls_log",
+                "select"=>"calls_log.id as id,
+                    users.office_id as office,
+                    oper_calls.link as link",
+                "joins"=>"LEFT OUTER JOIN oper_calls ON calls_log.id = oper_calls.calls_log_id
+                    LEFT OUTER JOIN users ON calls_log.oper_id = users.id",
+                "where"=>"calls_log.oper_id = ".$_GET['view']." AND
+                    DATE_FORMAT(calls_log.date_start,'%Y%m%d%H%i') >= '".date("YmdHi",strtotime($row['date_log']))."' AND  
+                    DATE_FORMAT(calls_log.date_start,'%Y%m%d%H%i') <= '".date("YmdHi", (strtotime($row['date_log'])+300))."' AND
+                    calls_log.date_end <> '0000-00-00 00:00:00' AND 
+                    calls_log.res = ".$row['res_id'],
+                "group"=>"calls_log.id",
+                "order"=>"calls_log.date_start ASC",
+                "limit"=>1));
+            //echo $dbc->outsql."*";
+            $row2 = $rows2[0];
+            $audio_link = '<a href="javascript:PlayCall(\'' . $row2['link'] . '\', \'' . $row2['office'] . '\');">' . $row2['link'] . '</a>';
             $html.= '<tr>
                     <td align="center">'.date("d-m-Y H:i", strtotime($row['date_log'])).'</td>
                     <td width="200">'.$row['client'].'</td>
                     <td align="center">'.$row['res'].'</td>
                     <td align="center">'.$row['dozvon'].'</td>
+                    <td align="center">'.$audio_link.'</td>
                     </tr>';
         }
     }
