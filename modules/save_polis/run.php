@@ -169,7 +169,7 @@ if(isset($_SESSION['polis'])){
 	$res_save_1c = $array_save['return'];
 
 	if($res_save_1c['Error_exp']=='Success'){
-		if(!in_array(5,$USER_ROLE)){
+        if(!in_array(5,$USER_ROLE)){
 			$dbc->element_create("oper_log",array(
 				"oper_id" => ROOT_ID,
 				"oper_act_type_id" => 1,
@@ -264,6 +264,48 @@ if(isset($_SESSION['polis'])){
             //print_r($params);
             $result = $client->ClearSetPolicCurier($params);
         }
+
+        // COAP reg
+        $rows = $dbc->dbselect(array(
+            "table"=>"polises",
+            "select"=>"polises.*,
+			strach_company.title AS strach_comp,
+			clients.email AS email,
+			clients.name AS name,
+			clients.iin AS iin,
+			users.name AS oper",
+            "joins"=>"LEFT OUTER JOIN strach_company ON polises.strach_comp_id = strach_company.id
+			LEFT OUTER JOIN strach_periods ON polises.period_id = strach_periods.id
+			LEFT OUTER JOIN clients ON polises.client_id = clients.id
+			LEFT OUTER JOIN users ON polises.oper_id = users.id",
+            "where"=>"polises.id = ".$_SESSION['polis'],
+            "limit"=>1));
+        $row = $rows[0];
+        if($row['sms']!=''&&(ROOT_OFFICE==1||ROOT_OFFICE==2)){
+            ini_set("soap.wsdl_cache_enabled", "0" );
+            $client = new SoapClient("http://akk.coap.kz/coap_server/wsdl",
+                array(
+                    'login' => 'ws',
+                    'password' => '123456',
+                    'trace' => true
+                )
+            );
+            $tel = '<telnumbers><telnumber><number>'.$row['sms'].'</number></telnumber></telnumbers>';
+            //$email = '<emails><email><mail>'.$row['email'].'</mail></email></emails>';
+            $email = '<emails><email><mail></mail></email></emails>';
+            $polis = '<policies><policy><policy_number>'.$row['bso_number'].'</policy_number><policy_company>'.$row['strach_comp'].'</policy_company><policy_date>'.date("Y-m-d",strtotime($row['date_end'])).'</policy_date></policy></policies>';
+            $auto = '<automobiles><automobile><gosnomer>'.$row['gn'].'</gosnomer><nomertp>'.$row['pn'].'</nomertp>'.$polis.'</automobile></automobiles>';
+            $xml = '<client><name>'.$row['name'].'</name><iin>'.trim($row['iin']).'</iin><manager>'.$row['oper'].'</manager><date_end>'.date("Y-m-d",strtotime($row['date_end'])).'</date_end>'.$tel.$email.$auto.'</client>';
+
+            $params["body"] = base64_encode($xml);
+            //echo $xml."<p>";
+            //echo $params["body"]."<p>";
+            $result = $client->create_update1($params);
+            //$array = objectToArray($result);
+            //print_r($array);
+
+        }
+
 
 		header("Location: /".getItemCHPU(2176, 'pages'));
 		exit;
