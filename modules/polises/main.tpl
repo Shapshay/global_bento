@@ -57,6 +57,8 @@
 		<input type="text" name="premium" class="pole_vvoda" value="{EDT_PREMIUM}" style="padding-left:10px;">
 	<p><strong>Гос.номер первого автомобиля</strong><br>
 		<input type="text" name="gn" class="pole_vvoda" value="{EDT_GN}" style="padding-left:10px;">
+	<p><strong>Тех.паспорт первого автомобиля</strong><br>
+		<input type="text" name="pn" class="pole_vvoda" value="{EDT_PN}" style="padding-left:10px;">
 	<p><strong>Год выпуска автомобиля</strong><br>
 		<input type="text" name="car_year" id="car_year" class="pole_vvoda" value="{EDT_CAR_YEAR}" style="padding-left:10px;" onchange="YearCheck();">
 		<div id="KaskoCarDiv">

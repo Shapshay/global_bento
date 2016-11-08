@@ -10,6 +10,7 @@
     border-radius: 10px;
     -webkit-box-shadow: 0 0 10px #999;
     -moz-box-shadow: 0 0 10px #999;
+	z-index: 99999;
 }
 
 .wpd .header {
