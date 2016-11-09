@@ -78,6 +78,24 @@ function SavePolis(){
 	});
 }
 
+function SavePolisAuto(){
+	swal({
+			title: "Вы уверенны что хотите сохранить полис?",
+			text: "Проверте суммы и подарки!\nСохраненный полис нельзя будет изменить!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Да, сохранить!",
+			closeOnConfirm: false
+		},
+		function(){
+			swal("Отправляем на сохранение!", "Вы несможете изменить данный полис.", "success");
+			hideShowDiv2('waitGear', 1);
+			setTimeout(function(){     window.location = 'https://mybento.kz/sohranenie_i_otpravka_polisa_2/?call_lenght='+$('#call_lenght2').val();   }, 4000);
+
+		});
+}
+
 function SaveTO(){
 	swal({   
 		 title: "Вы уверенны что хотите сохранить Тех.осмотр?",   

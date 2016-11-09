@@ -45,7 +45,7 @@
             }
         }
     });
-    /*setTimeout(function(){
+    setTimeout(function(){
             $.post("modules/auto_clients/auto_send.php", {DOZVON_ID: {DOZVON_ID}},
 					function(data){
 						//alert(data);
@@ -61,7 +61,7 @@
 
 					});
 		}, 50000);
-*/
+
 </script>
 
 
@@ -201,20 +201,20 @@ function NextBlock(){
 }
 
 function NextClient(){
-    /*$.post("modules/auto_clients/auto_send.php", {DOZVON_ID: {DOZVON_ID}},
+    $.post("modules/auto_clients/auto_send.php", {DOZVON_ID: {DOZVON_ID}},
             function(data){
-                alert(data);
+                //alert(data);
                 var obj = jQuery.parseJSON(data);
                 if(obj.result=='OK'){
-                    $('#dozvon').val(1);*/
+                    $('#dozvon').val(1);
                     $('#waitGear').show();
                     $('#DivCallResult').show();
-           /*     }
+                }
                 else{
                     $('#edtClientAutoForm').submit();
                 }
 
-            });*/
+            });
 }
 
 function closeDivCallResult(){
@@ -322,10 +322,6 @@ function CitysChange(){
     $('#err_city').val(citys);
 }
 
-
-
-
-
 function WhyCallSend(){
     $.post("modules/auto_clients/auto_send.php", {DOZVON_ID: {DOZVON_ID}},
             function(data){
@@ -335,6 +331,46 @@ function WhyCallSend(){
                         $('#dozvon').val(1);
                 }
                 $('#edtClientAutoForm').submit();
+            });
+
+}
+
+function addPolis(){
+    var client_id = $('#client_id').val();
+    var name = $('#name').val();
+    var city = $('#city option:selected').val();
+    var city_text = $('#city option:selected').text();
+    var email = $('#email').val();
+    var car = $("#car").is(':checked') ? 1 : 0;
+    var date_end = $('#date_end').val();
+    var iin = $('#iin').val();
+    var gn = $('#gn').val();
+    var premium = $('#premium').val();
+    var real_premium = $('#real_premium').val();
+    var call_comment = $('#call_comment').val();
+    var strah = $('#strah option:selected').val();
+    var strah_text = $('#strah option:selected').text();
+    var vp4_dost = $("#vp4_dost").is(':checked') ? 1 : 0;
+    var vp4_yur = $("#vp4_yur").is(':checked') ? 1 : 0;
+    var vp4_ev = $("#vp4_ev").is(':checked') ? 1 : 0;
+    var vp4_korgau = $("#vp4_korgau").is(':checked') ? 1 : 0;
+    var yes = 'Да';
+    var no = 'Нет';
+    var rating = $('#rating').val();
+    $.post("modules/auto_clients/polis.php", {ROOT_ID:{ROOT_ID}, LOGIN_1C:'{LOGIN_1C}', ROOT_OFFICE:{ROOT_OFFICE},
+            client_id:client_id, name:name, city:city, email:email,
+            car:car, date_end:date_end, iin:iin, gn:gn, premium:premium, real_premium:real_premium,
+            call_comment:call_comment, strah:strah, vp4_dost:vp4_dost, vp4_yur:vp4_yur, vp4_ev:vp4_ev,
+            vp4_korgau:vp4_korgau, rating:rating},
+            function(data){
+                var obj = jQuery.parseJSON(data);
+                if(obj.result=='OK'){
+                    //alert('/polis_2/?polis='+obj.polis);
+                    window.location = 'https://mybento.kz/?menu=2233&polis='+obj.polis;
+                }
+                else{
+                    swal("Ошибка", "Сбой соединения с базой!", "error");
+                }
             });
 
 }

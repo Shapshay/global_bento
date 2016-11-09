@@ -368,6 +368,19 @@ foreach($rows as $row){
 }
 $tpl->assign("EDT_PHONES", $phones);
 
+if(!in_array(2,$USER_ROLE)){
+    $tpl->assign("NO_PRODAZH_HIDE1", '<!--');
+    $tpl->assign("NO_PRODAZH_HIDE2", '-->');
+    $tpl->assign("PRODAZH_HIDE1", '');
+    $tpl->assign("PRODAZH_HIDE2", '');
+}
+else{
+    $tpl->assign("NO_PRODAZH_HIDE1", '');
+    $tpl->assign("NO_PRODAZH_HIDE2", '');
+    $tpl->assign("PRODAZH_HIDE1", '<!--');
+    $tpl->assign("PRODAZH_HIDE2", '-->');
+}
+
 
 $tpl->parse(strtoupper($moduleName), ".".$moduleName."main");
 ?>

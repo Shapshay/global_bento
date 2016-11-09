@@ -110,7 +110,12 @@
     <div class="edt_block" id="block5_2">
         <div class="block_title">5.	Оформление полиса</div>
         <div class="clear"></div>
-        <p align="center"><button type="submit" class="auto_btn_next2" name="next_block">Перейти к оформлению полиса</button></p>
+        {NO_PRODAZH_HIDE1}
+        <p align="center"><button type="button" class="auto_btn_next2" name="next_block" onclick="addPolis();">Перейти к оформлению полиса</button></p>
+        {NO_PRODAZH_HIDE2}
+        {PRODAZH_HIDE1}
+        <p align="center"><strong>У Вас нет права страховать !</strong></p>
+        {PRODAZH_HIDE2}
     </div>
     <div class="clear"></div>
     <p>
