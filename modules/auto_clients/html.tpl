@@ -55,9 +55,9 @@
 							$('#auto_send').val(1);
 							setTimeout(function(){    $('#edtClientAutoForm').submit();   }, 2000);
 						}
-						else{
+						/*else{
                             swal("Время закончилось!", obj.result, "error");
-                        }
+                        }*/
 
 					});
 		}, 50000);
@@ -227,6 +227,7 @@ function closeDivCallResult(){
 function NextCallShow(){
     $('#DivCallResult').hide();
     $('#DivNextCall').show();
+    $('#before_call_send').val(1);
 }
 
 function closeDivNextCall(){
@@ -234,6 +235,7 @@ function closeDivNextCall(){
     $('#DivNextCall').hide();
     $('#waitGear').hide();
     $('#why_call_send').val(0);
+    $('#before_call_send').val(0);
 }
 
 function DateNextCheck(){

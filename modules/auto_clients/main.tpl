@@ -3,6 +3,7 @@
     <input type="hidden" name="client_id" id="client_id" value="{EDT_CLIENT_ID}" />
     <input type="hidden" name="auto_send" id="auto_send" value="0" />
     <input type="hidden" name="dozvon" id="dozvon" value="0" />
+    <input type="hidden" name="before_call_send" id="before_call_send" value="0" />
     <input type="hidden" name="why_call_send" id="why_call_send" value="0" />
     <input type="hidden" name="why_call_val" id="why_call_val" value="0" />
     <input type="hidden" name="rating" id="rating" value="{CALL_TARGET_RATING}"  >

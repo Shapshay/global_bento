@@ -135,7 +135,7 @@ if(isset($_POST['code_1C'])){
     elseif ($_POST['why_call_send']==1){
         // perezvon
         $res_call_id = 3;
-        if($_POST['why_call']=="Отказ"){
+        if($_POST['why_call_val']=="Отказ"){
             $date_next_call = "2020-10-10 9:30";
             $comment = $_POST['why_call'];
         }
@@ -143,6 +143,12 @@ if(isset($_POST['code_1C'])){
             $date_next_call = date("Y-m-d H:i",strtotime($_POST['date_next_call']));
             $comment = 'Перезвон';
         }
+    }
+    elseif ($_POST['before_call_send']==1){
+        // perezvon
+        $res_call_id = 3;
+        $date_next_call = date("Y-m-d H:i",strtotime($_POST['date_next_call']));
+           $comment = 'Перезвон';
     }
     elseif ($_POST['err_call_send']==1){
         // error
@@ -184,6 +190,7 @@ if(isset($_POST['code_1C'])){
     $params2["Call"]["City"] = $city;
 
     $result = $client2->SaveClientCall($params2);
+    header("Location: /".getItemCHPU(2232, 'pages'));
 }
 
 $tpl->parse("META_LINK", ".".$moduleName."html");
