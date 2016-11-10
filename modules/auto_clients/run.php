@@ -190,7 +190,14 @@ if(isset($_POST['code_1C'])){
     $params2["Call"]["City"] = $city;
 
     $result = $client2->SaveClientCall($params2);
-    header("Location: /".getItemCHPU(2232, 'pages'));
+    /*if(ROOT_ID==2){
+        echo $date_next_call."*<br>";
+        print_r($params2["Call"]["DateContact"]);
+    }
+    else{*/
+        header("Location: /".getItemCHPU(2232, 'pages'));
+    //}
+
 }
 
 $tpl->parse("META_LINK", ".".$moduleName."html");

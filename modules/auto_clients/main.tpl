@@ -11,6 +11,7 @@
     <input type="hidden" name="err_type" id="err_type" value="0" />
     <input type="hidden" name="err_city" id="err_city" value="0" />
     <input type="hidden" name="call_lenght" id="call_lenght" value="0" />
+    <input type="hidden" name="date_next_call" id="date_next_call_h" value="0" />
     <div class="clear"></div>
     <div class="info_block" id="block1_1" onclick="ShowBlock(1);">
         <div class="block_title">1.	Холодный звонок</div>

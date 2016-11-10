@@ -11,7 +11,7 @@ $tpl->define(array(
 $rows = $dbc->dbselect(array(
 	"table"=>"pages",
 	"select"=>"*",
-	"where"=>"parent_id = 2192 OR id = 2192 OR id = 2199",
+	"where"=>"parent_id = 2192 OR id = 2192 OR id = 2199  OR parent_id = 2199",
 	"order"=>"sortfield"));
 $sv_menu = '';
 foreach($rows as $row){

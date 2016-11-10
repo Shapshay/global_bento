@@ -252,6 +252,8 @@ function DateNextCheck(){
     var date_next_call = $('#date_next_call').val();
     var curentDayLimit = moment().add(45, 'days').format('YYYY-MM-DD HH:mm');
     var inputDay = moment(date_next_call, 'DD-MM-YYYY HH:mm').format('YYYY-MM-DD HH:mm');
+    $('#date_next_call_h').val(inputDay);
+
     if(moment(curentDayLimit).isBefore(inputDay)){
         swal("Предупреждение", 'Укажите причину переноса звонка!', "info");
         $('#why_call_send').val(1);
