@@ -44,6 +44,16 @@
                 $('#block'+i+'_2').hide();
             }
         }
+
+        if({BELL_CLOSE}==1){
+            $('#btnHangUp').hide();
+            BellTimer = setInterval(function () {
+                        $('#btnHangUp').show();
+                    },
+                    20000);
+        }
+
+
     });
     setTimeout(function(){
             $.post("modules/auto_clients/auto_send.php", {DOZVON_ID: {DOZVON_ID}},
