@@ -595,7 +595,7 @@
         <button type="button" class="btn_pero_mini" onclick="javascript:showVozrazh5();">КОМПЛЕМЕНТЫ</button>
     </div>
     <div align="right" style=" position:absolute; top:20px; right:200px; z-index:20;">
-        <p><button type="button" class="btn_cour" onclick="showDivOrderTab();">Стол заказов</button>
+        <p><button type="button" class="btn_cour" onclick="showOrderTab();">Стол заказов</button>
             <!-- <button type="button" class="btn_pero_mini" onclick="javascript:showOperation();" style="margin-right:40px;">Операции</button>--><button type="button" class="btn_pero_mini" onclick="javascript:showPause();">ПАУЗА</button></p>
     </div>
     <div class="sakura" align="right">
