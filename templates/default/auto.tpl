@@ -363,6 +363,32 @@
             $('#waitGear').show();
             $('#DivVozrazh5').show();
         }
+
+        // Order Table
+        function closeOrderTab(){
+            $('#DivOrderTab').hide();
+            $('#waitGear').hide();
+        }
+        function showOrderTab(){
+            $('#waitGear').show();
+            $('#DivOrderTab').show();
+        }
+        function OrderTable(){
+            var phone = $('#order_phone').val();
+            $.post("modules/call_assign/order_table.php", {LOGIN_1C: '{LOGIN_1C}', ROOT_OFFICE: {ROOT_OFFICE}, phone: phone},
+                    function(data){
+                        //alert(data);
+                        var obj = jQuery.parseJSON(data);
+                        if(obj.result=='OK'){
+                            closeOrderTab();
+                            swal("Сохранено", "Клиент выйдет вам следующим.", "success");
+                        }
+                        else{
+                            swal("Ошибка", "Клиент не назначен в 1С !", "error");
+                        }
+                    });
+
+        }
     </script>
 </head>
 <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
@@ -401,6 +427,16 @@
     <img src="images/gears.svg" width="200">
 </div>
 
+<div id="DivOrderTab" class="DivPause">
+    <div id="close_response"><a href="javascript:void();" onclick="closeOrderTab();"><img src="images/close.png" /></a></div>
+    <div id="CallResultContent">
+        <b>Стол заказов</b>
+        <p>Номер телефона:<br>
+        <input type="text" name="order_phone" id="order_phone" value="">
+        </p>
+        <p><button type="button" class="btn_cour" onclick="OrderTable();">Выдать следующим</button></p>
+    </div>
+</div>
 
 <div id="DivVozrazh1" class="DivVozrazh">
     <div id="close_response"><a href="javascript:void();" onclick="closeVozrazh1();"><img src="images/close.png" /></a></div>
@@ -559,7 +595,8 @@
         <button type="button" class="btn_pero_mini" onclick="javascript:showVozrazh5();">КОМПЛЕМЕНТЫ</button>
     </div>
     <div align="right" style=" position:absolute; top:20px; right:200px; z-index:20;">
-        <p><!-- <button type="button" class="btn_pero_mini" onclick="javascript:showOperation();" style="margin-right:40px;">Операции</button>--><button type="button" class="btn_pero_mini" onclick="javascript:showPause();">ПАУЗА</button></p>
+        <p><button type="button" class="btn_cour" onclick="showDivOrderTab();">Стол заказов</button>
+            <!-- <button type="button" class="btn_pero_mini" onclick="javascript:showOperation();" style="margin-right:40px;">Операции</button>--><button type="button" class="btn_pero_mini" onclick="javascript:showPause();">ПАУЗА</button></p>
     </div>
     <div class="sakura" align="right">
         <img src="images/sakura.png" width="171" height="128" />
