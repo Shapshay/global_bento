@@ -152,8 +152,16 @@ if(isset($_GET['polis'])){
 	$tpl->assign("EDT_PAY_ID", $row['pay_id']);
 	$tpl->assign("EDT_SMS", substr($row['sms'],1));
 	$tpl->assign("EDT_DATE_OFORM", date("d-m-Y",strtotime($row['date_oform'])));
-	$tpl->assign("EDT_DATE_START", date("d-m-Y",strtotime($row['date_start'])));
-	$tpl->assign("EDT_DATE_END", date("d-m-Y",strtotime($row['date_end'])));
+	//echo $row['date_start'];
+    if($row['date_start']=='0000-00-00 00:00:00'){
+        $tpl->assign("EDT_DATE_START", date("d-m-Y",strtotime("+ 1 day")));
+        $tpl->assign("EDT_DATE_END", date("d-m-Y",strtotime("+ 1 year")));
+    }
+    else{
+        $tpl->assign("EDT_DATE_START", date("d-m-Y",strtotime($row['date_start'])));
+        $tpl->assign("EDT_DATE_END", date("d-m-Y",strtotime($row['date_end'])));
+    }
+
 	if($row['dost']==1||!in_array(5,$USER_ROLE)){
 		$tpl->assign("DOST_CHECK", ' checked="checked"');
 	}

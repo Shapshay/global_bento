@@ -101,7 +101,6 @@
 <input type="text" name="dost_address" value="{EDT_DOST_ADDRESS}" class="pole_vvoda" style="padding-left:10px;">
 <p><strong>Дата доставки</strong><br>
 <input type="text" name="date_dost" id="date_dost" value="{EDT_DATE_DOST}" style="width:200px;padding-left:10px;" readonly="readonly" class="pole_vvoda">
-<button type="button" class="btn_pero_mini" onclick="javascript:displayCalendar(document.s_s.date_dost,'dd-mm-yyyy',this,false);">{STR_SELECT}</button>
 <p><strong>Язык СМС для клиента</strong><br>
 <select  name="lng_sms">
 <option value="0"{EDT_LNG_SMS1}>Русский</option>

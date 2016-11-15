@@ -9,10 +9,11 @@
         $('#date_end').will_pickdate({
             format: 'd-m-Y',
             inputOutputFormat: 'd-m-Y',
-            days: ['Понедельник', 'Вторник', 'Среда', 'Четверг','Пятница', 'Суббота', 'Воскресенье'],
+            days: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг','Пятница', 'Суббота'],
             months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
             timePicker: false,
             timePickerOnly: false,
+            startDay: 1,
             militaryTime: false,
             allowEmpty:true ,
             yearsPerPage:10
@@ -20,10 +21,11 @@
         $('#date_next_call').will_pickdate({
             format: 'd-m-Y H:i',
             inputOutputFormat: 'd-m-Y H:i',
-            days: ['Понедельник', 'Вторник', 'Среда', 'Четверг','Пятница', 'Суббота', 'Воскресенье'],
+            days: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг','Пятница', 'Суббота'],
             months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
             timePicker: true,
             timePickerOnly: false,
+            startDay: 1,
             militaryTime: true,
             allowEmpty:true,
             yearsPerPage:10
