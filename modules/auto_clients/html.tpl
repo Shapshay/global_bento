@@ -87,7 +87,15 @@ function ShowBlock(num_block){
     var car = $("#car").is(':checked') ? 1 : 0;
     var date_end = $('#date_end').val();
     var iin = $('#iin').val();
+    var dop_iin1 = $('#dop_iin1').val();
+    var dop_iin2 = $('#dop_iin2').val();
+    var dop_iin3 = $('#dop_iin3').val();
+    var dop_iin4 = $('#dop_iin4').val();
+    var dop_iin5 = $('#dop_iin5').val();
     var gn = $('#gn').val();
+    var dop_gn1 = $('#dop_gn1').val();
+    var dop_gn2 = $('#dop_gn2').val();
+    var dop_gn3 = $('#dop_gn3').val();
     var premium = $('#premium').val();
     var real_premium = $('#real_premium').val();
     var call_comment = $('#call_comment').val();
@@ -108,7 +116,8 @@ function ShowBlock(num_block){
     $.post("modules/auto_clients/save.php", {client_id:client_id, name:name, city:city, email:email,
             car:car, date_end:date_end, iin:iin, gn:gn, premium:premium, real_premium:real_premium,
             call_comment:call_comment, strah:strah, vp4_dost:vp4_dost, vp4_yur:vp4_yur, vp4_ev:vp4_ev,
-            vp4_korgau:vp4_korgau, rating:rating},
+            vp4_korgau:vp4_korgau, rating:rating, dop_iin1:dop_iin1, dop_iin2:dop_iin2, dop_iin3:dop_iin3,
+            dop_iin4:dop_iin4, dop_iin5:dop_iin5, dop_gn1:dop_gn1, dop_gn2:dop_gn2, dop_gn3:dop_gn3},
             function(data){
                 console.log(data);
                 // вывод текста в инфоблоки
@@ -118,7 +127,15 @@ function ShowBlock(num_block){
                     $('#txt_email').text(email);
                     $('#txt_date_end').text(date_end);
                     $('#txt_iin').text(iin);
+                    $('#txt_dop_iin1').text(dop_iin1);
+                    $('#txt_dop_iin2').text(dop_iin2);
+                    $('#txt_dop_iin3').text(dop_iin3);
+                    $('#txt_dop_iin4').text(dop_iin4);
+                    $('#txt_dop_iin5').text(dop_iin5);
                     $('#txt_gn').text(gn);
+                    $('#txt_dop_gn1').text(dop_gn1);
+                    $('#txt_dop_gn2').text(dop_gn2);
+                    $('#txt_dop_gn3').text(dop_gn3);
                     $('#txt_premium').text(premium);
                     $('#txt_real_premium').text(real_premium);
                     $('#txt_call_comment').text(call_comment);

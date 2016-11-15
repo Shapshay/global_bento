@@ -52,6 +52,14 @@ if(isset($_POST['code_1C'])){
         "is_yur" => $is_yur,
         "is_ev" => $is_ev,
         "is_korgau" => $is_korgau,
+        "dop_iin1" => $_POST['dop_iin1'],
+        "dop_iin2" => $_POST['dop_iin2'],
+        "dop_iin3" => $_POST['dop_iin3'],
+        "dop_iin4" => $_POST['dop_iin4'],
+        "dop_iin5" => $_POST['dop_iin5'],
+        "dop_gn1" => $_POST['dop_gn1'],
+        "dop_gn2" => $_POST['dop_gn2'],
+        "dop_gn3" => $_POST['dop_gn3'],
         "comment" => addslashes($_POST['call_comment']),
         "date_end" => date("Y-m-d",strtotime($_POST['date_end']))));
 
@@ -217,6 +225,14 @@ $tpl->assign("EDT_SOURCE", $row['source']);
 $tpl->assign("EDT_GN", $row['gn']);
 $tpl->assign("EDT_PREMIUM", $row['premium']);
 $tpl->assign("EDT_REAL_PREMIUM", $row['real_premium']);
+
+for($i=1;$i<=5;$i++){
+    $tpl->assign("EDT_DOP_IIN".$i, $row['dop_iin'.$i]);
+}
+for($i=1;$i<=3;$i++){
+    $tpl->assign("EDT_DOP_GN".$i, $row['dop_gn'.$i]);
+}
+
 if(date("d-m-Y",strtotime($row['date_end']))=='01-01-0001'){
 	$date_end = '01-01-2001';
 }

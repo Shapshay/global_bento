@@ -50,6 +50,14 @@ if(isset($_POST['client_id'])){
         "is_yur" => $is_yur,
         "is_ev" => $is_ev,
         "is_korgau" => $is_korgau,
+        "dop_iin1" => $_POST['dop_iin1'],
+        "dop_iin2" => $_POST['dop_iin2'],
+        "dop_iin3" => $_POST['dop_iin3'],
+        "dop_iin4" => $_POST['dop_iin4'],
+        "dop_iin5" => $_POST['dop_iin5'],
+        "dop_gn1" => $_POST['dop_gn1'],
+        "dop_gn2" => $_POST['dop_gn2'],
+        "dop_gn3" => $_POST['dop_gn3'],
         "comment" => addslashes($_POST['call_comment']),
         "date_end" => date("Y-m-d",strtotime($_POST['date_end']))));
     $out_row['result'] = 'OK';

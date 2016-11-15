@@ -61,6 +61,16 @@
             <div class="info_block_item"><strong>Гос.номер:</strong> <span id="txt_gn">{EDT_GN}</span></div>
             <div class="info_block_item"><strong>Сумма:</strong> <span id="txt_premium">{EDT_PREMIUM}</span></div>
             <div class="info_block_item"><strong>Сумма со скидкой:</strong> <span id="txt_real_premium">{EDT_REAL_PREMIUM}</span></div>
+            <div class="info_block_item"><strong>Доп. ИИН 1:</strong> <span id="txt_dop_iin1">{EDT_DOP_IIN1}</span></div>
+            <div class="info_block_item"><strong>Доп. ИИН 2:</strong> <span id="txt_dop_iin2">{EDT_DOP_IIN2}</span></div>
+            <div class="info_block_item"><strong>Доп. ИИН 3:</strong> <span id="txt_dop_iin3">{EDT_DOP_IIN3}</span></div>
+            <div class="info_block_item"><strong>Доп. ИИН 4:</strong> <span id="txt_dop_iin4">{EDT_DOP_IIN4}</span></div>
+            <div class="info_block_item"><strong>Доп. ИИН 5:</strong> <span id="txt_dop_iin5">{EDT_DOP_IIN5}</span></div>
+            <div class="info_block_item"><strong>Доп. Гос.номер 1:</strong> <span id="txt_dop_gn1">{EDT_DOP_GN1}</span></div>
+            <div class="info_block_item"><strong>Доп. Гос.номер 2:</strong> <span id="txt_dop_gn2">{EDT_DOP_GN2}</span></div>
+            <div class="info_block_item"><strong>Доп. Гос.номер 3:</strong> <span id="txt_dop_gn3">{EDT_DOP_GN3}</span></div>
+
+
             <div class="info_block_item"><strong>Комментарий:</strong> <span id="txt_call_comment">{EDT_COMMENT}</span></div>
             <div class="clear"></div>
         </div>
@@ -76,6 +86,24 @@
             <input type="text" name="premium" id="premium" value="{EDT_PREMIUM}"></div>
         <div class="edt_block_item"><div class="edt_label">Сумма со скидкой:</div>
             <input type="text" name="real_premium" id="real_premium" value="{EDT_REAL_PREMIUM}"></div>
+        <div class="edt_block_item"><div class="edt_label">Доп. ИИН 1:</div>
+            <input type="text" name="dop_iin1" id="dop_iin1" value="{EDT_DOP_IIN1}"></div>
+        <div class="edt_block_item"><div class="edt_label">Доп. ИИН 2:</div>
+            <input type="text" name="dop_iin2" id="dop_iin2" value="{EDT_DOP_IIN2}"></div>
+        <div class="edt_block_item"><div class="edt_label">Доп. ИИН 3:</div>
+            <input type="text" name="dop_iin3" id="dop_iin3" value="{EDT_DOP_IIN3}"></div>
+        <div class="edt_block_item"><div class="edt_label">Доп. ИИН 4:</div>
+            <input type="text" name="dop_iin4" id="dop_iin4" value="{EDT_DOP_IIN4}"></div>
+        <div class="edt_block_item"><div class="edt_label">Доп. ИИН 5:</div>
+            <input type="text" name="dop_iin5" id="dop_iin5" value="{EDT_DOP_IIN5}"></div>
+        <div class="edt_block_item"><div class="edt_label">Доп. Гос.номер 1:</div>
+            <input type="text" name="dop_gn1" id="dop_gn1" value="{EDT_DOP_GN1}"></div>
+        <div class="edt_block_item"><div class="edt_label">Доп. Гос.номер 2:</div>
+            <input type="text" name="dop_gn2" id="dop_gn2" value="{EDT_DOP_GN2}"></div>
+        <div class="edt_block_item"><div class="edt_label">Доп. Гос.номер 3:</div>
+            <input type="text" name="dop_gn3" id="dop_gn3" value="{EDT_DOP_GN3}"></div>
+
+
         <div class="edt_block_item"><div class="edt_label">Комментарий:</div>
             <input type="text" name="call_comment" id="call_comment" value="{EDT_COMMENT}"></div>
         <div class="clear"></div>
