@@ -16,6 +16,9 @@
         }
     </style>
     <script type="text/javascript" src="inc/jquery-1.7.1.js"></script>
+    <!-- Data Table -->
+    <link rel="stylesheet" href="adm/inc/data_table/jquery.dataTables.min.css" />
+    <script src="adm/inc/data_table/jquery.dataTables.min.js"></script>
     <!-- DIV SCROLL -->
     <style>
         .text_scroll2{width: 600px; height: 300px;}
@@ -27,7 +30,7 @@
     </style>
 
     <script>
-        /*function nice_scroll(a){
+        function nice_scroll(a){
             a.wrap('<div class="scroll_cont2"></div>');
             a.wrapInner('<div class="text_inner"></div>');
             a.parent('.scroll_cont2').prepend('<div class="scrollbar_cont2"><div class="scroll_pane2"><div class="scroll_line2"></div></div></div>');
@@ -44,7 +47,7 @@
                 var p = $(this).scrollTop()/b*200;
                 a.parent('.scroll_cont2').children().children('.scroll_pane2').children('.scroll_line2').animate({top: p+'%'},100);
             });
-        }*/
+        }
     </script>
     <script>
         /*$(function(){
@@ -389,6 +392,32 @@
                     });
 
         }
+
+        // My Call
+        function closeMyCall(){
+            $('#DivMyCall').hide();
+            $('#waitGear').hide();
+        }
+        function showMyCall(){
+            $('#waitGear').show();
+            $.post("modules/auto_clients/mycall.php", {LOGIN_1C: '{LOGIN_1C}'},
+                    function(data){
+                        //alert(data);
+                        var obj = jQuery.parseJSON(data);
+                        if(obj.result=='OK'){
+                            $('#statMyCall').html(obj.html)
+                            $('#stat_table_calls').DataTable( {
+                                "lengthMenu": [[50, 100, 500, -1], [50, 100, 500, "Все"]]
+                            } );
+                            nice_scroll($('.text_scroll2'));
+                            $('#DivMyCall').show();
+                        }
+                        else{
+                            swal("Ошибка", "1С неотвечает!", "error");
+                        }
+                    });
+
+        }
     </script>
 </head>
 <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
@@ -488,6 +517,16 @@
             <li>Будем очень рады увидеть Вас в офисе и угостить чашечкой чая или кофе!</li>
 
         </ol>
+    </div>
+</div>
+
+<div id="DivMyCall" class="DivVozrazh">
+    <div id="close_response"><a href="javascript:void();" onclick="closeMyCall();"><img src="images/close.png" /></a></div>
+    <b>Мои звонки</b>
+    <div class="text_scroll2">
+        <div id="stat_page">
+            <div id="statMyCall"></div>
+        </div>
     </div>
 </div>
 
@@ -596,6 +635,7 @@
     </div>
     <div align="right" style=" position:absolute; top:20px; right:200px; z-index:20;">
         <p><button type="button" class="btn_cour" onclick="showOrderTab();">Стол заказов</button>
+            <button type="button" class="btn_cour" onclick="showMyCall()">Мои звонки</button>
             <!-- <button type="button" class="btn_pero_mini" onclick="javascript:showOperation();" style="margin-right:40px;">Операции</button>--><button type="button" class="btn_pero_mini" onclick="javascript:showPause();">ПАУЗА</button></p>
     </div>
     <div class="sakura" align="right">
