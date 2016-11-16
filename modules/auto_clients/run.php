@@ -145,25 +145,25 @@ if(isset($_POST['code_1C'])){
         $res_call_id = 3;
         if($_POST['why_call_val']=="Отказ"){
             $date_next_call = "2020-10-10 9:30";
-            $comment = $_POST['why_call'];
+            $comment = $_POST['why_call_val'];
         }
         else{
             $date_next_call = date("Y-m-d H:i",strtotime($_POST['date_next_call']));
-            $comment = 'Перезвон';
+            $comment = $_POST['why_call_val'];
         }
     }
     elseif ($_POST['before_call_send']==1){
         // perezvon
         $res_call_id = 3;
         $date_next_call = date("Y-m-d H:i",strtotime($_POST['date_next_call']));
-           $comment = 'Перезвон';
+        $comment = 'Перезвон';
     }
     elseif ($_POST['err_call_send']==1){
         // error
         $res_call_id = 2;
         $date_next_call = date("Y-m-d 9:30", strtotime("+1 days"));
-        $comment = $_POST['errs'];
-        if($_POST['errs']=="Другой город"){
+        $comment = $_POST['err_type'];
+        if($_POST['err_type']=="Другой город"){
             $city = $_POST['citys'];
         }
         else{
@@ -198,6 +198,22 @@ if(isset($_POST['code_1C'])){
     $params2["Call"]["City"] = $city;
 
     $result = $client2->SaveClientCall($params2);
+
+
+    $dbc->element_create("oper_log", array(
+        "oper_id" => ROOT_ID,
+        "oper_act_type_id" => 1,
+        "oper_act_id" => 1,
+        "date_log" => 'NOW()',
+        "comment" => addslashes($comment).". Длительность: ".$call_lenght));
+    $log = getOperCurentMaxLog(ROOT_ID);
+    $dbc->element_update('calls_log',$log,array(
+        "res" => $res_call_id,
+        "date_end" => 'NOW()'));
+    $dbc->element_update('dozvon_log',$_SESSION['dozvon'],array(
+        "res" => $res_call_id));
+
+
     /*if(ROOT_ID==2){
         echo $date_next_call."*<br>";
         print_r($params2["Call"]["DateContact"]);
