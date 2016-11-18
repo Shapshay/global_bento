@@ -47,7 +47,8 @@ if(isset($_POST['date_start'])){
             $all_dozv+=$row['dozvon'];
             $html.= '<tr>
                     <td align="center">'.number_format($row['proc'], 2, ',', ' ').'%</td>
-                    <td width="200"><a href="?menu=2229&view='.$row['u_id'].'&start='.$start.'&end='.$end.'">'.$row['oper'].'</a></td>
+                    <!--<td width="200"><a href="?menu=2229&view='.$row['u_id'].'&start='.$start.'&end='.$end.'">'.$row['oper'].'</a></td>-->
+                    <td width="200">'.$row['oper'].'</td>
                     <td align="center">'.$row['dozvon'].'</td>
                     <td align="center">'.$row['all_calls'].'</td>
                     </tr>';
