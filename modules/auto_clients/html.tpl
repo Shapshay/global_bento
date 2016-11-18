@@ -355,6 +355,10 @@ function CitysChange(){
     $('#err_city').val(citys);
 }
 
+function TDChange(){
+    swal("Предупреждение", 'Вы зафиксировали ТОЧНУЮ ДАТУ!!! Теперь Вам необходимо нажать кнопку "ДАЛЕЕ", и после чего выбирать "СЛЕДЕЮЩЕГО КЛИЕНТА"!', "info");
+}
+
 function WhyCallSend(){
     $.post("modules/auto_clients/auto_send.php", {DOZVON_ID: {DOZVON_ID}},
             function(data){

@@ -120,7 +120,19 @@ if(isset($_POST['code_1C'])){
     $params2["Client"]["ActualDate"] = $с_arr['ActualDate'];
     $params2["Client"]["DateLastPolicy"] = $с_arr['DateLastPolicy'];
     $params2["Client"]["Gosnomer"] = $_POST['gn'];
-    $params2["Client"]["Rating"] = $_POST['rating'];
+
+
+    $td_input = date("Ymd",strtotime($_POST['date_end']));
+    $curent_date = date("Ymd");
+    if($td_input<$curent_date){
+        $rating_client = 2;
+    }
+    else{
+        $rating_client = $_POST['rating'];
+    }
+
+
+    $params2["Client"]["Rating"] = $rating_client;
     $params2["Client"]["NadoOcenit"] = true;
 
 

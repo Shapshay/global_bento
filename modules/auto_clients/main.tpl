@@ -50,7 +50,7 @@
     <div class="edt_block" id="block2_2">
         <div class="block_title">2.	Точная дата</div>
         <div class="edt_block_item"><div class="edt_label">Точная дата:</div>
-            <input type="text" name="date_end" id="date_end" value="{EDT_DATE_END}"></div>
+            <input type="text" name="date_end" id="date_end" value="{EDT_DATE_END}" onchange="TDChange();"></div>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
