@@ -1,11 +1,40 @@
 <!-- Data Table -->
 <link rel="stylesheet" href="adm/inc/data_table/jquery.dataTables.min.css" />
 <script src="adm/inc/data_table/jquery.dataTables.min.js"></script>
+
+<link href="adm/inc/will_pickdate/style.css" media="screen" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="adm/inc/will_pickdate/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="adm/inc/will_pickdate/will_pickdate.js"></script>
+
 <script>
 	$(document).ready(function() {
 		table = $('#stat_table2').DataTable( {
 			"lengthMenu": [[50, 100, 500, -1], [50, 100, 500, "Все"]]
 		} );
+		$('#date_start').will_pickdate({
+			format: 'd-m-Y H:i',
+			inputOutputFormat: 'd-m-Y H:i',
+			days: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг','Пятница', 'Суббота'],
+			months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+			timePicker: true,
+			timePickerOnly: false,
+			startDay: 1,
+			militaryTime: true,
+			allowEmpty:true ,
+			yearsPerPage:10
+		});
+		$('#date_end').will_pickdate({
+			format: 'd-m-Y H:i',
+			inputOutputFormat: 'd-m-Y H:i',
+			days: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг','Пятница', 'Суббота'],
+			months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+			timePicker: true,
+			timePickerOnly: false,
+			startDay: 1,
+			militaryTime: true,
+			allowEmpty:true ,
+			yearsPerPage:10
+		});
 	} );
 </script>
 <script>

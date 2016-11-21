@@ -11,11 +11,11 @@
         </select></p>
     <p><strong>Дата начала статистики</strong><br>
         <input type="text" name="date_start" id="date_start" value="{EDT_DATE_START}" style="width:200px;padding-left:10px;" readonly="readonly" class="pole_vvoda">
-        <button type="button" class="btn_pero_mini" onclick="javascript:displayCalendar(document.s_s.date_start,'dd-mm-yyyy hh:ii',this,true);">{STR_SELECT}</button>
+
     </p>
     <p><strong>Дата окончания статистики</strong><br>
         <input type="text" name="date_end" id="date_end" value="{EDT_DATE_END}" style="width:200px;padding-left:10px;" readonly="readonly" class="pole_vvoda">
-        <button type="button" class="btn_pero_mini" onclick="javascript:displayCalendar(document.s_s.date_end,'dd-mm-yyyy hh:ii',this,true);">{STR_SELECT}</button>
+
     </p>
     <p><button type="button" class="btn_pero" onclick="ShowStatTable();">Показать</button></p>
     </form>
