@@ -257,7 +257,7 @@ if(isset($c_id)){
 	$tpl->assign("INFO_U_RES_PREV_CALL", $row['res_prev_call']);
 	$tpl->assign("INFO_U_SOURCE", $row['source']);
 	$tpl->assign("INFO_U_DATE_END", date("d-m-Y H:i",strtotime($row['date_end'])));
-	$tpl->assign("INFO_U_COMMENT", $row['comment']);
+	$tpl->assign("INFO_U_COMMENT", substr($row['comment'], -50));
 
 	if(strtotime($row['date_lost'])==strtotime('1970-01-01 06:00:00')){
 		$tpl->assign("INFO_U_DATE_LOST", 'Не страховался у нас');

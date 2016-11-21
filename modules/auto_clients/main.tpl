@@ -175,6 +175,7 @@
             <option value="Уточнит ТД">Уточнит ТД</option>
             <option value="Нет машины">Нет машины</option>
             <option value="Клиент не в городе">Клиент не в городе</option>
+            <option value="Назвали точную дату">Назвали точную дату</option>
             <option value="Отказ">Отказ</option>
             </select>
         </p>
