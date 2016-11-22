@@ -280,6 +280,7 @@ function NextClient(){
                     $('#DivCallResult').show();
                 }
                 else{
+                    $('#waitGear').show();
                     $('#edtClientAutoForm').submit();
                 }
 
@@ -407,6 +408,8 @@ function WhyCallSend(){
                 if(obj.result=='OK'){
                         $('#dozvon').val(1);
                 }
+                $('#DivErrors').hide();
+                $('#DivNextCall').hide();
                 $('#edtClientAutoForm').submit();
             });
 

@@ -62,7 +62,13 @@ if(isset($_POST['date_start'])){
     $out_row['html'] = $html;
     $out_row['all_calls'] = $all_calls;
     $out_row['all_dozv'] = $all_dozv;
-    $out_row['all_proc'] = number_format($all_dozv/($all_calls/100), 2, ',', ' ').'%';
+    if($all_calls==0){
+        $out_row['all_proc'] = '0%';
+    }
+    else{
+        $out_row['all_proc'] = number_format($all_dozv/($all_calls/100), 2, ',', ' ').'%';
+    }
+
     $out_row['result'] = 'OK';
 }
 else{
