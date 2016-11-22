@@ -47,9 +47,7 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
         "oper_id" => ROOT_ID,
         "date_end" => 'NOW()'));*/
 	// конец проверки блокировки InfoBank
-	$dbc->element_create("calls_log",array(
-		"oper_id" => ROOT_ID,
-		"date_start" => 'NOW()'));
+
 
 
     $dbc->element_create("zap_1c",array(
@@ -146,6 +144,10 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 			"ocenit" => $NadoOcenit,
 			"date_end" => date("Y-m-d H:i",strtotime($c_arr['DateEndPolicy']))));
 	}
+	$dbc->element_create("calls_log",array(
+		"oper_id" => ROOT_ID,
+		"rating1_id" => $c_arr['Rating'],
+		"date_start" => 'NOW()'));
 	$c_tel_arr = array();
 	$j = 0;
 	if(isset($c_arr['Telnumbers']['number'])){
@@ -316,6 +318,7 @@ if(isset($c_id)){
 			"select"=>"*",
 			"where"=>"client_id=".$c_id." AND 
 			(
+			phone LIKE '8700%' OR
 			phone LIKE '8701%' OR
 			phone LIKE '8702%' OR
 			phone LIKE '8705%' OR
@@ -330,15 +333,18 @@ if(isset($c_id)){
             "limit"=>10));
 	$phones = '';
 	$c =1;
-	foreach($rows as $row){
-		$star_phones = substr_replace($row['phone'], '*****', 4, 3);
-		//echo $row['phone'];
-		$phones.='<br> 
-				<img src="images/bell1.png" class="img_call" align="absmiddle" style="margin:3px; cursor:pointer;">'.$star_phones.' ('.$row['comment'].')
-				<input type="hidden" id="phone_call'.$c.'" value="'.$row['phone'].'" />';
-		$c++;
+	if($dbc->count>0){
+		foreach($rows as $row){
+			$star_phones = substr_replace($row['phone'], '*****', 4, 3);
+			//echo $row['phone'];
+			$phones.='<br> 
+					<img src="images/bell1.png" class="img_call" align="absmiddle" style="margin:3px; cursor:pointer;">'.$star_phones.' ('.$row['comment'].')
+					<input type="hidden" id="phone_call'.$c.'" value="'.$row['phone'].'" />';
+			$c++;
+		}
 	}
 	$tpl->assign("INFO_U_PHONE", $phones);
+
 
 	if(!in_array(5,$USER_ROLE)){
 		ini_set("soap.wsdl_cache_enabled", "0" );

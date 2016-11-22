@@ -130,10 +130,16 @@
                 {STRAHS_ROWS}
             </select>
         </div>
-        <div class="edt_block_item"><div class="edt_label">Была ли доставка:</div><input type="checkbox" name="vp4_dost" id="vp4_dost" value="1"{EDT_4VP_DOST_CHECK}></div>
+        <!--<div class="edt_block_item"><div class="edt_label">Была ли доставка:</div><input type="checkbox" name="vp4_dost" id="vp4_dost" value="1"{EDT_4VP_DOST_CHECK}></div>
         <div class="edt_block_item"><div class="edt_label">Юрист:</div><input type="checkbox" name="vp4_yur" id="vp4_yur" value="1"{EDT_4VP_YUR_CHECK}></div>
         <div class="edt_block_item"><div class="edt_label">Эвакуатор:</div><input type="checkbox" name="vp4_ev" id="vp4_ev" value="1"{EDT_4VP_EV_CHECK}></div>
-        <div class="edt_block_item"><div class="edt_label">Предоставлялся ли Коргау:</div><input type="checkbox" name="vp4_korgau" id="vp4_korgau" value="1"{EDT_4VP_KORGAU_CHECK}></div>
+        <div class="edt_block_item"><div class="edt_label">Предоставлялся ли Коргау:</div><input type="checkbox" name="vp4_korgau" id="vp4_korgau" value="1"{EDT_4VP_KORGAU_CHECK}></div>-->
+
+        <div class="edt_block_item"><div class="edt_label">Была ли доставка:</div><input type="radio" name="vp4_dost" class="vp4_dost" value="1"{EDT_4VP_DOST_CHECK1}> Да <input type="radio" name="vp4_dost" class="vp4_dost" value="0"{EDT_4VP_DOST_CHECK2}> Нет</div>
+        <div class="edt_block_item"><div class="edt_label">Юрист:</div><input type="radio" name="vp4_yur" class="vp4_yur" value="1"{EDT_4VP_YUR_CHECK1}> Да <input type="radio" name="vp4_yur" class="vp4_yur" value="0"{EDT_4VP_YUR_CHECK2}> Нет</div>
+        <div class="edt_block_item"><div class="edt_label">Эвакуатор:</div><input type="radio" name="vp4_ev" class="vp4_ev" value="1"{EDT_4VP_EV_CHECK}> Да <input type="radio" name="vp4_ev" class="vp4_ev" value="0"{EDT_4VP_EV_CHECK2}> Нет</div>
+        <div class="edt_block_item"><div class="edt_label">Предоставлялся ли Коргау:</div><input type="radio" name="vp4_korgau" class="vp4_korgau" value="1"{EDT_4VP_KORGAU_CHECK1}> Да <input type="radio" name="vp4_korgau" class="vp4_korgau" value="0"{EDT_4VP_KORGAU_CHECK2}> Нет</div>
+
         <div class="clear"></div>
     </div>
     <div class="clear"></div>

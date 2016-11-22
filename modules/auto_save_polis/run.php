@@ -206,6 +206,7 @@ if(isset($_SESSION['polis'])){
 			$log = getOperCurentMaxLog(ROOT_ID);
 			$dbc->element_update('calls_log',$log,array(
 				"res" => 5,
+				"rating2_id" => 5,
 				"date_end" => 'NOW()'));
 
 			ini_set("soap.wsdl_cache_enabled", "0" );

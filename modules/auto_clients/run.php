@@ -221,6 +221,7 @@ if(isset($_POST['code_1C'])){
     $log = getOperCurentMaxLog(ROOT_ID);
     $dbc->element_update('calls_log',$log,array(
         "res" => $res_call_id,
+        "rating2_id" => $rating_client,
         "date_end" => 'NOW()'));
     $dbc->element_update('dozvon_log',$_SESSION['dozvon'],array(
         "res" => $res_call_id));
@@ -287,35 +288,43 @@ else{
 }
 if($row['is_dost']==1){
     $tpl->assign("EDT_4VP_DOST", 'Да');
-    $tpl->assign("EDT_4VP_DOST_CHECK", ' checked');
+    $tpl->assign("EDT_4VP_DOST_CHECK1", ' checked');
+    $tpl->assign("EDT_4VP_DOST_CHECK2", '');
 }
 else{
     $tpl->assign("EDT_4VP_DOST", 'Нет');
-    $tpl->assign("EDT_4VP_DOST_CHECK", '');
+    $tpl->assign("EDT_4VP_DOST_CHECK1", '');
+    $tpl->assign("EDT_4VP_DOST_CHECK2", ' checked');
 }
 if($row['is_yur']==1){
     $tpl->assign("EDT_4VP_YUR", 'Да');
-    $tpl->assign("EDT_4VP_YUR_CHECK", ' checked');
+    $tpl->assign("EDT_4VP_YUR_CHECK1", ' checked');
+    $tpl->assign("EDT_4VP_YUR_CHECK2", '');
 }
 else{
     $tpl->assign("EDT_4VP_YUR", 'Нет');
-    $tpl->assign("EDT_4VP_YUR_CHECK", '');
+    $tpl->assign("EDT_4VP_YUR_CHECK1", '');
+    $tpl->assign("EDT_4VP_YUR_CHECK2", ' checked');
 }
 if($row['is_ev']==1){
     $tpl->assign("EDT_4VP_EV", 'Да');
-    $tpl->assign("EDT_4VP_EV_CHECK", ' checked');
+    $tpl->assign("EDT_4VP_EV_CHECK1", ' checked');
+    $tpl->assign("EDT_4VP_EV_CHECK2", '');
 }
 else{
     $tpl->assign("EDT_4VP_EV", 'Нет');
-    $tpl->assign("EDT_4VP_EV_CHECK", '');
+    $tpl->assign("EDT_4VP_EV_CHECK1", '');
+    $tpl->assign("EDT_4VP_EV_CHECK2", ' checked');
 }
 if($row['is_korgau']==1){
     $tpl->assign("EDT_4VP_KORGAU", 'Да');
-    $tpl->assign("EDT_4VP_KORGAU_CHECK", ' checked');
+    $tpl->assign("EDT_4VP_KORGAU_CHECK1", ' checked');
+    $tpl->assign("EDT_4VP_KORGAU_CHECK2", '');
 }
 else{
     $tpl->assign("EDT_4VP_KORGAU", 'Нет');
-    $tpl->assign("EDT_4VP_KORGAU_CHECK", '');
+    $tpl->assign("EDT_4VP_KORGAU_CHECK1", '');
+    $tpl->assign("EDT_4VP_KORGAU_CHECK2", ' checked');
 }
 
 /*

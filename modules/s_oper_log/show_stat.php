@@ -16,6 +16,12 @@ function getItemCHPU($id, $item_tab) {
     return $resp['chpu'];
 }
 
+function getRatingText($id) {
+    global $dbc;
+    $resp = $dbc->element_find('ratings',$id);
+    return $resp['title'];
+}
+
 //////////////////////////////////////////////////////////////////////////////////////
 
 if(isset($_POST['oper_type'])){
@@ -39,6 +45,8 @@ if(isset($_POST['oper_type'])){
 				oper_calls.link as link,
 				users.name as oper,
 				calls_log.oper_id as oper_id,
+				calls_log.rating1_id as rating1_id,
+				calls_log.rating2_id as rating2_id,
 				oper_calls.phone1 as phone,
 				res_calls.title as res,
 				res_calls.id as res_id",
@@ -70,6 +78,15 @@ if(isset($_POST['oper_type'])){
             } else {
                 $td = '-';
             }
+
+
+            if($row['rating1_id']!=0&&$row['rating2_id']!=0){
+                $rating_text = getRatingText($row['rating1_id']).' -> '.getRatingText($row['rating2_id']);
+            }
+            else{
+                $rating_text = '---';
+            }
+
             $view_log_url = '/' . getItemCHPU(2207, 'pages') . '/?act=log_view&contact=' . $row['id'];
             $audio_link = '<a href="javascript:PlayCall(\'' . $row['link'] . '\', \'' . $row['oper_id'] . '\', \'' . $row['phone'] . '\', \'' . $row['res'] . '\', \'' . $row['res_id'] . '\');">' . $row['link'] . '</a>';
             $html.= '<tr>
@@ -79,6 +96,7 @@ if(isset($_POST['oper_type'])){
                     <td>'.$row['date_start'].'</td>
                     <td>'.$row['date_end'].'</td>
                     <td>'.$row['res'].'</td>
+                    <td>'.$rating_text.'</td>
                     <td>'.$row['phone'].'</td>
                     <td>'.$audio_link.'</td>
                     <td>'.$td.'</td>

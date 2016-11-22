@@ -101,10 +101,34 @@ function ShowBlock(num_block){
     var call_comment = $('#call_comment').val();
     var strah = $('#strah option:selected').val();
     var strah_text = $('#strah option:selected').text();
-    var vp4_dost = $("#vp4_dost").is(':checked') ? 1 : 0;
-    var vp4_yur = $("#vp4_yur").is(':checked') ? 1 : 0;
-    var vp4_ev = $("#vp4_ev").is(':checked') ? 1 : 0;
-    var vp4_korgau = $("#vp4_korgau").is(':checked') ? 1 : 0;
+    var vp4_dost = 0;
+    if($(".vp4_dost").is(':checked')||$('.vp4_dost').val()==1){
+        vp4_dost = 1;
+    }
+    else{
+        vp4_dost = 0;
+    }
+    var vp4_yur = 0;
+    if($(".vp4_yur").is(':checked')||$('.vp4_yur').val()==1){
+        vp4_yur = 1;
+    }
+    else{
+        vp4_yur = 0;
+    }
+    var vp4_ev = 0;
+    if($(".vp4_ev").is(':checked')||$('.vp4_ev').val()==1){
+        vp4_ev = 1;
+    }
+    else{
+        vp4_ev = 0;
+    }
+    var vp4_korgau = 0;
+    if($(".vp4_korgau").is(':checked')||$('.vp4_korgau').val()==1){
+        vp4_korgau = 1;
+    }
+    else{
+        vp4_korgau = 0;
+    }
     var yes = 'Да';
     var no = 'Нет';
     var rating = $('#rating').val();
@@ -220,6 +244,22 @@ function NextBlock(){
             var strah = $('#strah option:selected').val();
             if(strah==0){
                 swal("Ошибка", "Заполните Страховая компания!", "error");
+                return;
+            }
+            if(!$(".vp4_dost").is(':checked')){
+                swal("Ошибка", "Заполните доставку!", "error");
+                return;
+            }
+            if(!$(".vp4_yur").is(':checked')){
+                swal("Ошибка", "Заполните юриста!", "error");
+                return;
+            }
+            if(!$(".vp4_ev").is(':checked')){
+                swal("Ошибка", "Заполните эвакуатор!", "error");
+                return;
+            }
+            if(!$(".vp4_korgau").is(':checked')){
+                swal("Ошибка", "Заполните Коргау!", "error");
                 return;
             }
             $('#rating').val(5);
@@ -387,10 +427,34 @@ function addPolis(){
     var call_comment = $('#call_comment').val();
     var strah = $('#strah option:selected').val();
     var strah_text = $('#strah option:selected').text();
-    var vp4_dost = $("#vp4_dost").is(':checked') ? 1 : 0;
-    var vp4_yur = $("#vp4_yur").is(':checked') ? 1 : 0;
-    var vp4_ev = $("#vp4_ev").is(':checked') ? 1 : 0;
-    var vp4_korgau = $("#vp4_korgau").is(':checked') ? 1 : 0;
+    var vp4_dost = 0;
+    if($(".vp4_dost").is(':checked')||$('.vp4_dost').val()==1){
+        vp4_dost = 1;
+    }
+    else{
+        vp4_dost = 0;
+    }
+    var vp4_yur = 0;
+    if($(".vp4_yur").is(':checked')||$('.vp4_yur').val()==1){
+        vp4_yur = 1;
+    }
+    else{
+        vp4_yur = 0;
+    }
+    var vp4_ev = 0;
+    if($(".vp4_ev").is(':checked')||$('.vp4_ev').val()==1){
+        vp4_ev = 1;
+    }
+    else{
+        vp4_ev = 0;
+    }
+    var vp4_korgau = 0;
+    if($(".vp4_korgau").is(':checked')||$('.vp4_korgau').val()==1){
+        vp4_korgau = 1;
+    }
+    else{
+        vp4_korgau = 0;
+    }
     var yes = 'Да';
     var no = 'Нет';
     var rating = $('#rating').val();
