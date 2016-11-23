@@ -31,7 +31,7 @@ date_default_timezone_set ("Asia/Almaty");
 	  return $rc;
 	}
 
-
+//$_POST['LOGIN_1C'] = '0815-2515-02';
 
 if(isset($_POST['LOGIN_1C'])){
 	ini_set("soap.wsdl_cache_enabled", "0" ); 
@@ -43,52 +43,93 @@ if(isset($_POST['LOGIN_1C'])){
 		) 
 	);
 	$params["Code1C"] = $_POST['LOGIN_1C'];
+	//$params["Code1C"] = '0815-2515-02';
 	$params["Date"] = date("Y-m-d");
 	$result = $client->GetMyPolicies($params); 
 	$array = objectToArray($result);
 	$u_arr = $array['return'];
-	$polises_table = '<table class="PoLisesStatTable">
+	$polises_table = '<table id="stat_table_polises">
 	<thead>
 		<tr>
 			<th>БСО</th>
-			<th class="grey">Дата</th>
-			<th class="grey">Клиент</th>
-			<th class="grey">Статус</th>
-			<th class="grey">Оплачен</th>
-			<th class="grey">Проведен</th>
-			<th class="grey">Распечатан</th>
-			<th class="grey">Курьер</th>
-			<th class="grey">Сумма</th>
+			<th>Дата</th>
+			<th>Клиент</th>
+			<th>Статус</th>
+			<th>Оплачен</th>
+			<th>Проведен</th>
+			<th>Распечатан</th>
+			<th>Курьер</th>
+			<th>Сумма</th>
 		</tr>
 	</thead>
 	<tbody>';
 	$out_row['result'] = 'OK';
-	$Oplachen = '-';
-	$Prov = '-';
-	$Printed = '-';
-	foreach($u_arr as $row){
-		if($row['Oplachen']){
-			$Oplachen = '<img src="images/gal_check.png" width="30" />';
+	$i = 0;
+	foreach($u_arr as $row2){
+		//echo '<p>';
+		//print_r($row2);
+		if(isset($row2[$i]['BSO'])){
+			foreach($row2 as $row){
+				//echo '<p>';
+				//print_r($row);
+				$Oplachen = '-';
+				$Prov = '-';
+				$Printed = '-';
+				if($row['Oplachen']){
+					$Oplachen = '<img src="images/gal_check.png" width="30" />';
+				}
+				if($row['Prov']){
+					$Prov = '<img src="images/gal_check.png" width="30" />';
+				}
+				if($row['Printed']){
+					$Printed = '<img src="images/gal_check.png" width="30" />';
+				}
+				$polises_table.= '<tr>
+						<td align="left">'.$row['BSO'].'</td>
+						<td class="grey" align="left">'.date("H:i:s d-m-Y",strtotime($row['Date'])).'</td>
+						<td class="grey" align="left">'.$row['Client'].'</td>
+						<td class="grey" align="left">'.$row['Status'].'</td>
+						<td class="grey" align="left">'.$Oplachen.'</td>
+						<td class="grey" align="left">'.$Prov.'</td>
+						<td class="grey" align="left">'.$Printed.'</td>
+						<td class="grey" align="left">'.$row['Curier'].'</td>
+						<td class="grey" align="left">'.$row['Summa'].'</td>
+						</tr>';
+			}
 		}
-		if($row['Prov']){
-			$Prov = '<img src="images/gal_check.png" width="30" />';
+		else{
+			if(isset($row2['BSO'])){
+				//print_r($row2);
+				$row = $row2[$i];
+				$Oplachen = '-';
+				$Prov = '-';
+				$Printed = '-';
+				if($row['Oplachen']){
+					$Oplachen = '<img src="images/gal_check.png" width="30" />';
+				}
+				if($row['Prov']){
+					$Prov = '<img src="images/gal_check.png" width="30" />';
+				}
+				if($row['Printed']){
+					$Printed = '<img src="images/gal_check.png" width="30" />';
+				}
+				$polises_table.= '<tr>
+						<td align="left">'.$row['BSO'].'</td>
+						<td class="grey" align="left">'.date("H:i:s d-m-Y",strtotime($row['Date'])).'</td>
+						<td class="grey" align="left">'.$row['Client'].'</td>
+						<td class="grey" align="left">'.$row['Status'].'</td>
+						<td class="grey" align="left">'.$Oplachen.'</td>
+						<td class="grey" align="left">'.$Prov.'</td>
+						<td class="grey" align="left">'.$Printed.'</td>
+						<td class="grey" align="left">'.$row['Curier'].'</td>
+						<td class="grey" align="left">'.$row['Summa'].'</td>
+						</tr>';
+			}
 		}
-		if($row['Printed']){
-			$Printed = '<img src="images/gal_check.png" width="30" />';
-		}
-		$polises_table.= '<tr>
-					<td align="left">'.date("H:i:s d-m-Y",strtotime($row['Date'])).'</td>
-					<td class="grey" align="left">'.$row['Client'].'</td>
-					<td class="grey" align="left">'.$row['Status'].'</td>
-					<td class="grey" align="left">'.$Oplachen.'</td>
-					<td class="grey" align="left">'.$Prov.'</td>
-					<td class="grey" align="left">'.$Printed.'</td>
-					<td class="grey" align="left">'.$row['Curier'].'</td>
-					<td class="grey" align="left">'.$row['Summa'].'</td>
-					</tr>';
+
 	}
 	$polises_table.= '</tbody></table>';
-	$out_row['polises'] = $polises_table;
+	$out_row['html'] = $polises_table;
 }
 else{
 	$out_row['result'] = 'Err';
@@ -96,6 +137,7 @@ else{
 
 
 header("Content-Type: text/html;charset=utf-8");
-echo json_encode($out_row);
+$result = preg_replace_callback('/\\\u([0-9a-fA-F]{4})/', create_function('$_m', 'return mb_convert_encoding("&#" . intval($_m[1], 16) . ";", "UTF-8", "HTML-ENTITIES");'),json_encode($out_row));
+echo $result;
 
 ?>

@@ -21,11 +21,11 @@
     <script src="adm/inc/data_table/jquery.dataTables.min.js"></script>
     <!-- DIV SCROLL -->
     <style>
-        .text_scroll2{width: 600px; height: 300px;}
+        .text_scroll2{width: 820px; height: 300px;}
         .scrollbar_cont2 {position: absolute; top: 0px; right: 0px; width: 20px; height: 300px; z-index: 7;}
         .scroll_pane2 {position: absolute; top: 0px; right: 0px; width: 4px; height: 300px; background: #ccc;}
         .scroll_line2 {position: absolute; top: 0px; left: 0px; width: 4px; height: 20px; background: #222;}
-        .scrollbar_cont_bg2 {background: position: absolute; bottom: 0px; left: 0px; width: 600px; height: 30px}
+        .scrollbar_cont_bg2 {background: position: absolute; bottom: 0px; left: 0px; width: 820px; height: 30px}
         .text p {margin: 0 0 10px 0;}
     </style>
 
@@ -98,6 +98,8 @@
     <link rel="stylesheet" href="inc/swetalert/sweetalert.css" />
     <script src="inc/swetalert/sweetalert.min.js"></script>
     <!-- /ALERT -->
+
+
 
     <script>
         // CALLS
@@ -418,6 +420,32 @@
                     });
 
         }
+
+        // My Polises
+        function closeMyPolises(){
+            $('#DivMyPolises').hide();
+            $('#waitGear').hide();
+        }
+        function showMyPolises(){
+            $('#waitGear').show();
+            $.post("modules/auto_polises/polises_stat.php", {LOGIN_1C: '{LOGIN_1C}'},
+                    function(data){
+                        //alert(data);
+                        var obj = jQuery.parseJSON(data);
+                        if(obj.result=='OK'){
+                            $('#MyPolises').html(obj.html);
+                            $('#stat_table_polises').DataTable( {
+                                "lengthMenu": [[50, 100, 500, -1], [50, 100, 500, "Все"]]
+                            } );
+                            nice_scroll($('.text_scroll2'));
+                            $('#DivMyPolises').show();
+                        }
+                        else{
+                            swal("Ошибка", "1С неотвечает!", "error");
+                        }
+                    });
+
+        }
     </script>
 </head>
 <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
@@ -530,6 +558,17 @@
     </div>
 </div>
 
+<div id="DivMyPolises" class="DivPause" style=" width: 850px; top:155px;">
+    <div id="close_response"><a href="javascript:void();" onclick="closeMyPolises();"><img src="images/close.png" /></a></div>
+    Статистика полисов
+    <div class="text_scroll2">
+    <div id="stat_page">
+    <div id="MyPolises">
+
+    </div>
+    </div>
+    </div>
+</div>
 
 <div id="DivPause" class="DivPause">
     <div id="close_response"><a href="javascript:void();" onclick="closePause();"><img src="images/close.png" /></a></div>
@@ -636,6 +675,7 @@
     <div align="right" style=" position:absolute; top:20px; right:200px; z-index:20;">
         <p><button type="button" class="btn_cour" onclick="showOrderTab();">Стол заказов</button>
             <button type="button" class="btn_cour" onclick="showMyCall()">Мои звонки</button>
+            <button type="button" class="btn_cour" onclick="showMyPolises()">Мои полисы</button>
             <!-- <button type="button" class="btn_pero_mini" onclick="javascript:showOperation();" style="margin-right:40px;">Операции</button>--><button type="button" class="btn_pero_mini" onclick="javascript:showPause();">ПАУЗА</button></p>
     </div>
     <div class="sakura" align="right">
