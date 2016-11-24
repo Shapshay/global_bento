@@ -4,6 +4,8 @@
 
 <script>
     $(function(){
+        $('#nextClientBtn').hide();
+        $('#DivNextClientInfo').show();
         var tdy = new Date();
         tdy.setDate(tdy.getDate() - 1);
         $('#date_end').will_pickdate({
@@ -79,6 +81,7 @@
 
 <script type="text/javascript" charset="utf-8">
 function ShowBlock(num_block){
+
     var client_id = $('#client_id').val();
     var name = $('#name').val();
     var city = $('#city option:selected').val();
@@ -182,6 +185,14 @@ function ShowBlock(num_block){
 
 function NextBlock(){
     var rating = parseInt($('#rating').val());
+    $('#DivNextClientInfo').hide();
+
+    $('#nextClientBtn').show();
+
+    setTimeout(function(){
+        $('#nextClientBtn').hide();
+        $('#DivNextClientInfo').show();
+    }, 5000);
     //alert(rating);
     switch (rating){
         case 1:

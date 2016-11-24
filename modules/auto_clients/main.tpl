@@ -137,7 +137,7 @@
 
         <div class="edt_block_item"><div class="edt_label">Была ли доставка:</div><input type="radio" name="vp4_dost" class="vp4_dost" value="1"{EDT_4VP_DOST_CHECK1}> Да <input type="radio" name="vp4_dost" class="vp4_dost" value="0"{EDT_4VP_DOST_CHECK2}> Нет</div>
         <div class="edt_block_item"><div class="edt_label">Юрист:</div><input type="radio" name="vp4_yur" class="vp4_yur" value="1"{EDT_4VP_YUR_CHECK1}> Да <input type="radio" name="vp4_yur" class="vp4_yur" value="0"{EDT_4VP_YUR_CHECK2}> Нет</div>
-        <div class="edt_block_item"><div class="edt_label">Эвакуатор:</div><input type="radio" name="vp4_ev" class="vp4_ev" value="1"{EDT_4VP_EV_CHECK}> Да <input type="radio" name="vp4_ev" class="vp4_ev" value="0"{EDT_4VP_EV_CHECK2}> Нет</div>
+        <div class="edt_block_item"><div class="edt_label">Эвакуатор:</div><input type="radio" name="vp4_ev" class="vp4_ev" value="1"{EDT_4VP_EV_CHECK1}> Да <input type="radio" name="vp4_ev" class="vp4_ev" value="0"{EDT_4VP_EV_CHECK2}> Нет</div>
         <div class="edt_block_item"><div class="edt_label">Предоставлялся ли Коргау:</div><input type="radio" name="vp4_korgau" class="vp4_korgau" value="1"{EDT_4VP_KORGAU_CHECK1}> Да <input type="radio" name="vp4_korgau" class="vp4_korgau" value="0"{EDT_4VP_KORGAU_CHECK2}> Нет</div>
 
         <div class="clear"></div>
@@ -155,7 +155,10 @@
     </div>
     <div class="clear"></div>
     <p>
-        <button type="button" class="btn_cour" name="next_client" onclick="NextClient();">Следующий клиент</button>
+        <div class="btn_cour" id="DivNextClientInfo" style="color: #FF0000; cursor: none; text-align: center; display: none; margin-bottom: 10px;">
+        Для отправки нажмите "Далее"
+        </div>
+        <button type="button" class="btn_cour" name="next_client" id="nextClientBtn" onclick="NextClient();">Следующий клиент</button>
         <button type="button" class="auto_btn_next" id="next_block" name="next_block" onclick="NextBlock();">Далее</button>
     </p>
 </form>
