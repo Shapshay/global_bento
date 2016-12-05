@@ -31,10 +31,11 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])){
 	$c_id = getClientSTOID($c_arr['Code1C']);
 	
 	if($c_id==0){
+        //echo "<br>INS=".$c_id;
 		$dbc->element_create("sto",array(
 			"code_1C" => $c_arr['Code1C'],
 			"oper_id" => ROOT_ID,
-			"name" => $c_arr['Name'],
+			"name" => addslashes($c_arr['Name']),
             "iin" => $c_arr['Iin'],
             "gn" => $c_arr['GosNomer'],
             "pn" => $c_arr['TechPassport'],
@@ -46,10 +47,11 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])){
             "email" => $c_arr['Email'],
             "date_to_end" => date("Y-m-d",strtotime($c_arr['DateOfEnd'])),
             "comment" => addslashes($c_arr['Comment'])));
-
+        //echo "<br>SQL=".$dbc->outsql;
 		$c_id = $dbc->ins_id;
 	}
 	else{
+        //echo "<br>UPD=".$c_id;
 		$dbc->element_update('sto',$c_id,array(
             "code_1C" => $c_arr['Code1C'],
             "oper_id" => ROOT_ID,
@@ -90,6 +92,7 @@ if(isset($c_id)){
 
 
 if(isset($c_id)){
+	//echo "<br>".$c_id;
     $row = $dbc->element_find('sto',$c_id);
 	$tpl->assign("INFO_U_NAME", $row['name']);
 	$tpl->assign("INFO_U_IIN", $row['iin']);

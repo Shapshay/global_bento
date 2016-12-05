@@ -31,7 +31,7 @@
 <div class="stoDivOtrab">
 <p><strong>Дата приезда на СТО</strong><br>
 <input type="text" name="date_dog" id="date_dog" value="{EDT_DATE_DOG}" style="width:200px;padding-left:10px;" readonly="readonly" class="pole_vvoda">
-<button type="button" class="btn_pero_mini" onclick="javascript:displayCalendar(document.s_s2.date_dog,'dd-mm-yyyy',this,false);">{STR_SELECT}</button>
+<button type="button" class="btn_pero_mini" onclick="javascript:displayCalendar(document.s_s2.date_dog,'dd-mm-yyyy hh:ii',this,true);">{STR_SELECT}</button>
     <p><strong>СТО</strong><br>
         <select name="sto" id="sto">
             {SEL_STO}
