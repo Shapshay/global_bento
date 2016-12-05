@@ -155,7 +155,7 @@
     </div>
     <div class="clear"></div>
     <p><strong>Комментарий к звонку</strong><br>
-        {EDT_COMMENT}<br>
+        {EDT_COMMENT_TXT}<br>
         <textarea name="call_comment" rows="5" cols="45" id="call_comment"></textarea></p>
     <p>
         <div class="btn_cour" id="DivNextClientInfo" style="color: #FF0000; cursor: none; text-align: center; display: none; margin-bottom: 10px;">
