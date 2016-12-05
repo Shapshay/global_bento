@@ -428,9 +428,11 @@
         }
         function showMyPolises(){
             $('#waitGear').show();
+            //$.post("modules/auto_polises/polises_stat.php", {LOGIN_1C: '0815-2515-02'},
             $.post("modules/auto_polises/polises_stat.php", {LOGIN_1C: '{LOGIN_1C}'},
                     function(data){
                         //alert(data);
+                        console.log(data);
                         var obj = jQuery.parseJSON(data);
                         if(obj.result=='OK'){
                             $('#MyPolises').html(obj.html);

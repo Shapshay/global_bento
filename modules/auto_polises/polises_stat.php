@@ -55,9 +55,9 @@ if(isset($_POST['LOGIN_1C'])){
 			<th>Дата</th>
 			<th>Клиент</th>
 			<th>Статус</th>
-			<th>Оплачен</th>
-			<th>Проведен</th>
-			<th>Распечатан</th>
+			<th>Оплачен ({OPL})</th>
+			<th>Проведен ({PROV})</th>
+			<th>Распечатан ({PRINT})</th>
 			<th>Курьер</th>
 			<th>Сумма</th>
 		</tr>
@@ -65,6 +65,9 @@ if(isset($_POST['LOGIN_1C'])){
 	<tbody>';
 	$out_row['result'] = 'OK';
 	$i = 0;
+    $opl_kol = 0;
+    $prov_kol = 0;
+    $print_kol = 0;
 	foreach($u_arr as $row2){
 		//echo '<p>';
 		//print_r($row2);
@@ -76,12 +79,15 @@ if(isset($_POST['LOGIN_1C'])){
 				$Prov = '-';
 				$Printed = '-';
 				if($row['Oplachen']){
+                    $opl_kol++;
 					$Oplachen = '<img src="images/gal_check.png" width="30" />';
 				}
 				if($row['Prov']){
+                    $prov_kol++;
 					$Prov = '<img src="images/gal_check.png" width="30" />';
 				}
 				if($row['Printed']){
+                    $print_kol++;
 					$Printed = '<img src="images/gal_check.png" width="30" />';
 				}
 				$polises_table.= '<tr>
@@ -105,12 +111,15 @@ if(isset($_POST['LOGIN_1C'])){
 				$Prov = '-';
 				$Printed = '-';
 				if($row['Oplachen']){
+                    $opl_kol++;
 					$Oplachen = '<img src="images/gal_check.png" width="30" />';
 				}
 				if($row['Prov']){
+                    $prov_kol++;
 					$Prov = '<img src="images/gal_check.png" width="30" />';
 				}
 				if($row['Printed']){
+                    $print_kol++;
 					$Printed = '<img src="images/gal_check.png" width="30" />';
 				}
 				$polises_table.= '<tr>
@@ -129,6 +138,9 @@ if(isset($_POST['LOGIN_1C'])){
 
 	}
 	$polises_table.= '</tbody></table>';
+    $polises_table = str_replace("{OPL}", $opl_kol, $polises_table);
+    $polises_table = str_replace("{PROV}", $prov_kol, $polises_table);
+    $polises_table = str_replace("{PRINT}", $print_kol, $polises_table);
 	$out_row['html'] = $polises_table;
 }
 else{
