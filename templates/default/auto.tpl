@@ -448,6 +448,40 @@
                     });
 
         }
+
+        // info polis
+        function closeInfoPolises(){
+            $('#DivInfoPolises').hide();
+            $('#waitGear').hide();
+            $('#info_polis_num').val('');
+            $('#InfoPolises').html('');
+        }
+        function showInfoPolises(){
+            $('#waitGear').show();
+            $('#DivInfoPolises').show();
+        }
+        function SearchInfoPolis(){
+            $('#DivInfoPolises').hide();
+            var info_polis_num = $('#info_polis_num').val();
+            $.post("modules/auto_polises/info_polises.php", {info_polis_num: info_polis_num},
+                    function(data){
+                        //alert(data);
+                        console.log(data);
+                        var obj = jQuery.parseJSON(data);
+                        if(obj.result=='OK'){
+                            $('#InfoPolises').html(obj.html);
+                            nice_scroll($('.text_scroll2'));
+                            $('#DivInfoPolises').show();
+                        }
+                        else{
+                            swal("Ошибка", "1С неотвечает!", "error");
+                            $('#DivInfoPolises').show();
+                        }
+                    });
+
+        }
+
+
     </script>
 </head>
 <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
@@ -572,6 +606,21 @@
     </div>
 </div>
 
+<div id="DivInfoPolises" class="DivPause" style=" width: 850px; top:155px;">
+    <div id="close_response"><a href="javascript:void();" onclick="closeInfoPolises();"><img src="images/close.png" /></a></div>
+    Информация о полисе
+    <div class="text_scroll2">
+        <div id="stat_page">
+            <p><strong>Номер полиса</strong><br>
+            <input type="text" name="info_polis_num" id="info_polis_num" value="" class="pole_vvoda" style="padding-left:10px;">
+            <button type="Submit" name="search_item" class="btn_pero_mini" onclick="SearchInfoPolis();">Найти</button>
+            <div id="InfoPolises">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="DivPause" class="DivPause">
     <div id="close_response"><a href="javascript:void();" onclick="closePause();"><img src="images/close.png" /></a></div>
     Укажите причину паузы:
@@ -678,6 +727,8 @@
         <p><button type="button" class="btn_cour" onclick="showOrderTab();">Стол заказов</button>
             <button type="button" class="btn_cour" onclick="showMyCall()">Мои звонки</button>
             <button type="button" class="btn_cour" onclick="showMyPolises()">Мои полисы</button>
+            <button type="button" class="btn_cour" onclick="showSmallTech();">Тех.осмотр</button>
+            <button type="button" class="btn_cour" onclick="showInfoPolises();">Инфо.полиса</button>
             <!-- <button type="button" class="btn_pero_mini" onclick="javascript:showOperation();" style="margin-right:40px;">Операции</button>--><button type="button" class="btn_pero_mini" onclick="javascript:showPause();">ПАУЗА</button></p>
     </div>
     <div class="sakura" align="right">
