@@ -408,7 +408,19 @@ function CitysChange(){
 }
 
 function TDChange(){
-    swal("Предупреждение", 'Вы зафиксировали ТОЧНУЮ ДАТУ!!! Теперь Вам необходимо нажать кнопку "ДАЛЕЕ", и после чего выбирать "СЛЕДЕЮЩЕГО КЛИЕНТА"!', "info");
+    var date_end = $('#date_end').val();
+    var curentDayLimit1 = moment().add(365, 'days').format('YYYY-MM-DD HH:mm');
+    var curentDayLimit2 = moment().format('YYYY-MM-DD HH:mm');
+    var inputDay1 = moment(date_end, 'DD-MM-YYYY HH:mm').format('YYYY-MM-DD HH:mm');
+    if(moment(curentDayLimit1).isBefore(inputDay1)){
+        swal("Предупреждение", 'Дата больше года! Проверте!', "info");
+    }
+    else if(moment(inputDay1).isBefore(curentDayLimit2)){
+        swal("Предупреждение", 'Дата меньше текущей! Проверте!', "info");
+    }
+    else{
+        swal("Предупреждение", 'Вы зафиксировали ТОЧНУЮ ДАТУ!!! Теперь Вам необходимо нажать кнопку "ДАЛЕЕ", и после чего выбирать "СЛЕДЕЮЩЕГО КЛИЕНТА"!', "info");
+    }
 }
 
 function WhyCallSend(){

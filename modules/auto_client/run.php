@@ -147,6 +147,7 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 	$dbc->element_create("calls_log",array(
 		"oper_id" => ROOT_ID,
 		"rating1_id" => $c_arr['Rating'],
+        "c_id" => $c_id,
 		"date_start" => 'NOW()'));
 	$c_tel_arr = array();
 	$j = 0;
@@ -328,6 +329,7 @@ if(isset($c_id)){
 			phone LIKE '8771%' OR
 			phone LIKE '8777%' OR
 			phone LIKE '8775%' OR
+			phone LIKE '8776%' OR
 			phone LIKE '8778%'
 			)",
             "limit"=>10));

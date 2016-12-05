@@ -71,7 +71,7 @@
             <div class="info_block_item"><strong>Доп. Гос.номер 3:</strong> <span id="txt_dop_gn3">{EDT_DOP_GN3}</span></div>
 
 
-            <div class="info_block_item"><strong>Комментарий:</strong> <span id="txt_call_comment">{EDT_COMMENT}</span></div>
+            <!--<div class="info_block_item"><strong>Комментарий:</strong> <span id="txt_call_comment">{EDT_COMMENT}</span></div>-->
             <div class="clear"></div>
         </div>
     </div>
@@ -104,8 +104,8 @@
             <input type="text" name="dop_gn3" id="dop_gn3" value="{EDT_DOP_GN3}"></div>
 
 
-        <div class="edt_block_item"><div class="edt_label">Комментарий:</div>
-            <input type="text" name="call_comment" id="call_comment" value="{EDT_COMMENT}"></div>
+        <!--<div class="edt_block_item"><div class="edt_label">Комментарий:</div>
+            <input type="text" name="call_comment" id="call_comment" value="{EDT_COMMENT}"></div>-->
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
@@ -154,6 +154,9 @@
         {PRODAZH_HIDE2}
     </div>
     <div class="clear"></div>
+    <p><strong>Комментарий к звонку</strong><br>
+        {EDT_COMMENT}<br>
+        <textarea name="call_comment" rows="5" cols="45" id="call_comment"></textarea></p>
     <p>
         <div class="btn_cour" id="DivNextClientInfo" style="color: #FF0000; cursor: none; text-align: center; display: none; margin-bottom: 10px;">
         Для отправки нажмите "Далее"
