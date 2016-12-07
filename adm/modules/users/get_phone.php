@@ -32,10 +32,10 @@ if(isset($_POST['office_id'])){
             $phone_start = 500;
             break;
         case 6:
-            $phone_start = 600;
+            $phone_start = 700;
             break;
         case 7:
-            $phone_start = 700;
+            $phone_start = 600;
             break;
         default:
             $phone_start = 0;
