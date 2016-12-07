@@ -43,10 +43,10 @@
 				FSW_IP = '192.168.5.200';
 				break;
 			case 6:
-				FSW_IP = '192.168.6.200';
+				FSW_IP = '192.168.7.200';
 				break;
 			case 7:
-				FSW_IP = '192.168.7.200';
+				FSW_IP = '192.168.6.200';
 				break;
 		}
         audioPlayer.attr({
