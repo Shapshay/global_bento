@@ -26,18 +26,18 @@ if(isset($_POST['edt_item'])){
 	$params2["Client"]["Mark"] = $_POST['mark'];
 	$params2["Client"]["Model"] = $_POST['model'];
 	$params2["Client"]["GodVypusk"] = $_POST['born'];
-	$params2["Client"]["Telefon"] = $row['phone'];
+	$params2["Client"]["Telefon"] = $_POST['phone'];
 	$params2["Client"]["Telefon1"] = $_POST['phone2'];
 	$params2["Client"]["Email"] = $_POST['email'];
 	$params2["Client"]["Comment"] = '';
-	$params2["Client"]["Iin"] = $_POST['iin'];
+	$params2["Client"]["Iin"] = '';
 	$params2["Client"]["Code1C"] = '';
 	//print_r($params2);
 	$result = $client2->SaveClient1($params2);
 	$array = objectToArray($result);
-    print_r($array);
+    //print_r($array);
 	if($array['return']!='Есть клиент с таким телефоном'){
-		$dbc->element_create("clients",array(
+		$dbc->element_create("sto",array(
 			"oper_id" => ROOT_ID,
 			"name" => addslashes($_POST['name']),
 			"code_1C" => $array['return'],
@@ -55,8 +55,8 @@ if(isset($_POST['edt_item'])){
 
 		
 
-		//header("Location: /sto/?item=".$c_id);
-		//exit;
+		header("Location: /sto/?item=".$c_id);
+		exit;
 
 	}
 	else{
