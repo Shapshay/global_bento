@@ -116,7 +116,7 @@ if(isset($_POST['code_1C'])){
         $j++;
     }
     $params2["Client"]["Error"] = $с_arr['Error'];
-    $params2["Client"]["Comment"] = addslashes($_POST['call_comment']);
+    $params2["Client"]["Comment"] = addslashes($_POST['call_comment']).' ';
     $params2["Client"]["ActualDate"] = $с_arr['ActualDate'];
     $params2["Client"]["DateLastPolicy"] = $с_arr['DateLastPolicy'];
     $params2["Client"]["Gosnomer"] = $_POST['gn'];

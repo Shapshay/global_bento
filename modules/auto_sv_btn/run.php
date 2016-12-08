@@ -57,7 +57,7 @@ if($num_day==1){
 else{
     $minus_days = "-1 days";
 }
-
+$minus_days = "-0 days";
 $btn1 = getCountSvDay(ROOT_OFFICE, $minus_days, 0);
 $tpl->assign("AUTO1_COUNT", $btn1[0].' / '.$btn1[1]);
 
