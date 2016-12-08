@@ -78,29 +78,31 @@ if(isset($_POST['LOGIN_1C'])){
 				$Oplachen = '-';
 				$Prov = '-';
 				$Printed = '-';
-				if($row['Oplachen']){
-                    $opl_kol++;
-					$Oplachen = '<img src="images/gal_check.png" width="30" />';
-				}
-				if($row['Prov']){
-                    $prov_kol++;
-					$Prov = '<img src="images/gal_check.png" width="30" />';
-				}
-				if($row['Printed']){
-                    $print_kol++;
-					$Printed = '<img src="images/gal_check.png" width="30" />';
-				}
-				$polises_table.= '<tr>
-						<td align="left">'.$row['BSO'].'</td>
-						<td class="grey" align="left">'.date("H:i:s d-m-Y",strtotime($row['Date'])).'</td>
-						<td class="grey" align="left">'.$row['Client'].'</td>
-						<td class="grey" align="left">'.$row['Status'].'</td>
-						<td class="grey" align="left">'.$Oplachen.'</td>
-						<td class="grey" align="left">'.$Prov.'</td>
-						<td class="grey" align="left">'.$Printed.'</td>
-						<td class="grey" align="left">'.$row['Curier'].'</td>
-						<td class="grey" align="left">'.$row['Summa'].'</td>
+                if($row['Summa']>=4000) {
+                    if ($row['Oplachen']) {
+                        $opl_kol++;
+                        $Oplachen = '<img src="images/gal_check.png" width="30" />';
+                    }
+                    if ($row['Prov']) {
+                        $prov_kol++;
+                        $Prov = '<img src="images/gal_check.png" width="30" />';
+                    }
+                    if ($row['Printed']) {
+                        $print_kol++;
+                        $Printed = '<img src="images/gal_check.png" width="30" />';
+                    }
+                    $polises_table .= '<tr>
+						<td align="left">' . $row['BSO'] . '</td>
+						<td class="grey" align="left">' . date("H:i:s d-m-Y", strtotime($row['Date'])) . '</td>
+						<td class="grey" align="left">' . $row['Client'] . '</td>
+						<td class="grey" align="left">' . $row['Status'] . '</td>
+						<td class="grey" align="left">' . $Oplachen . '</td>
+						<td class="grey" align="left">' . $Prov . '</td>
+						<td class="grey" align="left">' . $Printed . '</td>
+						<td class="grey" align="left">' . $row['Curier'] . '</td>
+						<td class="grey" align="left">' . $row['Summa'] . '</td>
 						</tr>';
+                }
 			}
 		}
 		else{
@@ -110,19 +112,20 @@ if(isset($_POST['LOGIN_1C'])){
 				$Oplachen = '-';
 				$Prov = '-';
 				$Printed = '-';
-				if($row['Oplachen']){
-                    $opl_kol++;
-					$Oplachen = '<img src="images/gal_check.png" width="30" />';
-				}
-				if($row['Prov']){
-                    $prov_kol++;
-					$Prov = '<img src="images/gal_check.png" width="30" />';
-				}
-				if($row['Printed']){
-                    $print_kol++;
-					$Printed = '<img src="images/gal_check.png" width="30" />';
-				}
-				$polises_table.= '<tr>
+				if($row['Summa']>=4000){
+                    if($row['Oplachen']){
+                        $opl_kol++;
+                        $Oplachen = '<img src="images/gal_check.png" width="30" />';
+                    }
+                    if($row['Prov']){
+                        $prov_kol++;
+                        $Prov = '<img src="images/gal_check.png" width="30" />';
+                    }
+                    if($row['Printed']){
+                        $print_kol++;
+                        $Printed = '<img src="images/gal_check.png" width="30" />';
+                    }
+                    $polises_table.= '<tr>
 						<td align="left">'.$row['BSO'].'</td>
 						<td class="grey" align="left">'.date("H:i:s d-m-Y",strtotime($row['Date'])).'</td>
 						<td class="grey" align="left">'.$row['Client'].'</td>
@@ -133,7 +136,8 @@ if(isset($_POST['LOGIN_1C'])){
 						<td class="grey" align="left">'.$row['Curier'].'</td>
 						<td class="grey" align="left">'.$row['Summa'].'</td>
 						</tr>';
-			}
+                }
+            }
 		}
 
 	}

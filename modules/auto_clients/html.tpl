@@ -54,7 +54,7 @@
             BellTimer = setInterval(function () {
                         $('#btnHangUp').show();
                     },
-                    20000);
+                    30000);
         }
 
 
@@ -74,7 +74,7 @@
                         }*/
 
 					});
-		}, 50000);
+		}, 55000);
 
 </script>
 
@@ -274,7 +274,7 @@ function NextBlock(){
                 return;
             }
             $('#rating').val(5);
-            $('#next_block').hide();
+            //$('#next_block').hide();
             ShowBlock(5);
             break;
     }
