@@ -28,10 +28,13 @@ if(isset($_POST['date_start'])){
             sto.name as name,
             sto.gn as gn,
             sto.summa as summa,
+            users.name as oper,
             sto.bn as bn",
-        "joins"=>"LEFT OUTER JOIN sto_tochka ON sto.sto_tochka_id = sto_tochka.id",
+        "joins"=>"LEFT OUTER JOIN sto_tochka ON sto.sto_tochka_id = sto_tochka.id
+            LEFT OUTER JOIN users ON sto.oper_id = users.id",
         "where"=>"sto.visit = 1
-            AND DATE_FORMAT(sto.date_visit,'%Y%m%d')='".date("Ymd",strtotime($_POST['date_start']))."'"));
+            AND DATE_FORMAT(sto.date_visit,'%Y%m%d')>='".date("Ymd",strtotime($_POST['date_start']))."'
+            AND DATE_FORMAT(sto.date_visit,'%Y%m%d')<='".date("Ymd",strtotime($_POST['date_end']))."'"));
     $sql = $dbc->outsql;
     $numRows = $dbc->count;
     if ($numRows > 0) {
@@ -45,6 +48,7 @@ if(isset($_POST['date_start'])){
             $html.= '<tr>
                     <td>'.$row['sto_name'].'</td>
                     <td>'.$row['date_visit'].'</td>
+                    <td>'.$row['oper'].'</td>
                     <td>'.$row['name'].'</td>
                     <td>'.$row['gn'].'</td>
                     <td>'.$row['summa'].'</td>

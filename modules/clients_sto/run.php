@@ -127,7 +127,12 @@ if(isset($_POST['res_call_id'])){
         $res_err = $_POST['err_res_id'];
     }
     else{
-        $res_err = 0;
+		if($_POST['res_call_id']==4){
+			$res_err = $_POST['perezvon_res_id'];
+		}
+		else{
+			$res_err = 0;
+		}
     }
     $row = $dbc->element_find('sto_tochka',$_POST['sto']);
 	$params2["Call"]["MenegerCode"] = LOGIN_1C;
@@ -136,12 +141,14 @@ if(isset($_POST['res_call_id'])){
 	$params2["Call"]["DopStatus"] = $res_err;
 	if($_POST['res_call_id']==1){
         $params2["Call"]["Comment"] = $_POST['call_comment2'];
+		$params2["Call"]["DateContact"] = date('Y-m-d\TH:i:s',strtotime($_POST['date_dog']));
     }
     else{
         $params2["Call"]["Comment"] = $_POST['call_comment'];
+		$params2["Call"]["DateContact"] = date('Y-m-d\TH:i:s',strtotime($_POST['date_next_call']));
     }
 
-	$params2["Call"]["DateContact"] = date('Y-m-d\TH:i:s',strtotime($_POST['date_next_call']));
+
     $params2["Call"]["Sto"] = $row['code'];
     $params2["Call"]["DateDogovor"] = date('Y-m-d',strtotime($_POST['date_dog']));
     //print_r($params2);
@@ -235,7 +242,7 @@ if(isset($c_id)){
 
 	$tpl->assign("EDT_DATE_NEXT_CALL", date("d-m-Y H:i",strtotime("+ 1 hour")));
 
-    $tpl->assign("EDT_DATE_DOG", date("d-m-Y"));
+    $tpl->assign("EDT_DATE_DOG", date("d-m-Y H:i"));
 
 
 }

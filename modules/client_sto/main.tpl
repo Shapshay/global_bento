@@ -25,6 +25,7 @@
 		{INFO_U_COMMENT}
 	</div>
 <p align="center">
+<button type="button" class="btn_cour" onclick="window.location='/dobavlenie_klienta_sto';">Добавить клиента СТО</button>
 <input type="hidden" name="call_lenght2" id="call_lenght2" value="0" />
 </p>
 </diV>

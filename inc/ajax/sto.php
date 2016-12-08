@@ -63,6 +63,140 @@ if(!isset($_GET['type'])){
 }
 else{
     switch ($_GET['type']){
+        case 'sync':
+            $client = array();
+            //print_r($_GET);
+            foreach ($_GET as $key=>$v){
+                $client[$key] = base64_decode($v);
+            }
+            $code_sto = $client['sto_code'];
+            unset($client['type']);
+            unset($client['id']);
+            unset($client['sto_tochka_id']);
+            unset($client['controller']);
+            unset($client['action']);
+            unset($client['sto_code']);
+            unset($client['oper_id']);
+            $row = $dbc->element_find_by_field('sto','code_1C',$client['code_1C']);
+            if($dbc->count>0){
+                // client update
+                $sto_id = $row['id'];
+                $dbc->element_update('sto',$row['id'],$client);
+                $row2 = $dbc->element_find_by_field('sto_tochka','code',$code_sto);
+                $dbc->element_update('sto',$row['id'],array(
+                    "sto_tochka_id" => $row2['id']));
+
+                ini_set("soap.wsdl_cache_enabled", "0" );
+                $client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsakkto.1cws?wsdl",
+                    array(
+                        'login' => 'ws',
+                        'password' => '123456',
+                        'trace' => true
+                    )
+                );
+                $row = $dbc->element_find('sto',$sto_id);
+                $params2["Client"]["Name"] = $row['name'];
+                $params2["Client"]["Iin"] = $row['iin'];
+                $params2["Client"]["GosNomer"] = $row['gn'];
+                $params2["Client"]["Mark"] = $row['mark'];
+                $params2["Client"]["Model"] = $row['model'];
+                $params2["Client"]["GodVypusk"] = $row['born'];
+                $params2["Client"]["StatusTO"] = $row['status_to'];
+                $params2["Client"]["DateOfEndTO"] = date("Y-m-d",strtotime($row['date_to_end']));
+                $params2["Client"]["Summa"] = $row['summa'];
+                if($row['strach']==0){
+                    $strach = false;
+                }
+                else{
+                    $strach = true;
+                }
+                $params2["Client"]["HasPolic"] = $strach;
+                $params2["Client"]["InsuranseCompany"] = $row['strach_company'];
+                $params2["Client"]["DateBegin"] = date("Y-m-d",strtotime($row['date_strach_start']));
+                $params2["Client"]["DateEnd"] = date("Y-m-d",strtotime($row['date_strach_end']));
+                $params2["Client"]["Telefon"] = $row['phone'];
+                $params2["Client"]["Email"] = $row['email'];
+                $params2["Client"]["Sto"] = $code_sto;
+                $params2["Client"]["Code1C"] = $row['code_1C'];
+                $result = $client2->SaveClient2($params2);
+            }
+            else{
+                // client new
+                $row2 = $dbc->element_find_by_field('sto_tochka','code',$code_sto);
+
+                $dbc->element_create('sto',array(
+                    "sto_tochka_id" => $row2['id'],
+                    "name" => $client['name'],
+                    "oper_id" => 0,
+                    "iin" => $client['iin'],
+                    "gn" => $client['gn'],
+                    "pn" => $client['pn'],
+                    "mark" => $client['mark'],
+                    "model" => $client['model'],
+                    "born" => $client['born'],
+                    "phone" => $client['phone'],
+                    "email" => $client['email'],
+                    "date_to_end" => date("Y-m-d",strtotime($client['date_to_end'])),
+                    "status_to" => $client['status_to'],
+                    "summa" => $client['summa'],
+                    "bn" => $client['bn'],
+                    "strach" => $client['strach'],
+                    "strach_company" => $client['strach_company'],
+                    "date_strach_start" => date("Y-m-d",strtotime($client['date_strach_start'])),
+                    "date_strach_end" => date("Y-m-d",strtotime($client['date_strach_end'])),
+                    "visit" => 1,
+                    "date_visit" => date("Y-m-d",strtotime($client['date_visit']))
+                ));
+                $c_id = $dbc->ins_id;
+
+                $row = $dbc->element_find('sto',$c_id);
+
+                ini_set("soap.wsdl_cache_enabled", "0" );
+                $client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsakkto.1cws?wsdl",
+                    array(
+                        'login' => 'ws',
+                        'password' => '123456',
+                        'trace' => true
+                    )
+                );
+
+                $params2["Client"]["Name"] = $row['name'];
+                $params2["Client"]["Iin"] = $row['iin'];
+                $params2["Client"]["GosNomer"] = $row['gn'];
+                $params2["Client"]["Mark"] = $row['mark'];
+                $params2["Client"]["Model"] = $row['model'];
+                $params2["Client"]["GodVypusk"] = $row['born'];
+                $params2["Client"]["StatusTO"] = $row['status_to'];
+                $params2["Client"]["DateOfEndTO"] = date("Y-m-d",strtotime($row['date_to_end']));
+                $params2["Client"]["Summa"] = $row['summa'];
+                if($row['strach']==0){
+                    $strach = false;
+                }
+                else{
+                    $strach = true;
+                }
+                $params2["Client"]["HasPolic"] = $strach;
+                $params2["Client"]["InsuranseCompany"] = $row['strach_company'];
+                $params2["Client"]["DateBegin"] = date("Y-m-d",strtotime($row['date_strach_start']));
+                $params2["Client"]["DateEnd"] = date("Y-m-d",strtotime($row['date_strach_end']));
+                $params2["Client"]["Telefon"] = $row['phone'];
+                $params2["Client"]["Email"] = $row['email'];
+                $params2["Client"]["Sto"] = $code_sto;
+                $params2["Client"]["Code1C"] = $row['code_1C'];
+                //print_r($params2);
+                $result = $client2->SaveClient2($params2);
+                $array_save = objectToArray($result);
+                $res_save_1c = $array_save['return'];
+                $dbc->element_update('sto',$row['id'],array(
+                    "code_1C" => $res_save_1c));
+            }
+
+
+
+
+
+            $out_row['res'] = 1;
+            break;
         case 'edt':
             //$array = objectToArray(json_decode($_GET['client']));
             $client = array();
@@ -77,6 +211,7 @@ else{
             unset($client['controller']);
             unset($client['action']);
             unset($client['sto_code']);
+            unset($client['oper_id']);
             //print_r($client);
 
             $row = $dbc->element_find_by_field('sto','code_1C',$client['code_1C']);
