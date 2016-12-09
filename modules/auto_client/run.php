@@ -104,6 +104,9 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 	else{
 		$NadoOcenit = 0;
 	}
+
+
+
 	if($c_id==0){
 		$dbc->element_create("clients",array(
 			"oper_id" => ROOT_ID,
@@ -144,6 +147,16 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 			"ocenit" => $NadoOcenit,
 			"date_end" => date("Y-m-d H:i",strtotime($c_arr['DateEndPolicy']))));
 	}
+
+    if($c_arr['DateLastPolicy']=='0001-01-01'){
+        $tpl->assign("PROLONG_COLOR", 'f55711');
+        $tpl->assign("USER_INFO_ID", 0);
+    }
+    else{
+        $tpl->assign("PROLONG_COLOR", '44c086');
+        $tpl->assign("USER_INFO_ID", $c_id);
+    }
+
 	$dbc->element_create("calls_log",array(
 		"oper_id" => ROOT_ID,
 		"rating1_id" => $c_arr['Rating'],

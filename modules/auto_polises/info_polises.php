@@ -6,7 +6,9 @@
  * Time: 10:43
  */
 error_reporting (E_ALL);
-ini_set("display_errors", "1");
+ini_set("display_errors", 1);
+require_once("../../adm/inc/BDFunc.php");
+$dbc = new BDFunc;
 date_default_timezone_set ("Asia/Almaty");
 
 // SOAP
@@ -39,7 +41,9 @@ function stdToArray($obj){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-if(isset($_POST['info_polis_num'])){
+if(isset($_POST['info_id'])&&$_POST['info_id']!=0){
+    // запрос и инфо клиента
+
     ini_set("soap.wsdl_cache_enabled", "0" );
     $client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
         array(
@@ -48,50 +52,51 @@ if(isset($_POST['info_polis_num'])){
             'trace' => true
         )
     );
-    //$params["Code1C"] = LOGIN_1C;
-    $params["PolicNumber"] = $_POST['info_polis_num'];
-    $result = $client->GetPolicInfo($params);
+
+    $row = $dbc->element_find('clients',$_POST['info_id']);
+
+    $params["ClientCode1C"] =$row['code_1C'];
+    $result = $client->GetClientInfo($params);
     $array = objectToArray($result);
-    $u_arr = $array['return']['PolicInfo'];
+    $u_arr = $array['return'];
 
-    if($u_arr['BSO']!=''){
-        $Oplachen = '<img src="images/no.png" width="30" />';
-        $Prov = '<img src="images/no.png" width="30" />';
-        $Printed = '<img src="images/no.png" width="30" />';
-        if($u_arr['Oplachen']){
-            $Oplachen = '<img src="images/yes.png" width="30" />';
+    $PolicDrivers = '';
+    if(is_array($u_arr['LastPolicDrivers'])){
+        foreach($u_arr['LastPolicDrivers'] as $v){
+            $PolicDrivers.= $v.'<br>';
         }
-        if($u_arr['Prov']){
-            $Prov = '<img src="images/yes.png" width="30" />';
-        }
-        if($u_arr['Printed']){
-            $Printed = '<img src="images/yes.png" width="30" />';
-        }
-
-        $polises_table = '<p><strong>БСО</strong><br>
-            '.$u_arr['BSO'].'
-            <p><strong>Клиент</strong><br>
-            '.$u_arr['Client'].'
-            <p><strong>Менеджер</strong><br>
-            '.$u_arr['Manager'].'
-            <p><strong>Дата</strong><br>
-            '.date("d-m-Y",strtotime($u_arr['Date'])).'
-            <p><strong>Статус</strong><br>
-            '.$u_arr['Status'].'
-            <p><strong>Оплачен</strong><br>
-            '.$Oplachen.'
-            <p><strong>Проведен</strong><br>
-            '.$Prov.'
-            <p><strong>Распечатан</strong><br>
-            '.$Printed.'
-            <p><strong>Курьер</strong><br>
-            '.$u_arr['Curier'].'
-            <p><strong>Сумма</strong><br>
-            '.$u_arr['Summa'].'';
     }
     else{
-        $polises_table = '<font color="#f00"><strong>Полис с данным номером ненайден !</strong></font>';
+        $PolicDrivers = $u_arr['LastPolicDrivers'];
     }
+
+
+    $LastPolicCars = '';
+    if(is_array($u_arr['LastPolicCars'])){
+        $u_arr['LastPolicCars'] = array_unique($u_arr['LastPolicCars']);
+        foreach($u_arr['LastPolicCars'] as $v){
+            $LastPolicCars.= $v.'<br>';
+        }
+    }
+    else{
+        $LastPolicCars.= $u_arr['LastPolicCars'].'<br>';
+    }
+    $polises_table = '<p><strong>Номер последнего полиса:</strong><br>
+        '.$u_arr['LastPolicNumber'].'
+        <p><strong>Дата последнего полиса:</strong><br>
+        '.$u_arr['LastPolicDate'].'
+        <p><strong>Премия:</strong><br>
+        '.$u_arr['LastPolicPremium'].'
+        <p><strong>Сумма к оплате:</strong><br>
+        '.$u_arr['LastPolicSumm'].'
+        <p><strong>Курьер:</strong><br>
+        '.$u_arr['LastPolicCourier'].'
+        <p><strong>Застрахованные:</strong><br>
+        '.$PolicDrivers.'
+        <p><strong>Автомобили:</strong><br />
+        '.$LastPolicCars;
+
+
     $out_row['result'] = 'OK';
     $out_row['html'] = $polises_table;
 }
