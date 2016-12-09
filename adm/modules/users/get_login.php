@@ -95,7 +95,7 @@ function encodestring($string){
         'ң' => 'n',
         'ө' => 'o',
         'ұ' => 'u',
-        'i' => 'i',
+        'і' => 'i',
         'h' => 'h',
 
         ' ' => '_',
