@@ -41,6 +41,7 @@ else{
 	$tpl->assign("SEARCH_PHONE", $_POST['telnumber']);
 	$i = 0;
     foreach($array['return'] as $clients){
+		//print_r($clients);
 		if(isset($clients[0]['Code1C'])){
 			echo "Y1";
             foreach($clients as $client){
@@ -111,7 +112,7 @@ else{
 		}
 		else{
             //echo "Y2";
-            $client = $array['return'];
+            $client = $clients;
 			$c_arr = $client;
 			$c_id = getClientSTOID($c_arr['Code1C']);
             $oper_id = getClientSTOoperID($c_arr['Code1C']);
