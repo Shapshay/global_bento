@@ -124,7 +124,7 @@ if(isset($_POST['code_1C'])){
 
     $td_input = date("Ymd",strtotime($_POST['date_end']));
     $curent_date = date("Ymd");
-    if($td_input<$curent_date){
+    if(($td_input<$curent_date)&&$_POST['rating']>2){
         $rating_client = 2;
     }
     else{
