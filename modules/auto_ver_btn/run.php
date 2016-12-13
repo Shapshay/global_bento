@@ -37,7 +37,7 @@ function getCountVerDay($auto_type, $ver_id){
 }
 
 # MAIN #################################################################################
-
+/*
 $add_field_txt = 'Дополнительное поле';
 
 $num_day = (date('w'));
@@ -47,11 +47,11 @@ if($num_day==1){
 }
 else{
     $minus_days = "-1 days";
-}
+}*/
 
 // Auto 1
 $auto1 = getCountVerDay(1, ROOT_ID);
-if($auto1[1]==0){
+/*if($auto1[1]==0){
     $rows = $dbc->dbselect(array(
             "table"=>"calls_log",
             "select"=>"opers.id as oper",
@@ -117,13 +117,13 @@ if($auto1[1]==0){
     else{
         $auto1 = array(0, 0);
     }
-}
+}*/
 $tpl->assign("AUTO1_COUNT", $auto1[0].' / '.$auto1[1]);
 
 
 // Auto 2
 $auto2 = getCountVerDay(2, ROOT_ID);
-if($auto2[1]==0){
+/*if($auto2[1]==0){
     $rows = $dbc->dbselect(array(
             "table"=>"calls_log",
             "select"=>"opers.id as oper",
@@ -218,14 +218,14 @@ if($auto2[1]==0){
     else{
         $auto2 = array(0, 0);
     }
-}
+}*/
 $tpl->assign("AUTO2_COUNT", $auto2[0].' / '.$auto2[1]);
 
 
 
 // Auto 3
 $auto3 = getCountVerDay(3, ROOT_ID);
-if($auto3[1]==0){
+/*if($auto3[1]==0){
     $rows = $dbc->dbselect(array(
             "table"=>"calls_log",
             "select"=>"opers.id as oper",
@@ -284,13 +284,13 @@ if($auto3[1]==0){
     else{
         $auto3 = array(0, 0);
     }
-}
+}*/
 $tpl->assign("AUTO3_COUNT", $auto3[0].' / '.$auto3[1]);
 
 
 // Auto 4
 $auto4 = getCountVerDay(4, ROOT_ID);
-if($auto4[1]==0){
+/*if($auto4[1]==0){
     $rows = $dbc->dbselect(array(
             "table"=>"calls_log",
             "select"=>"opers.id as oper",
@@ -349,13 +349,13 @@ if($auto4[1]==0){
     else{
         $auto4 = array(0, 0);
     }
-}
+}*/
 $tpl->assign("AUTO4_COUNT", $auto4[0].' / '.$auto4[1]);
 
 
 // Auto 5
 $auto5 = getCountVerDay(5, ROOT_ID);
-if($auto5[1]==0){
+/*if($auto5[1]==0){
     $rows = $dbc->dbselect(array(
             "table"=>"calls_log",
             "select"=>"opers.id as oper",
@@ -411,13 +411,13 @@ if($auto5[1]==0){
     else{
         $auto5 = array(0, 0);
     }
-}
+}*/
 $tpl->assign("AUTO5_COUNT", $auto5[0].' / '.$auto5[1]);
 
 
 // Auto 6
 $auto6 = getCountVerDay(6, ROOT_ID);
-if($auto6[1]==0){
+/*if($auto6[1]==0){
     $rows = $dbc->dbselect(array(
             "table"=>"calls_log",
             "select"=>"opers.id as oper",
@@ -473,7 +473,7 @@ if($auto6[1]==0){
     else{
         $auto6 = array(0, 0);
     }
-}
+}*/
 $tpl->assign("AUTO6_COUNT", $auto6[0].' / '.$auto6[1]);
 
 

@@ -63,7 +63,7 @@ $tpl->assign("ERR_ARR", substr($err_arr, 0, -1));
 
 // Выдача звонка на прослушку
 
-$rows2 = $dbc->dbselect(array(
+/*$rows2 = $dbc->dbselect(array(
         "table" => "ver_log",
         "select" => "ver_log.id as ver,
             ver_log.add_field_txt as add_field_txt,
@@ -94,6 +94,18 @@ $rows2 = $dbc->dbselect(array(
         "order_type"=>"ASC",
         "limit" => 1
     )
+);*/
+$rows2 = $dbc->dbselect(array(
+        "table" => "ver_log",
+        "select" => "*",
+        "where" => "ver_log.ver_id = ".ROOT_ID." AND
+            DATE_FORMAT(ver_log.ver_date,'%Y%m%d') = '".date("Ymd")."' AND
+            ver_log.auto_type = ".$_GET['act']." AND 
+            ver_log.ver_obrab = 0",
+        "order"=>"ver_log.id",
+        "order_type"=>"ASC",
+        "limit" => 1
+    )
 );
 //echo $dbc->outsql;
 $row = $rows2[0];
@@ -104,66 +116,61 @@ $tpl->assign("RES", $row['res']);
 $tpl->assign("RES_ID", $row['res_id']);
 $tpl->assign("CALL_PHONE", $row['phone']);
 $tpl->assign("ADD_FIELD_TXT", $row['add_field_txt']);
-$tpl->assign("VER_ID", $row['ver']);
+$tpl->assign("VER_ID", $row['id']);
 $tpl->assign("AUDIO_LINK", $row['link']);
-$tpl->assign("CALL_DATE", $row['date_start'].' - '.$row['date_end']);
+$tpl->assign("CALL_DATE", $row['call_date_start'].' - '.$row['call_date_end']);
 $tpl->assign("AUTO_TYPE", $_GET['act']);
 $tpl->assign("CLIENT_TD", date("d-m-Y",strtotime($row['td'])));
-
-
-
-$row2 = $dbc->element_find('clients',$row['c_id']);
-$tpl->assign("EDT_NAME", $row2['name']);
-$tpl->assign("EDT_IIN", $row2['iin']);
-$tpl->assign("EDT_EMAIL", $row2['email']);
-$tpl->assign("EDT_COMMENT", $row2['comment']);
-$tpl->assign("EDT_PREMIUM", $row2['premium']);
-$tpl->assign("EDT_REAL_PREMIUM", $row2['real_premium']);
-$tpl->assign("EDT_GN", $row2['gn']);
+$tpl->assign("EDT_NAME", $row['c_name']);
+$tpl->assign("EDT_IIN", $row['c_iin']);
+$tpl->assign("EDT_EMAIL", $row['c_email']);
+$tpl->assign("EDT_COMMENT", $row['c_comment']);
+$tpl->assign("EDT_PREMIUM", $row['c_premium']);
+$tpl->assign("EDT_REAL_PREMIUM", $row['c_real_premium']);
+$tpl->assign("EDT_GN", $row['c_gn']);
 for($i=1;$i<=5;$i++){
-    $tpl->assign("EDT_DOP_IIN".$i, $row2['dop_iin'.$i]);
+    $tpl->assign("EDT_DOP_IIN".$i, $row['c_dop_iin'.$i]);
 }
 for($i=1;$i<=3;$i++){
-    $tpl->assign("EDT_DOP_GN".$i, $row2['dop_gn'.$i]);
+    $tpl->assign("EDT_DOP_GN".$i, $row['c_dop_gn'.$i]);
 }
-$tpl->assign("EDT_COMMENT", $row2['comment']);
-if($row2['is_car']==1){
+if($row['c_is_car']==1){
     $tpl->assign("EDT_CAR", 'Да');
 }
 else{
     $tpl->assign("EDT_CAR", 'Нет');
 }
-if($row2['is_dost']==1){
+if($row['c_is_dost']==1){
     $tpl->assign("EDT_4VP_DOST", 'Да');
 }
 else{
     $tpl->assign("EDT_4VP_DOST", 'Нет');
 }
-if($row2['is_yur']==1){
+if($row['c_is_yur']==1){
     $tpl->assign("EDT_4VP_YUR", 'Да');
 }
 else{
     $tpl->assign("EDT_4VP_YUR", 'Нет');
 }
-if($row2['is_ev']==1){
+if($row['c_is_ev']==1){
     $tpl->assign("EDT_4VP_EV", 'Да');
 }
 else{
     $tpl->assign("EDT_4VP_EV", 'Нет');
 }
-if($row2['is_korgau']==1){
+if($row['c_is_korgau']==1){
     $tpl->assign("EDT_4VP_KORGAU", 'Да');
 }
 else{
     $tpl->assign("EDT_4VP_KORGAU", 'Нет');
 }
-$tpl->assign("EDT_CITY", getItemTitle('city', $row2['city']));
-$tpl->assign("EDT_4VP_STRAH", getItemTitle('strach_company', $row2['strach_id']));
+$tpl->assign("EDT_CITY", $row['c_city']);
+$tpl->assign("EDT_4VP_STRAH", $row['c_strach_company']);
 
 
 
 
-$dbc->element_update('ver_log',$row['ver'],array(
+$dbc->element_update('ver_log',$row['id'],array(
     "ver_comment" => '',
     "ver_date_start" => 'NOW()'));
 

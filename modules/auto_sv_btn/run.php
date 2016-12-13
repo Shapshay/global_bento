@@ -37,7 +37,13 @@ function getCountSvDay($office_id, $minus_day, $type){
     $numRows = $dbc->count;
     if ($numRows > 0) {
         $row = $rows[0];
-        $res_arr[0] = $row['ob_row'];
+        if($row['ob_row']!=null){
+            $res_arr[0] = $row['ob_row'];
+        }
+        else{
+            $res_arr[0] = 0;
+        }
+
         $res_arr[1] = $row['all_row'];
     }
     else{
