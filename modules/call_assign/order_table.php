@@ -24,7 +24,8 @@ if(isset($_POST['LOGIN_1C'])){
                 'trace' => true
             )
         );
-        $params["telnumber"] = $_POST['phone'];
+        $params["telnumber"] = substr(trim($_POST['phone']),0,11);
+        //$params["telnumber"] = $_POST['phone'];
         $params["Code1C"] = $_POST['LOGIN_1C'];
         $params["Debt"] = $row['code1c'];
         //print_r($params);
