@@ -25,7 +25,7 @@ if(!isset($_GET['item'])){
     else{
         $minus_days = "-1 days";
     }
-    $minus_days = "-0 days";
+    //$minus_days = "-0 days";
     /*$rows = $dbc->dbselect(array(
             "table"=>"ver_log",
             "select"=>"ver_log.id as ver, 

@@ -29,7 +29,7 @@ if(isset($_POST['LOGIN_1C'])){
         $params["Code1C"] = $_POST['LOGIN_1C'];
         $params["Debt"] = $row['code1c'];
         //print_r($params);
-        $result = $client->OrderCallBack($params);
+        $result = $client->OrderCallBack1($params);
 
         $out_row['result'] = 'OK';
     }
