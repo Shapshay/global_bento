@@ -1205,3 +1205,28 @@ label{
     padding: 5px;
     font: bold 14px 'BloggerSans';
 }
+
+/* rating_shkala */
+.rating_div{
+    height:22px;
+    border:1px;
+    border-style:solid;
+    border-color:#000099;
+    background-color: #CCFFFF;
+}
+.cur_r{
+    height:20px;
+    border:0px;
+    background-color:#00FF00;
+    text-align: center;
+    padding-top: 2px;
+    font-weight: bold;
+}
+.rating_all{
+    text-align: center;
+    font-weight: bold;
+}
+.rating_dozvon{
+    text-align: center;
+    font-weight: bold;
+}

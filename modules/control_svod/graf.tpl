@@ -5,6 +5,7 @@
 			<th class="grey" width="100">Проверенно</th>
 			<th width="100">Хороших</th>
 			<th class="grey" width="100">Плохих</th>
+			<th width="100">Найдено ошибок</th>
 		</tr>
 	</thead>
 	<tbody id="giftTable">
@@ -16,6 +17,7 @@
 	<th align="center"><span id="giftItog">{ALL_RESULT1}</span></th>
 	<th>{ALL_RESULT2}</th>
 	<th>{ALL_RESULT3}</th>
+	<th>{ALL_RESULT4}</th>
 	</tr>
 	</tfoot>
 </table><p></p>
