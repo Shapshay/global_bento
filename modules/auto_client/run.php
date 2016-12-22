@@ -344,7 +344,8 @@ if(isset($c_id)){
 			phone LIKE '8775%' OR
 			phone LIKE '8776%' OR
 			phone LIKE '8778%'
-			)",
+			) AND 
+			del = 0",
             "limit"=>10));
 	$phones = '';
 	$c =1;
