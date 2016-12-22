@@ -55,15 +55,20 @@ if(isset($_POST['date_start'])){
         $head_title = join(' OR id=', $errs);
         $rows2 = $dbc->dbselect(array(
             "table"=>"errs",
-            "select"=>"GROUP_CONCAT(title SEPARATOR '</th><th>') as err_td",
-            "where"=>"parent_id <> 0 AND (id=".$head_title.")",
+            "select"=>"title",
+            "where"=>"(id=".$head_title.")",
             "order"=>"id ASC"
         ));
-        $row2 = $rows2[0];
+        $titled = array();
+        foreach($rows2 as $row2){
+            array_push($titled, $row2['title']);
+        }
+        $head_th = join('</th><th>', $titled);
+        //$sql = $dbc->outsql;
         $html = '<thead>
             <tr>
                 <th>Оператор</th>
-                <th>'.$row2['err_td'].'</th>
+                <th>'.$head_th.'</th>
             </tr>
             </thead>
             <tbody id="table_rows">';
@@ -71,6 +76,7 @@ if(isset($_POST['date_start'])){
         // выводим информацию по ошибкам
         $tmp_oper_id = 0;
         $tmp_errs_arr = array();
+        $tmp_i = 1;
         foreach($rows as $row){
             if($tmp_oper_id==0){
                 $tmp_oper_id = $row['oper_id'];
