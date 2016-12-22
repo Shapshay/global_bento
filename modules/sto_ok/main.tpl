@@ -29,6 +29,7 @@
             <th>Машина</th>
             <th>Сумма</th>
             <th>Тип расчета</th>
+            <th>Страх.компания</th>
         </tr>
         </thead>
         <tbody id="table_rows">

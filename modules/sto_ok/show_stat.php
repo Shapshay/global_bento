@@ -28,6 +28,7 @@ if(isset($_POST['date_start'])){
             sto.name as name,
             sto.gn as gn,
             sto.summa as summa,
+            sto.strach_company as strach_company,
             users.name as oper,
             sto.bn as bn",
         "joins"=>"LEFT OUTER JOIN sto_tochka ON sto.sto_tochka_id = sto_tochka.id
@@ -53,6 +54,7 @@ if(isset($_POST['date_start'])){
                     <td>'.$row['gn'].'</td>
                     <td>'.$row['summa'].'</td>
                     <td>'.$bn.'</td>
+                    <td>'.$row['strach_company'].'</td>
                     </tr>';
         }
     }
