@@ -240,6 +240,139 @@ if(isset($_POST['code_1C'])){
 $tpl->parse("META_LINK", ".".$moduleName."html");
 
 $row = $dbc->element_find('clients',$c_id);
+
+
+
+
+
+
+
+// err client
+if(isset($_POST['del_client'])){
+    ini_set("soap.wsdl_cache_enabled", "0" );
+    $client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
+        array(
+            'login' => 'ws',
+            'password' => '123456',
+            'trace' => true
+        )
+    );
+    // CLIENT
+    $params["iin"] = $row['iin'];
+    $params["rnn"] = '';
+    $params["telnumber"] = '';
+    $result = $client->SearchClient($params);
+    $с_arr = objectToArray($result);
+    if(isset($с_arr['return']['Client'][0])){
+        $с_arr = $с_arr['return']['Client'][0];
+    }
+    else{
+        $с_arr = $с_arr['return']['Client'];
+    }
+
+    ini_set("soap.wsdl_cache_enabled", "0" );
+    $client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
+        array(
+            'login' => 'ws',
+            'password' => '123456',
+            'trace' => true
+        )
+    );
+    $params2["Client"]["Code1C"] = $row['code_1C'];
+    $params2["Client"]["Name"] = $row['name'];
+    $params2["Client"]["FIO"] = $row['name'];
+    $params2["Client"]["IIN"] = $row['iin'];
+    $params2["Client"]["RNN"] = $с_arr['RNN'];
+    $params2["Client"]["Email"] = $row['email'];
+    $params2["Client"]["ManagerCode"] = LOGIN_1C;
+    $params2["Client"]["ManagerName"] = $user_row['name'];
+    $params2["Client"]["DateContact"] = date("Y-m-d H:i",strtotime($с_arr['DateContact']));
+    $params2["Client"]["DateEndPolicy"] = date("Y-m-d",strtotime($row['date_end']));
+    $params2["Client"]["Result"] = $с_arr['Result'];
+    $params2["Client"]["Sourse"] = $с_arr['Sourse'];
+
+    $rows2 = $dbc->dbselect(array(
+        "table"=>"phones",
+        "select"=>"phone, comment",
+        "where"=>"client_id=".$c_id));
+    $j = 0;
+    foreach($rows2 as $row2){
+        $params2["Client"]["Telnumbers"][$j]['number']=$row2['phone'];
+        $params2["Client"]["Telnumbers"][$j]['comment']=$row2['comment'];
+        $j++;
+    }
+    $params2["Client"]["Error"] = $с_arr['Error'];
+    $params2["Client"]["Comment"] = ' ';
+    $params2["Client"]["ActualDate"] = $с_arr['ActualDate'];
+    $params2["Client"]["DateLastPolicy"] = $с_arr['DateLastPolicy'];
+    $params2["Client"]["Gosnomer"] = $row['gn'];
+    $params2["Client"]["Rating"] = $row['rating'];
+    $params2["Client"]["NadoOcenit"] = true;
+
+
+    // CALL
+    $call_lenght = 0;
+    $date_next_call = date("Y-m-d 9:30", strtotime("+1 days"));
+    $city = '';
+    $comment = '';
+    $res_call_id = 2;
+    $auto = '';
+    
+    $dbc->element_create("calls", array(
+        "oper_id" => ROOT_ID,
+        "client_id" => $c_id,
+        "date_call" => 'NOW()',
+        "call_lenght" => $call_lenght,
+        "res_call_id" => $res_call_id,
+        "comment" => $comment,
+        "date_next_call" => $date_next_call));
+
+    $params2["Call"]["Code1C"] = $_POST['code_1C'];
+    $params2["Call"]["ManagerCode"] = LOGIN_1C;
+    $params2["Call"]["DateContact"] = date("Y-m-d\TH:i:s",strtotime($date_next_call));
+    $params2["Call"]["Result"] = $res_call_id;
+    $params2["Call"]["Comment"] = $comment;
+    $params2["Call"]["Duration"] = $call_lenght;
+    $params2["Call"]["Horosh"] = true;
+    $params2["Call"]["Auto"] = $auto;
+    $params2["Call"]["City"] = $city;
+
+    $result = $client2->SaveClientCall($params2);
+
+
+    $dbc->element_create("oper_log", array(
+        "oper_id" => ROOT_ID,
+        "oper_act_type_id" => 1,
+        "oper_act_id" => 1,
+        "date_log" => 'NOW()',
+        "comment" => addslashes($comment).". Длительность: ".$call_lenght));
+    $log = getOperCurentMaxLog(ROOT_ID);
+    $dbc->element_update('calls_log',$log,array(
+        "res" => $res_call_id,
+        "rating2_id" => $rating_client,
+        "date_end" => 'NOW()'));
+    $dbc->element_update('dozvon_log',$_SESSION['dozvon'],array(
+        "res" => $res_call_id));
+
+
+    /*if(ROOT_ID==2){
+        echo $date_next_call."*<br>";
+        print_r($params2["Call"]["DateContact"]);
+    }
+    else{*/
+    header("Location: /".getItemCHPU(2232, 'pages'));
+}
+
+
+
+
+
+
+
+
+
+
+
 //print_r($row);
 $tpl->assign("EDT_CLIENT_ID", $row['id']);
 $tpl->assign("EDT_NAME", $row['name']);

@@ -848,6 +848,7 @@
 
                 if(CallStatus=="<i>In Call</i>"){
                     console.log('time 2_1');
+                    $('#btn_del_client').hide();
                     $.post("inc/ajax/dozvon.php", {DOZVON_ID:{DOZVON_ID}},
                             function(data){
                                 console.log(data);

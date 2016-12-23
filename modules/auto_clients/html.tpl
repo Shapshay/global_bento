@@ -53,6 +53,13 @@
             $('#btnHangUp').hide();
             BellTimer = setInterval(function () {
                         $('#btnHangUp').show();
+                        $.post("modules/auto_clients/auto_send.php", {DOZVON_ID: {DOZVON_ID}},
+                                function(data){
+                                    var obj = jQuery.parseJSON(data);
+                                    if(obj.result=='Send'){
+                                        $('#btn_del_client').show();
+                                    }
+                                });
                     },
                     30000);
         }
@@ -69,9 +76,9 @@
 							$('#auto_send').val(1);
 							setTimeout(function(){    $('#edtClientAutoForm').submit();   }, 2000);
 						}
-						/*else{
-                            swal("Время закончилось!", obj.result, "error");
-                        }*/
+						else{
+                            $('#btn_del_client').hide();
+                        }
 
 					});
 		}, 55000);
@@ -500,5 +507,10 @@ function addPolis(){
                 }
             });
 
+}
+
+function delClients(){
+    $('#waitGear').show();
+    $('#delClientForm').submit();
 }
 </script>

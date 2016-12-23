@@ -1,3 +1,8 @@
+<form method="post" id="delClientForm">
+    <input type="hidden" name="del_client" value="1">
+    <button type="button" id="btn_del_client" class="btn_cour" style="background-color: #f55711; display: none;" onclick="delClients();">Номер несуществует</button>
+</form>
+
 <form method="post" enctype="multipart/form-data" name="s_s" id="edtClientAutoForm">
 	<input type="hidden" name="code_1C" id="code_1C" value="{EDT_1C_CODE}" />
     <input type="hidden" name="client_id" id="client_id" value="{EDT_CLIENT_ID}" />
