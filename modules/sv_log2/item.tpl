@@ -118,6 +118,9 @@ function saveControl(){
 			case 7:
 				FSW_IP = '192.168.6.200';
 				break;
+			case 8:
+				FSW_IP = '192.168.7.200';
+				break;
 		}
 		audioPlayer.attr({
 			src: "http://"+FSW_IP+"/freeswitch/{AUDIO_LINK}",

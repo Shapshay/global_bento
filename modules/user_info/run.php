@@ -20,16 +20,16 @@ $client = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
 );
 
 $row = $dbc->element_find('clients',$c_id);
-
+echo $row['code_1C'];
 $params["ClientCode1C"] =$row['code_1C'];
 //echo $params["ClientCode1C"];
 $result = $client->GetClientInfo($params);
 $array = objectToArray($result);
-$u_arr = $array['return'];
+$u_arr2 = $array['return'];
 //print_r($u_arr);
 //echo '<p>';
 
-$PolicDrivers = '';
+/*$PolicDrivers = '';
 if(is_array($u_arr['LastPolicDrivers'])){
 	foreach($u_arr['LastPolicDrivers'] as $v){
 		$PolicDrivers.= $v.'<br>';
@@ -50,8 +50,6 @@ if(is_array($u_arr['LastPolicCars'])){
 else{
 	$LastPolicCars.= $u_arr['LastPolicCars'].'<br>';
 }
-
-
 $tpl->assign("INFO_U2_NUMBER", $u_arr['LastPolicNumber']);
 $tpl->assign("INFO_U2_DATE", $u_arr['LastPolicDate']);
 $tpl->assign("INFO_U2_DRIVERS", $PolicDrivers);
@@ -59,6 +57,79 @@ $tpl->assign("INFO_U2_PREMIUM", $u_arr['LastPolicPremium']);
 $tpl->assign("INFO_U2_SUM", $u_arr['LastPolicSumm']);
 $tpl->assign("INFO_U2_CURIER", $u_arr['LastPolicCourier']);
 $tpl->assign("INFO_U2_CARS", $LastPolicCars);
+*/
+
+
+
+
+
+
+
+
+if(isset($u_arr2['ClientInfo'][0])){
+	foreach ($u_arr2['ClientInfo'] as $u_arr){
+		$PolicDrivers = '';
+		if(is_array($u_arr['LastPolicDrivers'])){
+			foreach($u_arr['LastPolicDrivers'] as $v){
+				$PolicDrivers.= $v.'<br>';
+			}
+		}
+		else{
+			$PolicDrivers = $u_arr['LastPolicDrivers'];
+		}
+
+
+		$LastPolicCars = '';
+		if(is_array($u_arr['LastPolicCars'])){
+			$u_arr['LastPolicCars'] = array_unique($u_arr['LastPolicCars']);
+			foreach($u_arr['LastPolicCars'] as $v){
+				$LastPolicCars.= $v.'<br>';
+			}
+		}
+		else{
+			$LastPolicCars.= $u_arr['LastPolicCars'].'<br>';
+		}
+
+		$tpl->assign("INFO_U2_NUMBER", $u_arr['LastPolicNumber']);
+		$tpl->assign("INFO_U2_DATE", $u_arr['LastPolicDate']);
+		$tpl->assign("INFO_U2_DRIVERS", $PolicDrivers);
+		$tpl->assign("INFO_U2_PREMIUM", $u_arr['LastPolicPremium']);
+		$tpl->assign("INFO_U2_SUM", $u_arr['LastPolicSumm']);
+		$tpl->assign("INFO_U2_CURIER", $u_arr['LastPolicCourier']);
+		$tpl->assign("INFO_U2_CARS", $LastPolicCars);
+	}
+}
+else{
+	$u_arr = $u_arr2['ClientInfo'];
+	$PolicDrivers = '';
+	if(is_array($u_arr['LastPolicDrivers'])){
+		foreach($u_arr['LastPolicDrivers'] as $v){
+			$PolicDrivers.= $v.'<br>';
+		}
+	}
+	else{
+		$PolicDrivers = $u_arr['LastPolicDrivers'];
+	}
+
+
+	$LastPolicCars = '';
+	if(is_array($u_arr['LastPolicCars'])){
+		$u_arr['LastPolicCars'] = array_unique($u_arr['LastPolicCars']);
+		foreach($u_arr['LastPolicCars'] as $v){
+			$LastPolicCars.= $v.'<br>';
+		}
+	}
+	else{
+		$LastPolicCars.= $u_arr['LastPolicCars'].'<br>';
+	}
+	$tpl->assign("INFO_U2_NUMBER", $u_arr['LastPolicNumber']);
+	$tpl->assign("INFO_U2_DATE", $u_arr['LastPolicDate']);
+	$tpl->assign("INFO_U2_DRIVERS", $PolicDrivers);
+	$tpl->assign("INFO_U2_PREMIUM", $u_arr['LastPolicPremium']);
+	$tpl->assign("INFO_U2_SUM", $u_arr['LastPolicSumm']);
+	$tpl->assign("INFO_U2_CURIER", $u_arr['LastPolicCourier']);
+	$tpl->assign("INFO_U2_CARS", $LastPolicCars);
+}
 
 
 $tpl->parse("META_LINK", ".".$moduleName."html");

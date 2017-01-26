@@ -147,14 +147,24 @@ if(!isset($_GET['item'])&&!isset($_SESSION['1C'])&&!isset($_SESSION['c_id'])&&!i
 			"ocenit" => $NadoOcenit,
 			"date_end" => date("Y-m-d H:i",strtotime($c_arr['DateEndPolicy']))));
 	}
-
+	$sql_del = "DELETE FROM phones WHERE client_id = ".$c_id;
+	$dbc->db_free_del($sql_del);
     if($c_arr['DateLastPolicy']=='0001-01-01'){
         $tpl->assign("PROLONG_COLOR", 'f55711');
         $tpl->assign("USER_INFO_ID", 0);
     }
     else{
-        $tpl->assign("PROLONG_COLOR", '44c086');
-        $tpl->assign("USER_INFO_ID", $c_id);
+        $p_date = date("Ymd", strtotime($c_arr['DateLastPolicy']));
+		$old_date = date("Ymd", strtotime("-2 months"));
+        //echo $p_date.'>'.$old_date;
+		if($p_date>$old_date){
+			$tpl->assign("PROLONG_COLOR", '44c086');
+			$tpl->assign("USER_INFO_ID", $c_id);
+		}
+		else{
+			$tpl->assign("PROLONG_COLOR", 'f55711');
+			$tpl->assign("USER_INFO_ID", 0);
+		}
     }
 
 	$dbc->element_create("calls_log",array(

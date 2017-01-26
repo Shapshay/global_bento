@@ -135,17 +135,22 @@ if(isset($_SESSION['polis'])){
 		$row9 = $rows9[0];
 		$mark = $row9['make'];
 		$model = $row9['model'];
+		$stoim = 0;
+		/*$mark = $row9['make'];
+		$model = $row9['model'];
 		$url = 'http://melchior.kz/api/getSI?hash='. md5(date("d.m.Y")).'&make_id='.$mark.'&model_id='.$model.'&year='.$row['car_year'];
 		$result = get_web_page( $url );
 		$html2 = $result['content'];
 		$obj=json_decode($html2);
-		$stoim = $obj->summ;
+		$stoim = $obj->summ;*/
 	}
 	else{
 		$mark = '';
 		$model = '';
 		$stoim = 0;
 	}
+
+
 
 	$params7['Polic']['Cars'][0]['Gosnumber'] = $row['gn'];
 	$params7['Polic']['Cars'][0]['Nomertp'] = '';

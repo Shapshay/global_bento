@@ -53,6 +53,7 @@ else{
 					"login_1C" => $_POST['login_1C'],
 					"phone" => $_POST['phone'],
 					"office_id" => $_POST['office_id'],
+					"bell_close" => 1,
 					"prod" => $prod,
 					"page_id" => $_POST['page_id'],
                     "reg_date"=>'NOW()'));

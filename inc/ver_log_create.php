@@ -638,7 +638,7 @@ if ($numRows > 0) {
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') <= '" . date("Ymd", strtotime($minus_days)) . "' AND
                 calls_log.oper_id = " . $row['oper'] . "
                 ORDER BY calls_log.date_end ASC
-                LIMIT 3)";
+                LIMIT 5)";
                     $i++;
                 }
                 $auto1_sql = implode(" UNION ", $auto1_sql_arr);
@@ -809,7 +809,7 @@ if ($numRows > 0) {
                 ) AND
                 calls_log.oper_id = ".$row['oper']."
                 ORDER BY calls_log.date_end ASC
-                LIMIT 3)";
+                LIMIT 5)";
                     $i++;
                 }
                 $auto2_sql = implode(" UNION ", $auto2_sql_arr);
@@ -942,7 +942,7 @@ if ($numRows > 0) {
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') <= '".date("Ymd", strtotime($minus_days))."' AND
                 calls_log.oper_id = ".$row['oper']."
                 ORDER BY calls_log.date_end ASC
-                LIMIT 3)";
+                LIMIT 5) ";
                     $i++;
                 }
                 $auto3_sql = implode(" UNION ", $auto3_sql_arr);
@@ -1076,7 +1076,7 @@ if ($numRows > 0) {
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') <= '".date("Ymd", strtotime($minus_days))."' AND
                 calls_log.oper_id = ".$row['oper']."
                 ORDER BY calls_log.date_end ASC
-                LIMIT 3)";
+                LIMIT 5)";
                     $i++;
                 }
                 $auto4_sql = implode(" UNION ", $auto4_sql_arr);
@@ -1207,7 +1207,7 @@ if ($numRows > 0) {
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') <= '".date("Ymd", strtotime($minus_days))."' AND
                 calls_log.oper_id = ".$row['oper']."
                 ORDER BY calls_log.date_end ASC
-                LIMIT 3)";
+                LIMIT 5)";
                     $i++;
                 }
                 $auto5_sql = implode(" UNION ", $auto5_sql_arr);
@@ -1338,7 +1338,7 @@ if ($numRows > 0) {
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') <= '".date("Ymd", strtotime($minus_days))."' AND
                 calls_log.oper_id = ".$row['oper']."
                 ORDER BY calls_log.date_end ASC
-                LIMIT 3)";
+                LIMIT 5)";
                     $i++;
                 }
                 $auto6_sql = implode(" UNION ", $auto6_sql_arr);

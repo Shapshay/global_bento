@@ -59,7 +59,6 @@
         for(i=0;i<err_arr.length;i++){
             $("#err"+err_arr[i]).attr('checked', false);
         }
-
         switch (office_id){
 			case '1':
 				FSW_IP = '192.168.0.200';
@@ -81,9 +80,12 @@
 				break;
 			case '7':
 				FSW_IP = '192.168.6.200';
+                break;
+            case '8':
+                FSW_IP = '192.168.7.200';
 				break;
 		}
-		showControl();
+        showControl();
         $("#ui-id-1").click();
         $("#ui-id-8").click();
 		//console.log("http://"+FSW_IP+"/freeswitch/"+AudioFile);

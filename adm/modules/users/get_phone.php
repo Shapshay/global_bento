@@ -37,6 +37,9 @@ if(isset($_POST['office_id'])){
         case 7:
             $phone_start = 600;
             break;
+        case 8:
+            $phone_start = 700;
+            break;
         default:
             $phone_start = 0;
             break;

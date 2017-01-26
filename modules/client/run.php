@@ -248,7 +248,13 @@ if(isset($c_id)){
 	$row = $dbc->element_find('clients',$c_id);
 
 	$tpl->assign("INFO_U_FIO", $row['fio']);
-    $tpl->assign("DOZVON_ID", $_SESSION['dozvon']);
+	if (in_array(5,$USER_ROLE)){
+        $tpl->assign("DOZVON_ID", 0);
+    }
+    else{
+        $tpl->assign("DOZVON_ID", $_SESSION['dozvon']);
+    }
+
 	$tpl->assign("INFO_U_NAME", $row['name']);
 	$tpl->assign("INFO_U_IIN", $row['iin']);
 	$tpl->assign("INFO_U_RNN", $row['rnn']);

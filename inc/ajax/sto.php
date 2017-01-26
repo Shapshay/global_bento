@@ -66,8 +66,11 @@ else{
         case 'sync':
             $client = array();
             //print_r($_GET);
-            foreach ($_GET as $key=>$v){
+            /*foreach ($_GET as $key=>$v){
                 $client[$key] = base64_decode($v);
+            }*/
+            foreach ($_POST as $key=>$v){
+                $client[$key] = $v;
             }
             $code_sto = $client['sto_code'];
             unset($client['type']);

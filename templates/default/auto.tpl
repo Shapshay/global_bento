@@ -284,6 +284,7 @@
             var U_1C = $('#user_tech_code').val();
             var gn = $('#small_tech_reg_number').val();
             var dost_adr = $('#small_tech_adres').val();
+            $('#smallBtn').hide();
             $.post("modules/save_tech/save_small_tech.php", {LOGIN_1C: LOGIN_1C, U_1C:U_1C, gn:gn, dost_adr:dost_adr},
                     function(data){
                         //alert(data);
@@ -665,7 +666,7 @@
         <input type="text" name="small_tech_reg_number" id="small_tech_reg_number" class="UpInput pole_vvoda" style="padding-left:10px; width:300px;"></p>
     <p><strong>Адрес доставки</strong><br>
         <input type="text" name="small_tech_adres" id="small_tech_adres" class="pole_vvoda" style="padding-left:10px; width:300px;"></p>
-    <p><button type="button" class="pole_sav" onClick="javascript:saveSmallTech();" style="margin-top:20px;"></button></p>
+    <p><button type="button" id="smallBtn" class="pole_sav" onClick="javascript:saveSmallTech();" style="margin-top:20px;"></button></p>
 </div>
 
 <div id="DivGnTech" class="DivSmallTech">

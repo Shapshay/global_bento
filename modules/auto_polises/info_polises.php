@@ -54,51 +54,102 @@ if(isset($_POST['info_id'])&&$_POST['info_id']!=0){
     );
 
     $row = $dbc->element_find('clients',$_POST['info_id']);
-
+    //$row['code_1C'] = 'C01448208';
     $params["ClientCode1C"] =$row['code_1C'];
     $result = $client->GetClientInfo($params);
     $array = objectToArray($result);
-    $u_arr = $array['return'];
+    $u_arr2 = $array['return'];
+    $polises_table = '';
+    if(isset($u_arr2['ClientInfo'][0])){
+        foreach ($u_arr2['ClientInfo'] as $u_arr){
+            $PolicDrivers = '';
+            if(is_array($u_arr['LastPolicDrivers'])){
+                foreach($u_arr['LastPolicDrivers'] as $v){
+                    $PolicDrivers.= $v.'<br>';
+                }
+            }
+            else{
+                $PolicDrivers = $u_arr['LastPolicDrivers'];
+            }
 
-    $PolicDrivers = '';
-    if(is_array($u_arr['LastPolicDrivers'])){
-        foreach($u_arr['LastPolicDrivers'] as $v){
-            $PolicDrivers.= $v.'<br>';
+
+            $LastPolicCars = '';
+            if(is_array($u_arr['LastPolicCars'])){
+                $u_arr['LastPolicCars'] = array_unique($u_arr['LastPolicCars']);
+                foreach($u_arr['LastPolicCars'] as $v){
+                    $LastPolicCars.= $v.'<br>';
+                }
+            }
+            else{
+                $LastPolicCars.= $u_arr['LastPolicCars'].'<br>';
+            }
+            $polises_table.= '<p><strong>Номер полиса:</strong><br>
+                '.$u_arr['LastPolicNumber'].'
+                <p><strong>Дата последнего полиса:</strong><br>
+                '.$u_arr['LastPolicDate'].'
+                <p><strong>Премия:</strong><br>
+                '.$u_arr['LastPolicPremium'].'
+                <p><strong>Сумма к оплате:</strong><br>
+                '.$u_arr['LastPolicSumm'].'
+                <p><strong>Курьер:</strong><br>
+                '.$u_arr['LastPolicCourier'].'
+                <p><strong>Застрахованные:</strong><br>
+                '.$PolicDrivers.'
+                <p><strong>Автомобили:</strong><br />
+                '.$LastPolicCars.'<br><hr><br>';
         }
     }
     else{
-        $PolicDrivers = $u_arr['LastPolicDrivers'];
-    }
+        if(isset($u_arr2['ClientInfo'])){
+            $u_arr = $u_arr2['ClientInfo'];
+            $PolicDrivers = '';
+            if(is_array($u_arr['LastPolicDrivers'])){
+                foreach($u_arr['LastPolicDrivers'] as $v){
+                    $PolicDrivers.= $v.'<br>';
+                }
+            }
+            else{
+                $PolicDrivers = $u_arr['LastPolicDrivers'];
+            }
 
 
-    $LastPolicCars = '';
-    if(is_array($u_arr['LastPolicCars'])){
-        $u_arr['LastPolicCars'] = array_unique($u_arr['LastPolicCars']);
-        foreach($u_arr['LastPolicCars'] as $v){
-            $LastPolicCars.= $v.'<br>';
+            $LastPolicCars = '';
+            if(is_array($u_arr['LastPolicCars'])){
+                $u_arr['LastPolicCars'] = array_unique($u_arr['LastPolicCars']);
+                foreach($u_arr['LastPolicCars'] as $v){
+                    $LastPolicCars.= $v.'<br>';
+                }
+            }
+            else{
+                $LastPolicCars.= $u_arr['LastPolicCars'].'<br>';
+            }
+            $polises_table.= '<p><strong>Номер полиса:</strong><br>
+                    '.$u_arr['LastPolicNumber'].'
+                    <p><strong>Дата последнего полиса:</strong><br>
+                    '.$u_arr['LastPolicDate'].'
+                    <p><strong>Премия:</strong><br>
+                    '.$u_arr['LastPolicPremium'].'
+                    <p><strong>Сумма к оплате:</strong><br>
+                    '.$u_arr['LastPolicSumm'].'
+                    <p><strong>Курьер:</strong><br>
+                    '.$u_arr['LastPolicCourier'].'
+                    <p><strong>Застрахованные:</strong><br>
+                    '.$PolicDrivers.'
+                    <p><strong>Автомобили:</strong><br />
+                    '.$LastPolicCars;
+        }
+        else{
+            $polises_table = 'Нет данных в 1С!';
         }
     }
-    else{
-        $LastPolicCars.= $u_arr['LastPolicCars'].'<br>';
-    }
-    $polises_table = '<p><strong>Номер последнего полиса:</strong><br>
-        '.$u_arr['LastPolicNumber'].'
-        <p><strong>Дата последнего полиса:</strong><br>
-        '.$u_arr['LastPolicDate'].'
-        <p><strong>Премия:</strong><br>
-        '.$u_arr['LastPolicPremium'].'
-        <p><strong>Сумма к оплате:</strong><br>
-        '.$u_arr['LastPolicSumm'].'
-        <p><strong>Курьер:</strong><br>
-        '.$u_arr['LastPolicCourier'].'
-        <p><strong>Застрахованные:</strong><br>
-        '.$PolicDrivers.'
-        <p><strong>Автомобили:</strong><br />
-        '.$LastPolicCars;
 
 
+
+
+    $out_row['ClientCode1C'] = $params["ClientCode1C"];
     $out_row['result'] = 'OK';
     $out_row['html'] = $polises_table;
+    //$out_row['html'] = $u_arr;
 }
 else{
     $out_row['result'] = 'Err';

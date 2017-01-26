@@ -27,26 +27,29 @@
 		}
 
 		switch (office_id){
-			case 1:
-				FSW_IP = '192.168.0.200';
-				break;
-			case 2:
-				FSW_IP = '192.168.1.200';
-				break;
-			case 3:
-				FSW_IP = '192.168.3.200';
-				break;
-			case 4:
-				FSW_IP = '192.168.4.200';
-				break;
-			case 5:
-				FSW_IP = '192.168.5.200';
-				break;
-			case 6:
-				FSW_IP = '192.168.7.200';
-				break;
-			case 7:
-				FSW_IP = '192.168.6.200';
+            case 1:
+                FSW_IP = '192.168.0.200';
+                break;
+            case 2:
+                FSW_IP = '192.168.1.200';
+                break;
+            case 3:
+                FSW_IP = '192.168.3.200';
+                break;
+            case 4:
+                FSW_IP = '192.168.4.200';
+                break;
+            case 5:
+                FSW_IP = '192.168.5.200';
+                break;
+            case 6:
+                FSW_IP = '192.168.7.200';
+                break;
+            case 7:
+                FSW_IP = '192.168.6.200';
+                break;
+            case 8:
+                FSW_IP = '192.168.7.200';
 				break;
 		}
         audioPlayer.attr({
