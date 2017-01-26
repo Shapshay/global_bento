@@ -73,15 +73,6 @@ if(isset($_POST['polis_ot_cour'])&&($_POST['polis_ot_cour']==1)&&isset($_POST['P
 		$array_save = objectToArray($result);
 		$res_save_1c = $array_save['return'];
 		if($res_save_1c=='Успешно'){
-		
-		
-		
-		
-		
-		
-		
-		
-		
 			$row = $dbc->element_find('polises',$v);
 			ini_set("soap.wsdl_cache_enabled", "0" );
 			$client2 = new SoapClient("http://akk.coap.kz:55544/akk/ws/wsphp.1cws?wsdl",
@@ -296,6 +287,7 @@ $rows3 = $dbc->dbselect(array(
 			polises.bso_number as bso_number,
 			polises.dost_address as dost_address,
 			polises.date_print as date_print,
+			polises.date_dost as date_dost,
 			users.name as oper",
 		"joins"=>"LEFT OUTER JOIN users ON polises.oper_id = users.id ",
 		"where"=>"polises.status = 2 AND 
@@ -311,6 +303,7 @@ if ($numRows > 0) {
 		$tpl->assign("DOST1_ID", $row3['id']);
 		$tpl->assign("DOST1_POLIS_NUM", $row3['bso_number']);
 		$tpl->assign("DOST1_OPER", $row3['oper']);
+		$tpl->assign("DOST1_DATE", date("d-m-Y", strtotime($row3['date_dost'])));
 		$tpl->assign("DOST1_ADRES", $row3['dost_address']);
         $date_err = date("YmdHi",strtotime(date("YmdHi", strtotime($row3['date_print'])) . " + 3 day"));
         if($date_err<date("YmdHi")){
@@ -333,6 +326,7 @@ $rows3 = $dbc->dbselect(array(
 			polises.bso_number as bso_number,
 			polises.dost_address as dost_address,
 			polises.date_indost as date_indost,
+			polises.date_dost as date_dost,
 			polises.summa as summa,
 			users.name as oper,
 			c_users.name as cour,
@@ -353,17 +347,19 @@ $rows3 = $dbc->dbselect(array(
 );
 //echo $dbc->outsql;
 $numRows = $dbc->count;
+$all_polis_sum =0;
 if ($numRows > 0) {
 	foreach($rows3 as $row3){
 		$tpl->assign("DOST2_ID", $row3['id']);
 		$tpl->assign("DOST2_POLIS_NUM", $row3['bso_number']);
+        $tpl->assign("DOST2_DATE", date("d-m-Y", strtotime($row3['date_dost'])));
         $tpl->assign("DOST2_STATUS", $row3['status']);
         $tpl->assign("DOST2_CUR_ERR", $row3['cour_err']);
 		$tpl->assign("DOST2_OPER", $row3['oper']);
         $tpl->assign("DOST2_SUM", $row3['summa']);
 		$tpl->assign("DOST2_COUR", $row3['cour']);
 		$tpl->assign("DOST2_ADRES", $row3['dost_address']);
-
+        $all_polis_sum+=$row3['summa'];
         $date_err = date("YmdHi",strtotime(date("YmdHi", strtotime($row3['date_indost'])) . " + 3 day"));
         if($date_err<date("YmdHi")){
             $tpl->assign("DOST2_COLOR", ' style="color: red; font-weight: bold;"');
@@ -378,6 +374,8 @@ if ($numRows > 0) {
 else{
 	$tpl->assign("DOST2_ROWS", '');
 }
+
+$tpl->assign("ALL_POLIS_SUM", number_format($all_polis_sum, 0, '', ' '));
 
 $tpl->parse("META_LINK", ".".$moduleName."html");
 

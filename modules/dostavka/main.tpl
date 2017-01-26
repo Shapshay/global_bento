@@ -8,6 +8,7 @@
 	<thead>
 	<th width="50">Выбор</th>
 	<th>Номер полиса</th>
+	<th>Дата доставки</th>
 	<th>Менеджер</th>
 	<th>Адрес доставки</th>
 	</thead>
@@ -38,6 +39,7 @@
 	<thead>
 	<th width="50">Выбор</th>
 	<th>Номер полиса</th>
+	<th>Дата доставки</th>
 	<th>Статус</th>
 	<th>Код ошибки</th>
 	<th>Курьер</th>
@@ -51,6 +53,7 @@
 	</table>
 		<input type="hidden" id="dost2_rows_count" value="0">
     </p>
+        <h3>Сумма полисов: <span id="all_polis_sum">{ALL_POLIS_SUM}</span> тг.</h3>
     <p><strong>Курьер</strong><br>
     	<select name="c_id" id="c_id">
     		{COURIER_SEL}

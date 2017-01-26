@@ -2,19 +2,40 @@
 <link rel="stylesheet" href="adm/inc/data_table/jquery.dataTables.min.css" />
 <script src="adm/inc/data_table/jquery.dataTables.min.js"></script>
 <script>
+    var dtable;
 $(document).ready(function() {
     $('#dost_table1').DataTable( {
         "lengthMenu": [[25, 100, 500, -1], [25, 100, 500, "All"]]
     } );
-     var dtable = $('#dost_table2').DataTable( {
+     dtable = $('#dost_table2').DataTable( {
         "lengthMenu": [[25, 100, 500, -1], [25, 100, 500, "All"]]
     } );
+    //var tableRows = dtable.fnGetData();
+
+    //var json = dtable.ajax.json();
+    //console.log(json);
 	$('#c_id').on( 'change', function () {
 		var curTxt = $('#c_id option:selected').text();
 		dtable.search(curTxt).draw();
+		RefreshAllSum();
 	} );
 
 } );
+
+function RefreshAllSum() {
+
+    var all_sum = 0;
+    var curTxt = $('#c_id option:selected').text();
+    dtable.rows().every( function () {
+            var d = this.data();
+            if(d[5]==curTxt) {
+                all_sum = all_sum + parseInt(d[6]);
+                console.log(d[6]);
+            }
+    } );
+    $('#all_polis_sum').html(all_sum);
+
+}
 
 
 function Inkassacia(){
