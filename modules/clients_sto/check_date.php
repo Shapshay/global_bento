@@ -108,7 +108,7 @@ function setDateCounter($oper_id, $count_type, $gn) {
 if(isset($_POST['gn'])){
     $gn = SuperSaveStr($_POST['gn']);
 
-    $url = 'http://bentocrm.kz/test/php/egov2.php?vehicleNumber='.$gn;
+    $url = 'http://92.242.40.185/egov2.php?vehicleNumber='.$gn;
     $result = get_web_page( $url );
     $html2 = $result['content'];
 
