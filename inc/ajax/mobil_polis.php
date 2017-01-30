@@ -113,6 +113,8 @@ if(isset($_GET['code1C'])){
                 $row2 = $rows2[0];
                 $numRows = $dbc->count;
                 if($numRows>0){
+                    $out_row['bso_number'] = $row2['id'];
+                    $out_row['u_id'] = $u_id;
                     if(verCourPolis($u_id, $row2['id'])>0){
                         $dbc->element_update('polises',$row2['id'],array(
                             "status" => 7,
