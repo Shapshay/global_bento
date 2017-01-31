@@ -101,6 +101,12 @@ function changeResCall(){
         $('.stoDivOtkaz').hide();
         $('.stoDivOtrab').show();
     }
+
+    if(res_call_id==6){
+        $('.stoDivPerezvon').hide();
+        $('.stoDivOtkaz').hide();
+        $('.stoDivOtrab').show();
+    }
 }
 
 function checkDateTO() {
