@@ -29,10 +29,12 @@ if(isset($_POST['date_start'])){
             sto.gn as gn,
             sto.summa as summa,
             sto.strach_company as strach_company,
+            sto_res_call.title as res,
             users.name as oper,
             sto.bn as bn",
         "joins"=>"LEFT OUTER JOIN sto_tochka ON sto.sto_tochka_id = sto_tochka.id
-            LEFT OUTER JOIN users ON sto.oper_id = users.id",
+            LEFT OUTER JOIN users ON sto.oper_id = users.id
+            LEFT OUTER JOIN sto_res_call ON sto.res_call_id = sto_res_call.id",
         "where"=>"sto.visit = 1
             AND DATE_FORMAT(sto.date_visit,'%Y%m%d')>='".date("Ymd",strtotime($_POST['date_start']))."'
             AND DATE_FORMAT(sto.date_visit,'%Y%m%d')<='".date("Ymd",strtotime($_POST['date_end']))."'"));
@@ -55,6 +57,7 @@ if(isset($_POST['date_start'])){
                     <td>'.$row['summa'].'</td>
                     <td>'.$bn.'</td>
                     <td>'.$row['strach_company'].'</td>
+                    <td>'.$row['res'].'</td>
                     </tr>';
         }
     }

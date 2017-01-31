@@ -27,6 +27,7 @@ if(isset($_POST['date_start'])){
             sto.date_call as date_call,
             COUNT(sto.id) as call_count,
             SUM(CASE WHEN sto.res_call_id='1' THEN 1 ELSE 0 END) as status1,
+            SUM(CASE WHEN sto.res_call_id='6' THEN 1 ELSE 0 END) as status6,
             SUM(CASE WHEN sto.res_call_id='2' THEN 1 ELSE 0 END) as status2,
             SUM(CASE WHEN sto.res_call_id='3' THEN 1 ELSE 0 END) as status3,
             SUM(CASE WHEN sto.res_call_id='4' THEN 1 ELSE 0 END) as status4,
@@ -44,6 +45,7 @@ if(isset($_POST['date_start'])){
                     <td>'.$row['oper'].'</td>
                     <td>'.$row['call_count'].'</td>
                     <td>'.$row['status1'].'</td>
+                    <td>'.$row['status6'].'</td>
                     <td>'.$row['status2'].'</td>
                     <td>'.$row['status3'].'</td>
                     <td>'.$row['status4'].'</td>
