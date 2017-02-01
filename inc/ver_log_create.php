@@ -574,6 +574,8 @@ function getItemTitle($table, $item_id) {
 
 $add_field_txt = 'Дополнительное поле';
 
+$log_ids_arr = array();
+
 $num_day = (date('w'));
 
 if($num_day==1){
@@ -623,22 +625,22 @@ if ($numRows > 0) {
                 $i = 0;
                 foreach ($rows as $row) {
                     $auto1_sql_arr[$i] = "(SELECT
-                calls_log.*,
-                opers.name as oper
-                FROM calls_log
-                LEFT JOIN users as opers ON calls_log.oper_id = opers.id
-                WHERE 
-                (
-                (calls_log.rating1_id = 2 AND calls_log.rating2_id = 2) OR
-                (calls_log.rating1_id = 3 AND calls_log.rating2_id = 3) OR
-                (calls_log.rating1_id = 4 AND calls_log.rating2_id = 4)
-                ) AND
-                calls_log.res = 3 AND
-                DATE_FORMAT(calls_log.date_end,'%Y%m%d') >= '" . date("Ymd", strtotime($minus_days)) . "' AND 
-                DATE_FORMAT(calls_log.date_end,'%Y%m%d') <= '" . date("Ymd", strtotime($minus_days)) . "' AND
-                calls_log.oper_id = " . $row['oper'] . "
-                ORDER BY calls_log.date_end ASC
-                LIMIT 5)";
+                        calls_log.*,
+                        opers.name as oper
+                        FROM calls_log
+                        LEFT JOIN users as opers ON calls_log.oper_id = opers.id
+                        WHERE 
+                        (
+                        (calls_log.rating1_id = 2 AND calls_log.rating2_id = 2) OR
+                        (calls_log.rating1_id = 3 AND calls_log.rating2_id = 3) OR
+                        (calls_log.rating1_id = 4 AND calls_log.rating2_id = 4)
+                        ) AND
+                        calls_log.res = 3 AND
+                        DATE_FORMAT(calls_log.date_end,'%Y%m%d') >= '" . date("Ymd", strtotime($minus_days)) . "' AND 
+                        DATE_FORMAT(calls_log.date_end,'%Y%m%d') <= '" . date("Ymd", strtotime($minus_days)) . "' AND
+                        calls_log.oper_id = " . $row['oper'] . "
+                        ORDER BY calls_log.date_end ASC
+                        LIMIT 5)";
                     $i++;
                 }
                 $auto1_sql = implode(" UNION ", $auto1_sql_arr);
@@ -655,6 +657,7 @@ if ($numRows > 0) {
                             "auto_type" => 1,
                             "ver_date"=>'NOW()'));
                         $ver_log_id = $dbc->ins_id;
+                        array_push($log_ids_arr,$ver_log_id);
                         $rows2 = $dbc->dbselect(array(
                                 "table" => "ver_log",
                                 "select" => "ver_log.id as ver,
@@ -740,6 +743,11 @@ if ($numRows > 0) {
 
         // Auto 2
         $auto2 = getCountVerDay(2, $u_row['id']);
+        $sql_ids = "";
+        foreach ($log_ids_arr as $id_log){
+            $sql_ids.= " AND calls_log.id <> ".$id_log;
+        }
+        
         if($auto2[1]==0){
             $rows = $dbc->dbselect(array(
                     "table"=>"calls_log",
@@ -768,7 +776,7 @@ if ($numRows > 0) {
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d%H%i') <= '".date("Ymd1850", strtotime($minus_days))."'
                 )
                 ) AND
-                opers.office_id = ".$u_row['office_id'],
+                opers.office_id = ".$u_row['office_id'].$sql_ids,
                     "group"=>"opers.name",
                     "order"=>"opers.name"
                 )
@@ -825,6 +833,7 @@ if ($numRows > 0) {
                             "auto_type" => 2,
                             "ver_date"=>'NOW()'));
                         $ver_log_id = $dbc->ins_id;
+                        array_push($log_ids_arr,$ver_log_id);
                         $rows2 = $dbc->dbselect(array(
                                 "table" => "ver_log",
                                 "select" => "ver_log.id as ver,
@@ -909,6 +918,10 @@ if ($numRows > 0) {
 
         // Auto 3
         $auto3 = getCountVerDay(3, $u_row['id']);
+        $sql_ids = "";
+        foreach ($log_ids_arr as $id_log){
+            $sql_ids.= " AND calls_log.id <> ".$id_log;
+        }
         if($auto3[1]==0){
             $rows = $dbc->dbselect(array(
                     "table"=>"calls_log",
@@ -919,7 +932,7 @@ if ($numRows > 0) {
                 calls_log.res = 3 AND
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') >= '".date("Ymd", strtotime($minus_days))."' AND 
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') <= '".date("Ymd", strtotime($minus_days))."' AND 
-                opers.office_id = ".$u_row['office_id'],
+                opers.office_id = ".$u_row['office_id'].$sql_ids,
                     "group"=>"opers.name",
                     "order"=>"opers.name"
                 )
@@ -959,6 +972,7 @@ if ($numRows > 0) {
                             "ver_date"=>'NOW()'));
 
                         $ver_log_id = $dbc->ins_id;
+                        array_push($log_ids_arr,$ver_log_id);
                         $rows2 = $dbc->dbselect(array(
                                 "table" => "ver_log",
                                 "select" => "ver_log.id as ver,
@@ -1043,6 +1057,10 @@ if ($numRows > 0) {
 
         // Auto 4
         $auto4 = getCountVerDay(4, $u_row['id']);
+        $sql_ids = "";
+        foreach ($log_ids_arr as $id_log){
+            $sql_ids.= " AND calls_log.id <> ".$id_log;
+        }
         if($auto4[1]==0){
             $rows = $dbc->dbselect(array(
                     "table"=>"calls_log",
@@ -1053,7 +1071,7 @@ if ($numRows > 0) {
                 calls_log.res = 3 AND
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') >= '".date("Ymd", strtotime($minus_days))."' AND 
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') <= '".date("Ymd", strtotime($minus_days))."' AND 
-                opers.office_id = ".$u_row['office_id'],
+                opers.office_id = ".$u_row['office_id'].$sql_ids,
                     "group"=>"opers.name",
                     "order"=>"opers.name"
                 )
@@ -1093,6 +1111,7 @@ if ($numRows > 0) {
                             "ver_date"=>'NOW()'));
 
                         $ver_log_id = $dbc->ins_id;
+                        array_push($log_ids_arr,$ver_log_id);
                         $rows2 = $dbc->dbselect(array(
                                 "table" => "ver_log",
                                 "select" => "ver_log.id as ver,
@@ -1177,6 +1196,10 @@ if ($numRows > 0) {
 
         // Auto 5
         $auto5 = getCountVerDay(5, $u_row['id']);
+        $sql_ids = "";
+        foreach ($log_ids_arr as $id_log){
+            $sql_ids.= " AND calls_log.id <> ".$id_log;
+        }
         if($auto5[1]==0){
             $rows = $dbc->dbselect(array(
                     "table"=>"calls_log",
@@ -1186,7 +1209,7 @@ if ($numRows > 0) {
                 calls_log.res = 3 AND
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') >= '".date("Ymd", strtotime($minus_days))."' AND 
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') <= '".date("Ymd", strtotime($minus_days))."' AND 
-                opers.office_id = ".$u_row['office_id'],
+                opers.office_id = ".$u_row['office_id'].$sql_ids,
                     "group"=>"opers.name",
                     "order"=>"opers.name"
                 )
@@ -1224,6 +1247,7 @@ if ($numRows > 0) {
                             "ver_date"=>'NOW()'));
 
                         $ver_log_id = $dbc->ins_id;
+                        array_push($log_ids_arr,$ver_log_id);
                         $rows2 = $dbc->dbselect(array(
                                 "table" => "ver_log",
                                 "select" => "ver_log.id as ver,
@@ -1308,6 +1332,10 @@ if ($numRows > 0) {
 
         // Auto 6
         $auto6 = getCountVerDay(6, $u_row['id']);
+        $sql_ids = "";
+        foreach ($log_ids_arr as $id_log){
+            $sql_ids.= " AND calls_log.id <> ".$id_log;
+        }
         if($auto6[1]==0){
             $rows = $dbc->dbselect(array(
                     "table"=>"calls_log",
@@ -1317,7 +1345,7 @@ if ($numRows > 0) {
                 calls_log.rating1_id <> 0 AND calls_log.rating2_id <> 0 AND
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') >= '".date("Ymd", strtotime($minus_days))."' AND 
                 DATE_FORMAT(calls_log.date_end,'%Y%m%d') <= '".date("Ymd", strtotime($minus_days))."' AND 
-                opers.office_id = ".$u_row['office_id'],
+                opers.office_id = ".$u_row['office_id'].$sql_ids,
                     "group"=>"opers.name",
                     "order"=>"opers.name"
                 )
@@ -1355,6 +1383,7 @@ if ($numRows > 0) {
                             "ver_date"=>'NOW()'));
 
                         $ver_log_id = $dbc->ins_id;
+                        array_push($log_ids_arr,$ver_log_id);
                         $rows2 = $dbc->dbselect(array(
                                 "table" => "ver_log",
                                 "select" => "ver_log.id as ver,

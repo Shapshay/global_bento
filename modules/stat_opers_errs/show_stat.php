@@ -30,7 +30,7 @@ if(isset($_POST['date_start'])){
             "joins"=>"LEFT OUTER JOIN users ON control_err_log.oper_id = users.id",
             "where"=>"DATE_FORMAT(control_err_log.date,'%Y%m%d') >= '".date("Ymd",strtotime($_POST['date_start']))."' AND 
                 DATE_FORMAT(control_err_log.date,'%Y%m%d') <= '".date("Ymd",strtotime($_POST['date_end']))."' AND
-                users.`name` IS NOT NULL",
+                users.`name` IS NOT NULL AND users.office_id = ".$_POST['office_id'],
             "group"=>"oper, err_id"
         )
     );
@@ -84,7 +84,7 @@ if(isset($_POST['date_start'])){
             if($tmp_oper_id!=$row['oper_id']){
                 // следующий оператор. формируем строку предыдущего
                 $html.='<tr>';
-                $html.='<td>'.$row['oper'].'</td>';
+                $html.='<td>'.$tmp_oper_name.'</td>';
                 foreach ($errs as $err){ // проходим по списку всех ошибок
                     $setIn = 0;
                     foreach ($tmp_errs_arr as $tmp_err){ // проходим по списку ошибок оператора
@@ -98,9 +98,24 @@ if(isset($_POST['date_start'])){
                 $tmp_oper_id = $row['oper_id'];
                 $tmp_errs_arr = array();
             }
+
             // собираем ошибки текущего оператора
             array_push($tmp_errs_arr, array($row['err_id'], $row['err_count']));
+            $tmp_oper_name = $row['oper'];
         }
+
+        $html.='<tr>';
+        $html.='<td>'.$tmp_oper_name.'</td>';
+        foreach ($errs as $err){ // проходим по списку всех ошибок
+            $setIn = 0;
+            foreach ($tmp_errs_arr as $tmp_err){ // проходим по списку ошибок оператора
+                if($err==$tmp_err[0]){
+                    $setIn = $tmp_err[1];
+                }
+            }
+            $html.='<td>'.$setIn.'</td>';
+        }
+        $html.='</tr>';
 
     }
     else{
