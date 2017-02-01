@@ -153,7 +153,7 @@ if(isset($_POST['res_call_id'])){
 	$params2["Call"]["ClientCode"] = $_POST['code_1C'];
 	$params2["Call"]["Status"] = $_POST['res_call_id'];
 	$params2["Call"]["DopStatus"] = $res_err;
-	if($_POST['res_call_id']==1){
+	if($_POST['res_call_id']==1||$_POST['res_call_id']==6){
         $params2["Call"]["Comment"] = $_POST['call_comment2'];
 		$params2["Call"]["DateContact"] = date('Y-m-d\TH:i:s',strtotime($_POST['date_dog']));
     }
@@ -167,21 +167,29 @@ if(isset($_POST['res_call_id'])){
     $params2["Call"]["DateDogovor"] = date('Y-m-d',strtotime($_POST['date_dog']));
     //print_r($params2);
 	$result = $client2->SaveCall($params2);
+	$array_save = objectToArray($result);
+	$res_save_1c = $array_save['return'];
 
-	$dbc->element_create("oper_log", array(
-		"oper_id" => ROOT_ID,
-		"oper_act_type_id" => 1,
-		"oper_act_id" => 1,
-		"date_log" => 'NOW()',
-		"comment" => addslashes($_POST['call_comment']).". Длительность: ".$call_lenght));
+	if($res_save_1c=='Успешно') {
 
-	$log = getOperCurentMaxLog(ROOT_ID);
-	$dbc->element_update('calls_log',$log,array(
-		"res" => $_POST['res_call_id'],
-		"date_end" => 'NOW()'));
+		$dbc->element_create("oper_log", array(
+			"oper_id" => ROOT_ID,
+			"oper_act_type_id" => 1,
+			"oper_act_id" => 1,
+			"date_log" => 'NOW()',
+			"comment" => addslashes($_POST['call_comment']) . ". Длительность: " . $call_lenght));
 
-	header("Location: /".getItemCHPU(2218, 'pages'));
-	exit;
+		$log = getOperCurentMaxLog(ROOT_ID);
+		$dbc->element_update('calls_log', $log, array(
+			"res" => $_POST['res_call_id'],
+			"date_end" => 'NOW()'));
+
+		header("Location: /" . getItemCHPU(2218, 'pages'));
+		exit;
+	}
+	else{
+		print_r($array_save);
+	}
 }
 
 $tpl->parse("META_LINK", ".".$moduleName."html");
