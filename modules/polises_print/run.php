@@ -21,7 +21,7 @@ if(!isset($_GET['polis_view'])){
 	$tpl->parse("META_LINK", ".".$moduleName."grid");
 
 	if(ROOT_OFFICE==1){
-		$add_select = "(polises.office_id = '1' OR polises.office_id = '2')";
+		$add_select = "(polises.office_id = '1' OR polises.office_id = '2' OR polises.office_id = '4')";
 	}
 	else{
 		$add_select = "polises.office_id = '".ROOT_OFFICE."'";
